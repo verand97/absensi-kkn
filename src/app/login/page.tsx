@@ -47,8 +47,8 @@ export default function Login() {
         
         <div className="text-center mt-6 mb-8">
           <Image 
-            src="/logokkn.png" 
-            alt="Logo KKN Sumanding 26" 
+            src="/newlogokkn.png" 
+            alt="Logo KKN Sumanding 2026" 
             width={80} 
             height={80} 
             className="mx-auto mb-4 drop-shadow-md" 

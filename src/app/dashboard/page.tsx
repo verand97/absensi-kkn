@@ -35,7 +35,7 @@ export default async function Dashboard() {
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
           <div>
             <h1 className="text-2xl font-bold text-slate-800">Dashboard Admin</h1>
-            <p className="text-slate-500 text-sm mt-1">Kelola absensi KKN Sumanding 26</p>
+            <p className="text-slate-500 text-sm mt-1">Kelola absensi KKN Sumanding 2026</p>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
             <Link 

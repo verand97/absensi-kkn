@@ -10,14 +10,14 @@ export default function Home() {
         <div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-blue-400 to-indigo-500"></div>
 
         <Image 
-          src="/logokkn.png" 
-          alt="Logo KKN Sumanding 26" 
+          src="/newlogokkn.png" 
+          alt="Logo KKN Sumanding 2026" 
           width={90} 
           height={90} 
           className="mx-auto mb-6 drop-shadow-md" 
         />
         
-        <h1 className="text-3xl font-extrabold text-slate-800 mb-2">Absensi KKN Sumanding 26</h1>
+        <h1 className="text-3xl font-extrabold text-slate-800 mb-2">Absensi KKN Sumanding 2026</h1>
         <p className="text-slate-500 mb-10">Program Kehadiran 40 Hari</p>
         
         <div className="space-y-4">
@@ -33,7 +33,7 @@ export default function Home() {
         </div>
         
         <div className="mt-12 text-xs text-slate-400 font-medium">
-          Dibuat untuk KKN Sumanding 26
+          Dibuat untuk KKN Sumanding 2026
         </div>
       </div>
     </div>

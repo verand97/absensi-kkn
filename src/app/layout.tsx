@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Absensi KKN Sumanding 26",
-  description: "Aplikasi Absensi KKN Sumanding 26",
+  title: "Absensi KKN Sumanding 2026",
+  description: "Aplikasi Absensi KKN Sumanding 2026",
 };
 
 export default function RootLayout({
