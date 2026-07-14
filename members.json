@@ -1,0 +1,80 @@
+[
+  {
+    "id": "cmrkcjmka00008z2sj06qnth4",
+    "name": "Mohamad Alfan Ni’am",
+    "nim": "231310005107",
+    "isAdmin": true
+  },
+  {
+    "id": "cmrkcjmks00018z2s9sac8uap",
+    "name": "Indra Pratama",
+    "nim": "231110003579",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjml300028z2sz2wx7ioy",
+    "name": "Novita Sari",
+    "nim": "231110003550",
+    "isAdmin": true
+  },
+  {
+    "id": "cmrkcjmle00038z2soec65ipj",
+    "name": "Ilham Hakim Baihaqi",
+    "nim": "231110003523",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmlp00048z2si9qhhwd6",
+    "name": "Aisyah Thoyyibah",
+    "nim": "231340000272",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmm100058z2sm1o6red4",
+    "name": "Della Azaliya Anjani",
+    "nim": "231330001226",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmmb00068z2sk829fbrs",
+    "name": "Sigit Wahyu Prayoga",
+    "nim": "231310004981",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmmm00078z2shso9kmhr",
+    "name": "Muhamad Verri Andika Pratama",
+    "nim": "231240001452",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmmz00088z2szvaigj2f",
+    "name": "Syahidan Ulil Albab",
+    "nim": "231330001400",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmna00098z2sof9njeb0",
+    "name": "Tazkiyatul Afida",
+    "nim": "231410000846",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmnq000a8z2sca3es001",
+    "name": "M. Aniq Muhaiminan",
+    "nim": "231110003612",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmo2000b8z2s3bynaz83",
+    "name": "Habibah Khaura",
+    "nim": "231250000489",
+    "isAdmin": false
+  },
+  {
+    "id": "cmrkcjmog000c8z2saf4x3dpr",
+    "name": "Widya Putri Anugrahaini",
+    "nim": "231120002662",
+    "isAdmin": false
+  }
+]
