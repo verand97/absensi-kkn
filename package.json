@@ -1,0 +1,38 @@
+{
+  "name": "absensi-kkn",
+  "version": "1.0.0",
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "clean_data.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "6.19.3",
+    "html5-qrcode": "^2.3.8",
+    "jose": "^6.2.3",
+    "lucide-react": "^1.24.0",
+    "next": "^16.2.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-qr-code": "^2.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "dotenv": "^17.4.2",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.10",
+    "prisma": "6.19.3",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3"
+  }
+}

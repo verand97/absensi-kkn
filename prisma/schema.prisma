@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id        String       @id @default(cuid())
+  name      String
+  nim       String       @unique
+  isAdmin   Boolean      @default(false)
+  attendances Attendance[]
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  memberId  String
+  member    Member   @relation(fields: [memberId], references: [id])
+  day       Int
+  createdAt DateTime @default(now())
+
+  @@unique([memberId, day])
+}
+
+model Setting {
+  id        String  @id @default("global")
+  startTime String  @default("07:00")
+  endTime   String  @default("09:00")
+  isActive  Boolean @default(true)
+}
