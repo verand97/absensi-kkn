@@ -20,8 +20,7 @@ export default function ScannerPage() {
       "reader",
       { 
         fps: 10, 
-        qrbox: { width: 250, height: 250 },
-        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        qrbox: { width: 250, height: 250 }
       },
       false
     );
