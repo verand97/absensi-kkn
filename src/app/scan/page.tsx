@@ -8,6 +8,7 @@ import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 export default function ScannerPage() {
   const [day, setDay] = useState<number>(1);
   const lastScannedRef = useRef<string>("");
+  const isProcessingRef = useRef<boolean>(false);
   const [status, setStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   
@@ -34,8 +35,10 @@ export default function ScannerPage() {
   }, [day]);
 
   async function onScanSuccess(decodedText: string) {
-    if (decodedText === lastScannedRef.current) return; // Prevent multiple rapid scans of same QR
+    if (decodedText === lastScannedRef.current || isProcessingRef.current) return;
+    
     lastScannedRef.current = decodedText;
+    isProcessingRef.current = true;
     
     try {
       const res = await fetch("/api/attendance", {
@@ -52,17 +55,19 @@ export default function ScannerPage() {
         setStatus({ type: 'error', msg: data.error || "Gagal absen" });
       }
       
-      // Clear status and allow rescanning the same QR after 3 seconds
-      setTimeout(() => {
-        setStatus(null);
-        lastScannedRef.current = "";
-      }, 3000);
     } catch (err) {
       setStatus({ type: 'error', msg: "Terjadi kesalahan jaringan" });
+    } finally {
+      // Clear status and allow rescanning the same QR after 2.5 seconds
       setTimeout(() => {
         setStatus(null);
         lastScannedRef.current = "";
-      }, 3000);
+      }, 2500);
+      
+      // Allow processing a new QR almost immediately (0.5s debounce for different QRs)
+      setTimeout(() => {
+        isProcessingRef.current = false;
+      }, 500);
     }
   }
 
@@ -104,9 +109,9 @@ export default function ScannerPage() {
             <div id="reader" className="w-full overflow-hidden rounded-2xl border-2 border-slate-200"></div>
 
             {status && (
-              <div className={`mt-6 p-4 rounded-xl flex items-start gap-3 animate-fade-in ${status.type === 'success' ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'}`}>
-                {status.type === 'success' ? <CheckCircle2 className="shrink-0" /> : <AlertCircle className="shrink-0" />}
-                <p className="font-medium">{status.msg}</p>
+              <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md p-4 rounded-2xl shadow-2xl flex items-start gap-3 animate-fade-in ${status.type === 'success' ? 'bg-green-50 text-green-700 border-2 border-green-200' : 'bg-red-50 text-red-700 border-2 border-red-200'}`}>
+                {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-green-600" size={24} /> : <AlertCircle className="shrink-0 text-red-600" size={24} />}
+                <p className="font-bold text-base">{status.msg}</p>
               </div>
             )}
           </div>
