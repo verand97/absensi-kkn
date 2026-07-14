@@ -7,6 +7,9 @@ import AdminAccountSettings from "./AdminAccountSettings";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+import ResetAttendanceButton from "./ResetAttendanceButton";
+import DeleteMemberAttendanceButton from "./DeleteMemberAttendanceButton";
+
 export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
@@ -56,9 +59,12 @@ export default async function Dashboard() {
         <SettingsPanel initialSetting={setting} />
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-            <CalendarDays className="text-blue-500" />
-            <h2 className="text-lg font-bold">Rekapitulasi Kehadiran</h2>
+          <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <CalendarDays className="text-blue-500" />
+              <h2 className="text-lg font-bold">Rekapitulasi Kehadiran</h2>
+            </div>
+            <ResetAttendanceButton />
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -66,6 +72,7 @@ export default async function Dashboard() {
                 <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
                   <th className="p-4 font-semibold border-b border-slate-200">Nama Lengkap</th>
                   <th className="p-4 font-semibold border-b border-slate-200 text-center">Total Hadir</th>
+                  <th className="p-4 font-semibold border-b border-slate-200 text-center">Aksi</th>
                   {Array.from({ length: 40 }).map((_, i) => (
                     <th key={i} className="p-4 font-semibold border-b border-slate-200 text-center min-w-[50px]">
                       H{i + 1}
@@ -84,6 +91,9 @@ export default async function Dashboard() {
                       </td>
                       <td className="p-4 text-center font-bold text-blue-600">
                         {presentDays.size}
+                      </td>
+                      <td className="p-4 text-center">
+                        <DeleteMemberAttendanceButton memberId={member.id} memberName={member.name} />
                       </td>
                       {Array.from({ length: 40 }).map((_, i) => (
                         <td key={i} className="p-4 text-center">
@@ -109,3 +119,4 @@ export default async function Dashboard() {
     </div>
   );
 }
+
