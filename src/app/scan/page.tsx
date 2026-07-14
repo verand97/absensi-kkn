@@ -48,13 +48,21 @@ export default function ScannerPage() {
       
       if (res.ok) {
         setStatus({ type: 'success', msg: `Berhasil absen: ${data.memberName} (Hari ke-${data.day})` });
-        // clear status after 3 seconds
-        setTimeout(() => setStatus(null), 3000);
       } else {
         setStatus({ type: 'error', msg: data.error || "Gagal absen" });
       }
+      
+      // Clear status and allow rescanning the same QR after 3 seconds
+      setTimeout(() => {
+        setStatus(null);
+        lastScannedRef.current = "";
+      }, 3000);
     } catch (err) {
       setStatus({ type: 'error', msg: "Terjadi kesalahan jaringan" });
+      setTimeout(() => {
+        setStatus(null);
+        lastScannedRef.current = "";
+      }, 3000);
     }
   }
 
