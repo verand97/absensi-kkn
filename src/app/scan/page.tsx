@@ -7,7 +7,7 @@ import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function ScannerPage() {
   const [day, setDay] = useState<number>(1);
-  const [lastScanned, setLastScanned] = useState<string>("");
+  const lastScannedRef = useRef<string>("");
   const [status, setStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   
@@ -34,8 +34,8 @@ export default function ScannerPage() {
   }, [day]);
 
   async function onScanSuccess(decodedText: string) {
-    if (decodedText === lastScanned) return; // Prevent multiple rapid scans of same QR
-    setLastScanned(decodedText);
+    if (decodedText === lastScannedRef.current) return; // Prevent multiple rapid scans of same QR
+    lastScannedRef.current = decodedText;
     
     try {
       const res = await fetch("/api/attendance", {
@@ -83,7 +83,7 @@ export default function ScannerPage() {
                 value={day} 
                 onChange={(e) => {
                   setDay(Number(e.target.value));
-                  setLastScanned("");
+                  lastScannedRef.current = "";
                 }}
                 className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
               >
