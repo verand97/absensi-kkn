@@ -7,6 +7,7 @@ import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function ScannerPage() {
   const [day, setDay] = useState<number>(1);
+  const dayRef = useRef<number>(1);
   const lastScannedRef = useRef<string>("");
   const isProcessingRef = useRef<boolean>(false);
   const [status, setStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
@@ -31,7 +32,7 @@ export default function ScannerPage() {
       scannerRef.current?.clear().catch(console.error);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day]);
+  }, []);
 
   async function onScanSuccess(decodedText: string) {
     if (decodedText === lastScannedRef.current || isProcessingRef.current) return;
@@ -43,7 +44,7 @@ export default function ScannerPage() {
       const res = await fetch("/api/attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nim: decodedText, day }),
+        body: JSON.stringify({ nim: decodedText, day: dayRef.current }),
       });
       
       const data = await res.json();
@@ -94,7 +95,9 @@ export default function ScannerPage() {
               <select 
                 value={day} 
                 onChange={(e) => {
-                  setDay(Number(e.target.value));
+                  const newDay = Number(e.target.value);
+                  setDay(newDay);
+                  dayRef.current = newDay;
                   lastScannedRef.current = "";
                 }}
                 className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"

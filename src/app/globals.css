@@ -34,3 +34,56 @@ body {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Custom Styles for Html5QrcodeScanner UI */
+#reader {
+  border: none !important;
+  padding: 0 !important;
+}
+
+#reader__dashboard_section_swaplink {
+  display: inline-block !important;
+  margin-top: 20px !important;
+  padding: 12px 24px !important;
+  background-color: #f1f5f9 !important;
+  color: #2563eb !important;
+  text-decoration: none !important;
+  border-radius: 9999px !important; /* Pill shape */
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border: 2px solid #e2e8f0 !important;
+  transition: all 0.2s ease !important;
+}
+
+#reader__dashboard_section_swaplink:hover {
+  background-color: #e2e8f0 !important;
+}
+
+#reader button {
+  background-color: #2563eb !important;
+  color: white !important;
+  padding: 12px 24px !important;
+  border-radius: 9999px !important;
+  font-weight: bold !important;
+  border: none !important;
+  cursor: pointer;
+  transition: background-color 0.2s !important;
+  margin: 10px 0 !important;
+}
+
+#reader button:hover {
+  background-color: #1d4ed8 !important;
+}
+
+/* Fix camera preview box rounded corners */
+#reader__camera_selection {
+  padding: 8px !important;
+  border-radius: 8px !important;
+  border: 1px solid #cbd5e1 !important;
+  margin-bottom: 10px !important;
+  max-width: 100% !important;
+}
+
+#reader video {
+  border-radius: 12px !important;
+}
