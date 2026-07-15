@@ -27,8 +27,10 @@ model Attendance {
 }
 
 model Setting {
-  id        String  @id @default("global")
-  startTime String  @default("07:00")
-  endTime   String  @default("09:00")
-  isActive  Boolean @default(true)
+  id          String  @id @default("global")
+  startTime   String  @default("07:00")
+  endTime     String  @default("09:00")
+  isActive    Boolean @default(true)
+  currentDay  Int     @default(1)
+  qrToken     String  @default("")
 }

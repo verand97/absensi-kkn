@@ -24,7 +24,7 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
       } else {
         alert("Gagal menghapus absensi");
       }
-    } catch (error) {
+    } catch (_error) {
       alert("Terjadi kesalahan sistem");
     } finally {
       setIsDeleting(false);

@@ -9,8 +9,46 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { nim, day } = await request.json();
+    const { nim, day, qrToken } = await request.json();
 
+    const setting = await prisma.setting.findUnique({ where: { id: "global" } });
+
+    // Handle new feature: Member scanning Admin's QR code
+    if (qrToken) {
+      if (!setting || !setting.isActive) {
+        return NextResponse.json({ error: "Sesi absensi belum dibuka oleh admin." }, { status: 400 });
+      }
+      if (setting.qrToken !== qrToken) {
+        return NextResponse.json({ error: "QR Code tidak valid atau sudah kadaluarsa." }, { status: 400 });
+      }
+
+      // Check time limit
+      const now = new Date();
+      const currentHour = now.getHours().toString().padStart(2, '0');
+      const currentMinute = now.getMinutes().toString().padStart(2, '0');
+      const currentTime = `${currentHour}:${currentMinute}`;
+      if (currentTime < setting.startTime || currentTime > setting.endTime) {
+        return NextResponse.json({ error: `Absensi hanya diperbolehkan dari jam ${setting.startTime} sampai ${setting.endTime}.` }, { status: 400 });
+      }
+
+      const attendance = await prisma.attendance.upsert({
+        where: {
+          memberId_day: {
+            memberId: session.user.id,
+            day: setting.currentDay
+          }
+        },
+        update: {},
+        create: {
+          memberId: session.user.id,
+          day: setting.currentDay
+        }
+      });
+
+      return NextResponse.json({ success: true, memberName: session.user.name, day: attendance.day });
+    }
+
+    // Handle old feature: Admin scanning Member's QR code or direct manual submit
     if (!nim || !day) {
       return NextResponse.json({ error: "Missing nim or day" }, { status: 400 });
     }
@@ -24,7 +62,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Anda hanya bisa melakukan absensi untuk diri sendiri" }, { status: 403 });
     }
 
-    const setting = await prisma.setting.findUnique({ where: { id: "global" } });
     if (setting && setting.isActive) {
       const now = new Date();
       const currentHour = now.getHours().toString().padStart(2, '0');

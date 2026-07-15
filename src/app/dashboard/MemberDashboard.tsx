@@ -1,40 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2, AlertCircle, LogOut } from "lucide-react";
+import { QrCode } from "lucide-react";
 import LogoutButton from "./LogoutButton";
+import Link from "next/link";
 
-export default function MemberDashboard({ member, setting }: { member: any, setting: any }) {
-  const [day, setDay] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
+interface SettingData {
+  startTime: string;
+  endTime: string;
+  isActive: boolean;
+}
 
-  const handleAbsen = async () => {
-    setLoading(true);
-    setStatus(null);
+interface MemberData {
+  name: string;
+  nim: string;
+  attendances: { day: number }[];
+}
 
-    try {
-      const res = await fetch("/api/attendance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nim: member.nim, day }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setStatus({ type: 'success', msg: `Berhasil absen untuk Hari ke-${data.day}` });
-      } else {
-        setStatus({ type: 'error', msg: data.error || "Gagal melakukan absen" });
-      }
-    } catch (err) {
-      setStatus({ type: 'error', msg: "Terjadi kesalahan jaringan" });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const presentDays = new Set(member.attendances.map((a: any) => a.day));
+export default function MemberDashboard({ member, setting }: { member: MemberData, setting: SettingData }) {
+  const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 p-6">
@@ -55,34 +38,17 @@ export default function MemberDashboard({ member, setting }: { member: any, sett
             </p>
           </div>
           
-          <div className="p-6">
-            <div className="mb-6">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Pilih Hari Absensi</label>
-              <select 
-                value={day} 
-                onChange={(e) => setDay(Number(e.target.value))}
-                className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
-              >
-                {Array.from({ length: 40 }).map((_, i) => (
-                  <option key={i + 1} value={i + 1}>Hari ke-{i + 1}</option>
-                ))}
-              </select>
-            </div>
-
-            <button
-              onClick={handleAbsen}
-              disabled={loading || !setting.isActive}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-4 px-4 rounded-xl transition-all shadow-md hover:shadow-lg"
+          <div className="p-6 text-center">
+            <p className="text-slate-600 mb-6 font-medium">
+              Silakan minta QR Code Absensi dari Admin, lalu scan menggunakan tombol di bawah ini.
+            </p>
+            <Link
+              href="/scan-member"
+              className="inline-flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded-xl transition-all shadow-md hover:shadow-lg"
             >
-              {loading ? "Memproses..." : (!setting.isActive ? "Absen Ditutup Admin" : "Absen Sekarang")}
-            </button>
-
-            {status && (
-              <div className={`mt-6 p-4 rounded-xl flex items-start gap-3 ${status.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-                {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-green-600" size={24} /> : <AlertCircle className="shrink-0 text-red-600" size={24} />}
-                <p className="font-bold text-sm mt-0.5">{status.msg}</p>
-              </div>
-            )}
+              <QrCode size={20} />
+              Scan QR Absensi
+            </Link>
           </div>
         </div>
 
