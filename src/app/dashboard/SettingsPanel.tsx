@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, Save, QrCode } from "lucide-react";
+import { Clock, Save, QrCode, Download } from "lucide-react";
 import QRCode from "react-qr-code";
 
 interface SettingData {
@@ -44,6 +44,30 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDownload = () => {
+    const svg = document.querySelector("#qr-wrapper svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width + 40; // Add padding
+      canvas.height = img.height + 40;
+      if (ctx) {
+        ctx.fillStyle = "white"; // White background
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 20, 20); // Draw with padding
+      }
+      const pngFile = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.download = `QR-Absensi-Hari-${currentDay}.png`;
+      downloadLink.href = pngFile;
+      downloadLink.click();
+    };
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
 
   return (
@@ -118,12 +142,21 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
           <p className="text-slate-500 text-sm mb-6 text-center max-w-md">
             Minta anggota untuk scan QR ini dari perangkat mereka masing-masing untuk melakukan absensi otomatis.
           </p>
-          <div className="bg-white p-4 rounded-2xl shadow-xl border border-slate-200">
+          <div id="qr-wrapper" className="bg-white p-4 rounded-2xl shadow-xl border border-slate-200">
             <QRCode value={qrToken} size={250} />
           </div>
-          <div className="mt-6 flex items-center justify-center gap-2 text-blue-600 bg-blue-50 px-4 py-2 rounded-lg font-mono font-bold text-sm">
-            <QrCode size={18} />
-            <span>KODE: {qrToken}</span>
+          <div className="flex flex-col sm:flex-row items-center gap-3 mt-6">
+            <div className="flex items-center justify-center gap-2 text-blue-600 bg-blue-50 px-4 py-2.5 rounded-xl font-mono font-bold text-sm border border-blue-100">
+              <QrCode size={18} />
+              <span>KODE: {qrToken}</span>
+            </div>
+            <button 
+              onClick={handleDownload}
+              className="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold"
+            >
+              <Download size={18} />
+              Download QR Code
+            </button>
           </div>
         </div>
       )}
