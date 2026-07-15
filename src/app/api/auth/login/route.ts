@@ -7,15 +7,14 @@ export async function POST(request: Request) {
     const { name, password } = await request.json();
     
     // Login with name and NIM as password
-    const member = await prisma.member.findFirst({
+    const member = await prisma.member.findUnique({
       where: {
-        name,
-        nim: password
+        nim: password.trim()
       }
     });
 
-    if (!member) {
-      return NextResponse.json({ error: "Invalid credentials or not an admin." }, { status: 401 });
+    if (!member || member.name.toLowerCase().trim() !== name.toLowerCase().trim()) {
+      return NextResponse.json({ error: "Nama atau NIM salah." }, { status: 401 });
     }
 
     await login({ id: member.id, name: member.name, isAdmin: member.isAdmin });
