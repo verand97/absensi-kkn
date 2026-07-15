@@ -23,7 +23,7 @@ export default function Home() {
         <div className="space-y-4">
           <Link href="/login" className="flex items-center justify-center gap-3 w-full bg-slate-900 hover:bg-slate-800 text-white p-4 rounded-2xl transition-all font-semibold shadow-lg hover:shadow-xl hover:-translate-y-1">
             <LogIn size={20} />
-            Admin Login
+            Login Anggota & Admin
           </Link>
           
           <Link href="/qr" className="flex items-center justify-center gap-3 w-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 p-4 rounded-2xl transition-all font-semibold shadow-sm hover:shadow-md hover:-translate-y-1">

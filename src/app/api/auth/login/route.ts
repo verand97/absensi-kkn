@@ -10,8 +10,7 @@ export async function POST(request: Request) {
     const member = await prisma.member.findFirst({
       where: {
         name,
-        nim: password,
-        isAdmin: true
+        nim: password
       }
     });
 

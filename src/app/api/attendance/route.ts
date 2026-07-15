@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 export async function POST(request: Request) {
   try {
     const session = await getSession();
-    if (!session || !session.user?.isAdmin) {
+    if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -18,6 +18,10 @@ export async function POST(request: Request) {
     const member = await prisma.member.findUnique({ where: { nim } });
     if (!member) {
       return NextResponse.json({ error: "Member not found" }, { status: 404 });
+    }
+
+    if (!session.user.isAdmin && member.id !== session.user.id) {
+      return NextResponse.json({ error: "Anda hanya bisa melakukan absensi untuk diri sendiri" }, { status: 403 });
     }
 
     const setting = await prisma.setting.findUnique({ where: { id: "global" } });

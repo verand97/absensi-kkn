@@ -54,7 +54,7 @@ export default function Login() {
             height={80} 
             className="mx-auto mb-4 drop-shadow-md" 
           />
-          <h1 className="text-2xl font-bold text-slate-800">Login Admin</h1>
+          <h1 className="text-2xl font-bold text-slate-800">Login Anggota</h1>
           <p className="text-slate-500 text-sm mt-2">Gunakan Nama Lengkap dan NIM</p>
         </div>
 

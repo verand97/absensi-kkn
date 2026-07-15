@@ -6,6 +6,7 @@ import SettingsPanel from "./SettingsPanel";
 import AdminAccountSettings from "./AdminAccountSettings";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import MemberDashboard from "./MemberDashboard";
 
 import ResetAttendanceButton from "./ResetAttendanceButton";
 import DeleteMemberAttendanceButton from "./DeleteMemberAttendanceButton";
@@ -18,11 +19,15 @@ export default async function Dashboard() {
     redirect("/login");
   }
 
-  const members = await prisma.member.findMany({
-    include: { attendances: true },
-    orderBy: { name: 'asc' }
+  const currentUser = await prisma.member.findUnique({
+    where: { id: session.user.id },
+    include: { attendances: true }
   });
-  
+
+  if (!currentUser) {
+    redirect("/login");
+  }
+
   let setting = await prisma.setting.findUnique({ where: { id: "global" } });
   if (!setting) {
     setting = await prisma.setting.create({
@@ -30,7 +35,14 @@ export default async function Dashboard() {
     });
   }
 
-  const adminMember = await prisma.member.findUnique({ where: { id: session.user.id } });
+  if (!currentUser.isAdmin) {
+    return <MemberDashboard member={currentUser} setting={setting} />;
+  }
+
+  const members = await prisma.member.findMany({
+    include: { attendances: true },
+    orderBy: { name: 'asc' }
+  });
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 p-6">
@@ -52,9 +64,7 @@ export default async function Dashboard() {
           </div>
         </header>
 
-        {adminMember && (
-          <AdminAccountSettings currentName={adminMember.name} currentNim={adminMember.nim} />
-        )}
+        <AdminAccountSettings currentName={currentUser.name} currentNim={currentUser.nim} />
 
         <SettingsPanel initialSetting={setting} />
 
