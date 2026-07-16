@@ -29,22 +29,10 @@
   --color-slate-950: #151618;
 }
 
-:root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Inter', sans-serif;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--color-slate-900, #1E1F22);
+  color: white;
 }
 
 .animate-fade-in {

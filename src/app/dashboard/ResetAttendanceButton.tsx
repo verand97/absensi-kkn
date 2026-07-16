@@ -47,7 +47,7 @@ export default function ResetAttendanceButton() {
         <button
           onClick={() => setIsConfirming(false)}
           disabled={isDeleting}
-          className="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors disabled:opacity-70"
+          className="bg-slate-700 hover:bg-slate-600 text-slate-300 px-4 py-2 rounded-xl text-sm font-semibold transition-colors disabled:opacity-70 border border-slate-600"
         >
           Batal
         </button>
@@ -58,7 +58,7 @@ export default function ResetAttendanceButton() {
   return (
     <button
       onClick={handleReset}
-      className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-xl text-sm font-semibold transition-colors border border-red-200"
+      className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-4 py-2 rounded-xl text-sm font-semibold transition-colors border border-red-500/30"
     >
       <Trash2 size={16} />
       Reset Absensi

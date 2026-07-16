@@ -36,7 +36,7 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
       onClick={handleDelete}
       disabled={isDeleting}
       title={`Reset absensi ${memberName}`}
-      className="text-slate-300 hover:text-red-500 hover:bg-red-50 p-1.5 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center"
+      className="text-slate-400 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center"
     >
       <UserMinus size={14} />
     </button>
