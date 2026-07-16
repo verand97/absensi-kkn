@@ -1,11 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
+  /* Override Blue with Neon Purple (#7F56FF) */
+  --color-blue-50: #f2eeff;
+  --color-blue-100: #e2d7ff;
+  --color-blue-200: #cdbcff;
+  --color-blue-300: #b197ff;
+  --color-blue-400: #9368ff;
+  --color-blue-500: #7f56ff;
+  --color-blue-600: #6838ed;
+  --color-blue-700: #5527ca;
+  --color-blue-800: #4622a4;
+  --color-blue-900: #3a1e84;
+
+  /* Override Green with Lime Green (#80FF56) */
+  --color-green-50: #f4ffed;
+  --color-green-100: #e2ffd2;
+  --color-green-200: #c6ffa6;
+  --color-green-300: #a1ff73;
+  --color-green-400: #80ff56;
+  --color-green-500: #65e838;
+  --color-green-600: #4dc221;
+  --color-green-700: #3c9517;
+
+  /* Override Slate for Charcoal (#1E1F22) */
+  --color-slate-800: #2b2c31;
+  --color-slate-900: #1E1F22;
+  --color-slate-950: #151618;
 }
 
 :root {
@@ -46,7 +67,7 @@ body {
   margin-top: 20px !important;
   padding: 12px 24px !important;
   background-color: #f1f5f9 !important;
-  color: #2563eb !important;
+  color: #6838ed !important;
   text-decoration: none !important;
   border-radius: 9999px !important; /* Pill shape */
   font-weight: 700 !important;
@@ -60,7 +81,7 @@ body {
 }
 
 #reader button {
-  background-color: #2563eb !important;
+  background-color: #6838ed !important;
   color: white !important;
   padding: 12px 24px !important;
   border-radius: 9999px !important;
@@ -72,7 +93,7 @@ body {
 }
 
 #reader button:hover {
-  background-color: #1d4ed8 !important;
+  background-color: #5527ca !important;
 }
 
 /* Fix camera preview box rounded corners */

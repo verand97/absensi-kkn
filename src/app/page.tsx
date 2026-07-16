@@ -37,14 +37,14 @@ export default function Home() {
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 opacity-0 animate-slide-up delay-200 text-slate-900 dark:text-white">
-              Rekam Kehadiran <br />
+              Presensi KKN, <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
-                Lebih Cepat.
+                Lebih Praktis dan Akurat.
               </span>
             </h1>
             
-            <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-xl opacity-0 animate-slide-up delay-300">
-              Platform absensi modern yang dirancang khusus untuk peserta KKN Sumanding 2026. Mendukung pemindaian QR Code cepat dan rekapan otomatis selama 40 hari pengabdian.
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 opacity-0 animate-slide-up delay-400 max-w-lg leading-relaxed">
+              Sistem absensi digital yang dirancang khusus untuk mahasiswa KKN Sumanding 2026. Lakukan pemindaian QR Code secara instan dan pantau rekapitulasi kehadiran otomatis sepanjang 40 hari pengabdian.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-slide-up delay-300">

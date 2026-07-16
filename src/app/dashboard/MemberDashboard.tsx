@@ -7,7 +7,9 @@ import QRCode from "react-qr-code";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ArrowRight } from "lucide-react";
 
 interface SettingData {
   startTime: string;
@@ -19,6 +21,7 @@ interface SettingData {
 interface MemberData {
   name: string;
   nim: string;
+  isAdmin?: boolean;
   attendances: { day: number }[];
 }
 
@@ -109,9 +112,20 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
             <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Dashboard Anggota</h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Selamat datang, {member.name}</p>
           </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LogoutButton />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {member.isAdmin && (
+              <Link 
+                href="/dashboard/admin" 
+                className="flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-semibold"
+              >
+                Panel Admin
+                <ArrowRight size={18} />
+              </Link>
+            )}
+            <div className="flex items-center justify-end gap-3">
+              <ThemeToggle />
+              <LogoutButton />
+            </div>
           </div>
         </header>
 
