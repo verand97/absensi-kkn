@@ -8,8 +8,13 @@ export async function proxy(request: NextRequest) {
 
   if (isProtectedRoute) {
     const session = await getSession().catch(() => null);
-    if (!session || !session.user?.isAdmin) {
+    
+    if (!session) {
       return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    if (path.startsWith("/scan") && !session.user?.isAdmin) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }
 

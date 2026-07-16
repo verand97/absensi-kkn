@@ -1,11 +1,21 @@
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT, jwtVerify, type JWTPayload } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = "kkn40hari-secret";
 const key = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: any) {
+interface UserPayload {
+  id: string;
+  name: string;
+  isAdmin: boolean;
+}
+
+export interface SessionPayload extends JWTPayload {
+  user: UserPayload;
+}
+
+export async function encrypt(payload: JWTPayload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -13,20 +23,21 @@ export async function encrypt(payload: any) {
     .sign(key);
 }
 
-export async function decrypt(input: string): Promise<any> {
+export async function decrypt(input: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(input, key, {
       algorithms: ["HS256"],
+      clockTolerance: "5 mins",
     });
-    return payload;
+    return payload as SessionPayload;
   } catch {
     return null;
   }
 }
 
-export async function login(user: any) {
+export async function login(user: UserPayload) {
   const expires = new Date(Date.now() + 10 * 60 * 60 * 1000); // 10 hours
-  const session = await encrypt({ user, expires });
+  const session = await encrypt({ user, expires: expires.toISOString() });
 
   (await cookies()).set("session", session, {
     expires,
@@ -57,7 +68,9 @@ export async function updateSession(request: NextRequest) {
   const parsed = await decrypt(session);
   if (!parsed) return;
   
-  parsed.expires = new Date(Date.now() + 10 * 60 * 60 * 1000);
+  const newExpires = new Date(Date.now() + 10 * 60 * 60 * 1000);
+  parsed.expires = newExpires.toISOString();
+  
   const res = NextResponse.next();
   res.cookies.set({
     name: "session",
@@ -66,7 +79,7 @@ export async function updateSession(request: NextRequest) {
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    expires: parsed.expires,
+    expires: newExpires,
   });
   return res;
 }
