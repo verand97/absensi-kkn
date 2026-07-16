@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ChevronRight, CheckCircle2, ScanFace } from "lucide-react";
 import Image from "next/image";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   return (
@@ -23,9 +22,6 @@ export default function Home() {
             </div>
             <span className="font-bold text-xl tracking-tight text-slate-800 dark:text-white">KKN Sumanding <span className="text-blue-600 dark:text-blue-400">2026</span></span>
           </div>
-          <div className="opacity-0 animate-slide-up delay-100">
-            <ThemeToggle />
-          </div>
         </nav>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center z-10 mt-16 lg:mt-0">
@@ -40,7 +36,7 @@ export default function Home() {
               Sistem Absensi Terintegrasi
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 opacity-0 animate-slide-up delay-200 text-slate-900 dark:text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 opacity-0 animate-slide-up delay-200 text-slate-900 dark:text-white">
               Rekam Kehadiran <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
                 Lebih Cepat.

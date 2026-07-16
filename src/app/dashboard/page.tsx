@@ -10,6 +10,7 @@ import MemberDashboard from "./MemberDashboard";
 
 import ResetAttendanceButton from "./ResetAttendanceButton";
 import DeleteMemberAttendanceButton from "./DeleteMemberAttendanceButton";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const dynamic = 'force-dynamic';
 
@@ -45,12 +46,12 @@ export default async function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 p-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 p-6 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Dashboard Admin</h1>
-            <p className="text-slate-500 text-sm mt-1">Kelola absensi KKN Sumanding 2026</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Dashboard Admin</h1>
+            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Kelola absensi KKN Sumanding 2026</p>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
             <Link 
@@ -60,7 +61,10 @@ export default async function Dashboard() {
               <QrCode size={18} />
               Buka Scanner
             </Link>
-            <LogoutButton />
+            <div className="flex items-center justify-end gap-3">
+              <ThemeToggle />
+              <LogoutButton />
+            </div>
           </div>
         </header>
 
@@ -68,36 +72,36 @@ export default async function Dashboard() {
 
         <SettingsPanel initialSetting={setting} />
 
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 overflow-hidden">
+          <div className="p-6 border-b border-slate-100 dark:border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <CalendarDays className="text-blue-500" />
-              <h2 className="text-lg font-bold">Rekapitulasi Kehadiran</h2>
+              <CalendarDays className="text-blue-500 dark:text-blue-400" />
+              <h2 className="text-lg font-bold dark:text-white">Rekapitulasi Kehadiran</h2>
             </div>
             <ResetAttendanceButton />
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider">
-                  <th className="p-4 font-semibold border-b border-slate-200">Nama Lengkap</th>
-                  <th className="p-4 font-semibold border-b border-slate-200 text-center">Total Hadir</th>
-                  <th className="p-4 font-semibold border-b border-slate-200 text-center">Aksi</th>
+                <tr className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider">
+                  <th className="p-4 font-semibold border-b border-slate-200 dark:border-white/5">Nama Lengkap</th>
+                  <th className="p-4 font-semibold border-b border-slate-200 dark:border-white/5 text-center">Total Hadir</th>
+                  <th className="p-4 font-semibold border-b border-slate-200 dark:border-white/5 text-center">Aksi</th>
                   {Array.from({ length: 40 }).map((_, i) => (
-                    <th key={i} className="p-4 font-semibold border-b border-slate-200 text-center min-w-[50px]">
+                    <th key={i} className="p-4 font-semibold border-b border-slate-200 dark:border-white/5 text-center min-w-[50px]">
                       H{i + 1}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-sm">
+              <tbody className="divide-y divide-slate-100 dark:divide-white/5 text-sm">
                 {members.map((member) => {
                   const presentDays = new Set(member.attendances.map(a => a.day));
                   return (
-                    <tr key={member.id} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="p-4 font-medium whitespace-nowrap">
+                    <tr key={member.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                      <td className="p-4 font-medium whitespace-nowrap text-slate-800 dark:text-slate-200">
                         {member.name}
-                        {member.isAdmin && <span className="ml-2 text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">ADMIN</span>}
+                        {member.isAdmin && <span className="ml-2 text-[10px] bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded-full font-bold">ADMIN</span>}
                       </td>
                       <td className="p-4 text-center font-bold text-blue-600">
                         {presentDays.size}
