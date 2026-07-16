@@ -27,7 +27,7 @@ export default function ResetAttendanceButton() {
       } else {
         alert("Gagal menghapus absensi");
       }
-    } catch (error) {
+    } catch {
       alert("Terjadi kesalahan sistem");
     } finally {
       setIsDeleting(false);

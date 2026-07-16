@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import QRCode from "react-qr-code";
 import Link from "next/link";
-import { ArrowLeft, UserCircle2, Download, Printer } from "lucide-react";
+import { ArrowLeft, Download, Printer } from "lucide-react";
 import Image from "next/image";
 
 export default function QRPage() {

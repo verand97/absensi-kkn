@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     await login({ id: member.id, name: member.name, isAdmin: member.isAdmin });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
 }

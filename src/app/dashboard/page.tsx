@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { LogOut, QrCode, CalendarDays } from "lucide-react";
+import { QrCode, CalendarDays } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import SettingsPanel from "./SettingsPanel";
 import AdminAccountSettings from "./AdminAccountSettings";

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogIn, ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -32,7 +32,7 @@ export default function Login() {
         const data = await res.json();
         setError(data.error || "Gagal login");
       }
-    } catch (err) {
+    } catch {
       setError("Terjadi kesalahan.");
     } finally {
       setLoading(false);

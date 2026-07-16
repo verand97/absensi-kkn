@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Html5QrcodeScanner, Html5QrcodeScanType } from "html5-qrcode";
+import { Html5QrcodeScanner } from "html5-qrcode";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 
@@ -18,6 +18,53 @@ export default function ScannerPage() {
   // Real usage they might just select from dropdown.
 
   useEffect(() => {
+    async function onScanSuccess(decodedText: string) {
+      if (decodedText === lastScannedRef.current || isProcessingRef.current) return;
+      
+      lastScannedRef.current = decodedText;
+      isProcessingRef.current = true;
+      
+      try {
+        const res = await fetch("/api/attendance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nim: decodedText, day: dayRef.current }),
+        });
+        
+        const data = await res.json();
+        const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        
+        if (res.ok) {
+          setStatus({ type: 'success', msg: `Berhasil absen: ${data.memberName} (Hari ke-${data.day})` });
+          setHistory(prev => [{name: data.memberName, status: 'success' as const, msg: `Hadir (H-${data.day})`, time: now}, ...prev].slice(0, 10));
+        } else {
+          const errorMsg = data.error || "Gagal absen";
+          setStatus({ type: 'error', msg: errorMsg });
+          setHistory(prev => [{name: decodedText, status: 'error' as const, msg: errorMsg, time: now}, ...prev].slice(0, 10));
+        }
+        
+      } catch {
+        const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        setStatus({ type: 'error', msg: "Terjadi kesalahan jaringan" });
+        setHistory(prev => [{name: decodedText, status: 'error' as const, msg: "Kesalahan jaringan", time: now}, ...prev].slice(0, 10));
+      } finally {
+        // Clear status and allow rescanning the same QR after 2.5 seconds
+        setTimeout(() => {
+          setStatus(null);
+          lastScannedRef.current = "";
+        }, 2500);
+        
+        // Allow processing a new QR almost immediately (0.5s debounce for different QRs)
+        setTimeout(() => {
+          isProcessingRef.current = false;
+        }, 500);
+      }
+    }
+
+    function onScanFailure() {
+      // Ignore frequent scan failures
+    }
+
     scannerRef.current = new Html5QrcodeScanner(
       "reader",
       { 
@@ -32,55 +79,7 @@ export default function ScannerPage() {
     return () => {
       scannerRef.current?.clear().catch(console.error);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function onScanSuccess(decodedText: string) {
-    if (decodedText === lastScannedRef.current || isProcessingRef.current) return;
-    
-    lastScannedRef.current = decodedText;
-    isProcessingRef.current = true;
-    
-    try {
-      const res = await fetch("/api/attendance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nim: decodedText, day: dayRef.current }),
-      });
-      
-      const data = await res.json();
-      const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      
-      if (res.ok) {
-        setStatus({ type: 'success', msg: `Berhasil absen: ${data.memberName} (Hari ke-${data.day})` });
-        setHistory(prev => [{name: data.memberName, status: 'success' as const, msg: `Hadir (H-${data.day})`, time: now}, ...prev].slice(0, 10));
-      } else {
-        const errorMsg = data.error || "Gagal absen";
-        setStatus({ type: 'error', msg: errorMsg });
-        setHistory(prev => [{name: decodedText, status: 'error' as const, msg: errorMsg, time: now}, ...prev].slice(0, 10));
-      }
-      
-    } catch (err) {
-      const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      setStatus({ type: 'error', msg: "Terjadi kesalahan jaringan" });
-      setHistory(prev => [{name: decodedText, status: 'error' as const, msg: "Kesalahan jaringan", time: now}, ...prev].slice(0, 10));
-    } finally {
-      // Clear status and allow rescanning the same QR after 2.5 seconds
-      setTimeout(() => {
-        setStatus(null);
-        lastScannedRef.current = "";
-      }, 2500);
-      
-      // Allow processing a new QR almost immediately (0.5s debounce for different QRs)
-      setTimeout(() => {
-        isProcessingRef.current = false;
-      }, 500);
-    }
-  }
-
-  function onScanFailure(error: any) {
-    // Ignore frequent scan failures
-  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center py-10 px-4">

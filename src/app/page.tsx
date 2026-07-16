@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { QrCode, LogIn, Users } from "lucide-react";
+import { QrCode, LogIn } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
