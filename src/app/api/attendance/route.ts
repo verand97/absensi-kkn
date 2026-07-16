@@ -22,10 +22,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "QR Code tidak valid atau sudah kadaluarsa." }, { status: 400 });
       }
 
-      // Check time limit
+      // Check time limit (adjusted for WIB UTC+7)
       const now = new Date();
-      const currentHour = now.getHours().toString().padStart(2, '0');
-      const currentMinute = now.getMinutes().toString().padStart(2, '0');
+      const wibTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+      const currentHour = wibTime.getUTCHours().toString().padStart(2, '0');
+      const currentMinute = wibTime.getUTCMinutes().toString().padStart(2, '0');
       const currentTime = `${currentHour}:${currentMinute}`;
       if (currentTime < setting.startTime || currentTime > setting.endTime) {
         return NextResponse.json({ error: `Absensi hanya diperbolehkan dari jam ${setting.startTime} sampai ${setting.endTime}.` }, { status: 400 });
@@ -63,9 +64,11 @@ export async function POST(request: Request) {
     }
 
     if (setting && setting.isActive) {
+      // Check time limit (adjusted for WIB UTC+7)
       const now = new Date();
-      const currentHour = now.getHours().toString().padStart(2, '0');
-      const currentMinute = now.getMinutes().toString().padStart(2, '0');
+      const wibTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+      const currentHour = wibTime.getUTCHours().toString().padStart(2, '0');
+      const currentMinute = wibTime.getUTCMinutes().toString().padStart(2, '0');
       const currentTime = `${currentHour}:${currentMinute}`;
       
       if (currentTime < setting.startTime || currentTime > setting.endTime) {

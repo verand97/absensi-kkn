@@ -11,6 +11,7 @@ interface SettingData {
   startTime: string;
   endTime: string;
   isActive: boolean;
+  currentDay: number;
 }
 
 interface MemberData {
@@ -21,6 +22,7 @@ interface MemberData {
 
 export default function MemberDashboard({ member, setting }: { member: MemberData, setting: SettingData }) {
   const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
+  const hasAttendedToday = presentDays.has(setting.currentDay);
   
   const [showScanner, setShowScanner] = useState(false);
   const lastScannedRef = useRef<string>("");
@@ -110,17 +112,23 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-8">
           <div className="bg-blue-600 p-6 text-white text-center">
-            <h2 className="text-xl font-bold">Status Absensi</h2>
+            <h2 className="text-xl font-bold">Status Absensi (Hari ke-{setting.currentDay})</h2>
             <p className="text-blue-100 text-sm mt-1">
               Jam buka: {setting.startTime} - {setting.endTime}
             </p>
           </div>
           
           <div className="p-6">
-            {!setting.isActive ? (
+            {hasAttendedToday ? (
+              <div className="text-center p-8 bg-green-50 rounded-xl border border-green-200 text-green-700 shadow-sm">
+                <CheckCircle2 className="mx-auto mb-3 text-green-500" size={56} />
+                <h3 className="text-2xl font-bold mb-2">Absensi Berhasil!</h3>
+                <p className="font-medium text-green-600/80">Anda sudah melakukan absensi untuk Hari ke-{setting.currentDay}.</p>
+              </div>
+            ) : !setting.isActive ? (
               <div className="text-center p-6 bg-slate-50 rounded-xl border border-slate-100 text-slate-500">
                 <AlertCircle className="mx-auto mb-2 text-slate-400" size={32} />
-                <p className="font-medium">Sesi absensi saat ini sedang ditutup oleh Admin.</p>
+                <p className="font-medium">Sesi absensi Hari ke-{setting.currentDay} saat ini ditutup oleh Admin.</p>
               </div>
             ) : (
               <div className="flex flex-col md:flex-row gap-6">
