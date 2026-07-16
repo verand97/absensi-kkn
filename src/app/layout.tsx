@@ -17,11 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${outfit.className} bg-slate-50 dark:bg-[#1E1F22] text-slate-900 dark:text-slate-100 antialiased min-h-screen transition-colors duration-300`}>
+      <body className={`${outfit.className} bg-slate-900 text-slate-100 antialiased min-h-screen relative overflow-x-hidden`}>
+        {/* Global Neon Background Blobs */}
+        <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none z-[-1]" />
+        <div className="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-400/5 rounded-full blur-[150px] pointer-events-none z-[-1]" />
+        
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           {children}

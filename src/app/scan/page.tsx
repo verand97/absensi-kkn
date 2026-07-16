@@ -82,22 +82,22 @@ export default function ScannerPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen flex flex-col items-center py-10 px-4 relative z-10">
       <div className="w-full max-w-md">
-        <Link href="/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-slate-800 mb-6 transition-colors">
+        <Link href="/dashboard" className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors">
           <ArrowLeft size={20} />
           <span className="font-semibold">Kembali ke Dashboard</span>
         </Link>
         
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-          <div className="bg-blue-600 p-6 text-white text-center">
+        <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-white/10">
+          <div className="bg-blue-600/20 p-6 text-white text-center border-b border-blue-500/20">
             <h1 className="text-xl font-bold">Scanner Absensi</h1>
-            <p className="text-blue-100 text-sm mt-1">Arahkan kamera ke QR Code Anggota</p>
+            <p className="text-slate-300 text-sm mt-1">Arahkan kamera ke QR Code Anggota</p>
           </div>
           
           <div className="p-6">
             <div className="mb-6">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Pilih Hari Absensi</label>
+              <label className="block text-sm font-semibold text-slate-300 mb-2">Pilih Hari Absensi</label>
               <select 
                 value={day} 
                 onChange={(e) => {
@@ -106,7 +106,7 @@ export default function ScannerPage() {
                   dayRef.current = newDay;
                   lastScannedRef.current = "";
                 }}
-                className="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
+                className="w-full p-3 rounded-xl border border-slate-700 bg-slate-950/50 text-white focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium scheme-light dark:scheme-dark"
               >
                 {Array.from({ length: 40 }).map((_, i) => (
                   <option key={i + 1} value={i + 1}>Hari ke-{i + 1}</option>
@@ -114,30 +114,30 @@ export default function ScannerPage() {
               </select>
             </div>
 
-            <div id="reader" className="w-full overflow-hidden rounded-2xl border-2 border-slate-200"></div>
+            <div id="reader" className="w-full overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-950"></div>
 
             {status && (
-              <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md p-4 rounded-2xl shadow-2xl flex items-start gap-3 animate-fade-in ${status.type === 'success' ? 'bg-green-50 text-green-700 border-2 border-green-200' : 'bg-red-50 text-red-700 border-2 border-red-200'}`}>
-                {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-green-600" size={24} /> : <AlertCircle className="shrink-0 text-red-600" size={24} />}
+              <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-100 w-[90%] max-w-md p-4 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.5)] flex items-start gap-3 animate-fade-in ${status.type === 'success' ? 'bg-green-500/10 text-green-400 border-2 border-green-500/30' : 'bg-red-500/10 text-red-400 border-2 border-red-500/30 backdrop-blur-md'}`}>
+                {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-green-400" size={24} /> : <AlertCircle className="shrink-0 text-red-400" size={24} />}
                 <p className="font-bold text-base">{status.msg}</p>
               </div>
             )}
           </div>
           
           {history.length > 0 && (
-            <div className="bg-slate-50 border-t border-slate-100 p-6 animate-fade-in">
-              <h3 className="text-sm font-bold text-slate-700 mb-4 flex items-center justify-between">
+            <div className="bg-slate-950/50 border-t border-white/5 p-6 animate-fade-in">
+              <h3 className="text-sm font-bold text-slate-300 mb-4 flex items-center justify-between">
                 <span>Riwayat Terakhir (Sesi Ini)</span>
-                <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-[10px]">{history.length}</span>
+                <span className="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full text-[10px] border border-blue-500/20">{history.length}</span>
               </h3>
               <ul className="space-y-3">
                 {history.map((item, i) => (
-                  <li key={i} className={`p-3 rounded-xl border text-sm flex items-center justify-between shadow-sm ${item.status === 'success' ? 'bg-white border-green-100' : 'bg-white border-red-100'}`}>
+                  <li key={i} className={`p-3 rounded-xl border text-sm flex items-center justify-between shadow-sm ${item.status === 'success' ? 'bg-slate-800/50 border-green-500/20' : 'bg-slate-800/50 border-red-500/20'}`}>
                     <div>
-                      <p className="font-bold text-slate-800">{item.name}</p>
-                      <p className={`text-xs mt-0.5 ${item.status === 'success' ? 'text-green-600 font-semibold' : 'text-red-500'}`}>{item.msg}</p>
+                      <p className="font-bold text-slate-200">{item.name}</p>
+                      <p className={`text-xs mt-0.5 ${item.status === 'success' ? 'text-green-400 font-semibold' : 'text-red-400'}`}>{item.msg}</p>
                     </div>
-                    <span className="text-xs font-mono font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">{item.time}</span>
+                    <span className="text-xs font-mono font-bold text-slate-400 bg-slate-950/80 px-2.5 py-1 rounded-md border border-slate-700">{item.time}</span>
                   </li>
                 ))}
               </ul>

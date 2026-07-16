@@ -8,7 +8,6 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { ArrowRight } from "lucide-react";
 
 interface SettingData {
@@ -123,7 +122,6 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
               </Link>
             )}
             <div className="flex items-center justify-end gap-3">
-              <ThemeToggle />
               <LogoutButton />
             </div>
           </div>

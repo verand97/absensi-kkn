@@ -8,7 +8,6 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ResetAttendanceButton from "../ResetAttendanceButton";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export const dynamic = 'force-dynamic';
 
@@ -62,7 +61,6 @@ export default async function AdminDashboard() {
               Buka Scanner
             </Link>
             <div className="flex items-center justify-end gap-3">
-              <ThemeToggle />
               <LogoutButton />
             </div>
           </div>
