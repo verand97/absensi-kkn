@@ -28,12 +28,12 @@ export default function Home() {
       <div className="container mx-auto px-6 py-6 md:py-8 min-h-screen flex flex-col relative z-10">
         
         {/* Navigation */}
-        <nav className="flex justify-between items-center mb-10 md:mb-24">
+        <nav className="flex justify-between items-center mb-8 md:mb-12">
           
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#12141C] border border-slate-700/50 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_10px_rgba(128,255,86,0.1)]">
-              <Image src="/newlogokkn.png" alt="Logo KKN" width={40} height={40} className="object-contain" />
+            <div className="flex items-center justify-center shrink-0">
+              <Image src="/newlogokkn.png" alt="Logo KKN" width={64} height={64} className="object-contain w-14 h-14 md:w-16 md:h-16" />
             </div>
             
             {/* Mobile Logo Text */}
@@ -73,7 +73,7 @@ export default function Home() {
 
             {/* Tag Pill */}
             <div 
-              className="relative inline-flex items-center gap-3 mb-6 md:mb-8 p-px bg-slate-700/50"
+              className="relative inline-flex items-center gap-3 mb-5 md:mb-6 p-px bg-slate-700/50"
               style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}
             >
               <div 
@@ -86,14 +86,14 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight leading-[0.95] mb-5 md:mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-[4.5rem] font-black uppercase tracking-tight leading-[0.95] mb-4 md:mb-5">
               <div className="text-white drop-shadow-md">REKAM</div>
               <div className="text-white drop-shadow-md">KEHADIRAN</div>
               <div className="text-[#7F56FF] drop-shadow-[0_0_20px_rgba(127,86,255,0.4)]">LEBIH CEPAT.</div>
             </h1>
 
             {/* Description */}
-            <p className="text-slate-400 text-[13px] md:text-base max-w-md mb-8 md:mb-10 leading-relaxed pr-4 md:pr-0">
+            <p className="text-slate-400 text-[13px] md:text-base max-w-md mb-6 md:mb-8 leading-relaxed pr-4 md:pr-0">
               Platform absensi modern yang dirancang khusus untuk peserta KKN Sumanding 2026. Mendukung pemindaian QR Code cepat dan rekapan otomatis selama 40 hari pengabdian.
             </p>
 
@@ -118,7 +118,7 @@ export default function Home() {
             </Link>
 
             {/* Location (Desktop Only) */}
-            <div className="mt-24 hidden md:flex items-center gap-3">
+            <div className="mt-12 hidden md:flex items-center gap-3">
               <MapPin className="w-6 h-6 text-[#80FF56]" />
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Sumanding</span>
@@ -192,7 +192,7 @@ export default function Home() {
           </div>
 
           {/* Right Column - Desktop Cyberpunk Dashboard Cards (Hidden on Mobile) */}
-          <div className="hidden lg:block lg:col-span-6 relative min-h-[550px] w-full mt-12 lg:mt-0 z-10">
+          <div className="hidden lg:block lg:col-span-6 relative min-h-[480px] w-full mt-12 lg:mt-0 z-10">
             
             {/* SVG Gradient Defs */}
             <svg width="0" height="0" className="absolute">
@@ -211,7 +211,7 @@ export default function Home() {
 
             {/* Card 1: ANGGOTA KKN */}
             <div 
-              className="absolute -top-4 right-4 w-[360px] p-px bg-slate-700/50 shadow-2xl" 
+              className="absolute -top-4 right-4 w-[320px] p-px bg-slate-700/50 shadow-2xl" 
               style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}
             >
               <div 
@@ -221,7 +221,7 @@ export default function Home() {
                 <div>
                   <div className="text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-1">Anggota KKN</div>
                   <div className="text-base font-bold text-white mb-3">Sumanding 2026</div>
-                  <div className="text-6xl font-black text-[#80FF56] mb-1">128</div>
+                  <div className="text-5xl font-black text-[#80FF56] mb-1">128</div>
                   <div className="text-xs text-slate-500">Anggota Aktif</div>
                 </div>
                 <div className="mt-4">
@@ -232,7 +232,7 @@ export default function Home() {
 
             {/* Card 2: KEHADIRAN HARI INI */}
             <div 
-              className="absolute top-[42%] left-0 -translate-y-1/2 w-[280px] p-px bg-slate-700/50 shadow-2xl z-20" 
+              className="absolute top-[42%] left-0 -translate-y-1/2 w-[260px] p-px bg-slate-700/50 shadow-2xl z-20" 
               style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
             >
               <div 
@@ -250,7 +250,7 @@ export default function Home() {
 
             {/* Card 3: SESI AKTIF */}
             <div 
-              className="absolute bottom-4 right-8 w-[380px] p-px bg-slate-700/50 shadow-2xl" 
+              className="absolute bottom-0 right-4 w-[340px] p-px bg-slate-700/50 shadow-2xl" 
               style={{ clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))" }}
             >
               <div 

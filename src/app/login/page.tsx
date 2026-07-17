@@ -54,13 +54,13 @@ export default function Login() {
           <div className="bg-[#12141C] p-8 md:p-10" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
             
             <div className="text-center mb-8">
-              <div className="inline-flex w-16 h-16 rounded-full bg-[#090A0F] border border-slate-700/50 items-center justify-center overflow-hidden p-2 shadow-[0_0_15px_rgba(128,255,86,0.1)] mb-4">
+              <div className="inline-flex items-center justify-center mb-4">
                 <Image 
                   src="/newlogokkn.png" 
                   alt="Logo KKN Sumanding 2026" 
-                  width={50} 
-                  height={50} 
-                  className="object-contain" 
+                  width={80} 
+                  height={80} 
+                  className="object-contain w-20 h-20" 
                 />
               </div>
               <h1 className="text-2xl font-black uppercase tracking-widest text-white drop-shadow-md">Portal Anggota</h1>
