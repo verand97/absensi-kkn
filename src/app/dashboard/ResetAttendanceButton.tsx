@@ -25,10 +25,10 @@ export default function ResetAttendanceButton() {
         setIsConfirming(false);
         router.refresh();
       } else {
-        alert("Gagal menghapus absensi");
+        alert("GAGAL MENGHAPUS ABSENSI");
       }
     } catch {
-      alert("Terjadi kesalahan sistem");
+      alert("ERROR JARINGAN/SISTEM");
     } finally {
       setIsDeleting(false);
     }
@@ -36,20 +36,22 @@ export default function ResetAttendanceButton() {
 
   if (isConfirming) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <button
           onClick={handleReset}
           disabled={isDeleting}
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors disabled:opacity-70"
+          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
         >
-          {isDeleting ? "Menghapus..." : "Ya, Hapus Semua!"}
+          {isDeleting ? "PROSES..." : "YA, HAPUS!"}
         </button>
         <button
           onClick={() => setIsConfirming(false)}
           disabled={isDeleting}
-          className="bg-slate-700 hover:bg-slate-600 text-slate-300 px-4 py-2 rounded-xl text-sm font-semibold transition-colors disabled:opacity-70 border border-slate-600"
+          className="bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-slate-300 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
         >
-          Batal
+          BATAL
         </button>
       </div>
     );
@@ -58,10 +60,11 @@ export default function ResetAttendanceButton() {
   return (
     <button
       onClick={handleReset}
-      className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-4 py-2 rounded-xl text-sm font-semibold transition-colors border border-red-500/30"
+      className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors border border-red-500/30"
+      style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
     >
       <Trash2 size={16} />
-      Reset Absensi
+      RESET DATA
     </button>
   );
 }

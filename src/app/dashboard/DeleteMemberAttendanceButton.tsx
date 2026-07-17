@@ -9,7 +9,7 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (!confirm(`Yakin ingin mereset/menghapus semua data absensi untuk ${memberName}?`)) {
+    if (!confirm(`[ PERINGATAN ]\nYakin ingin mereset/menghapus semua data absensi untuk ${memberName}?`)) {
       return;
     }
 
@@ -22,10 +22,10 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
       if (res.ok) {
         router.refresh();
       } else {
-        alert("Gagal menghapus absensi");
+        alert("GAGAL MENGHAPUS ABSENSI");
       }
     } catch {
-      alert("Terjadi kesalahan sistem");
+      alert("ERROR JARINGAN/SISTEM");
     } finally {
       setIsDeleting(false);
     }
@@ -36,7 +36,8 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
       onClick={handleDelete}
       disabled={isDeleting}
       title={`Reset absensi ${memberName}`}
-      className="text-slate-400 hover:text-red-400 hover:bg-red-500/10 p-1.5 rounded-lg transition-colors disabled:opacity-50 inline-flex items-center"
+      className="text-slate-500 hover:text-red-400 bg-[#090A0F] hover:bg-red-500/10 border border-slate-800 hover:border-red-500/30 p-2 transition-colors disabled:opacity-50 inline-flex items-center justify-center"
+      style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
     >
       <UserMinus size={14} />
     </button>

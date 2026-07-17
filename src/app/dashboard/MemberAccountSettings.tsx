@@ -23,7 +23,7 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
     setIsLoading(true);
 
     if (!editName.trim() || !editNim.trim()) {
-      setStatus({ type: 'error', msg: 'Username dan Sandi tidak boleh kosong.' });
+      setStatus({ type: 'error', msg: 'NAMA DAN NIM TIDAK BOLEH KOSONG' });
       setIsLoading(false);
       return;
     }
@@ -37,110 +37,116 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
       const data = await res.json();
 
       if (res.ok) {
-        setStatus({ type: 'success', msg: 'Profil berhasil diperbarui!' });
+        setStatus({ type: 'success', msg: 'PROFIL DIPERBARUI' });
         setTimeout(() => {
           setIsEditing(false);
           setStatus(null);
           router.refresh();
         }, 1500);
       } else {
-        setStatus({ type: 'error', msg: data.error || 'Gagal memperbarui profil' });
+        setStatus({ type: 'error', msg: data.error?.toUpperCase() || 'GAGAL MEMPERBARUI' });
       }
     } catch {
-      setStatus({ type: 'error', msg: 'Terjadi kesalahan jaringan' });
+      setStatus({ type: 'error', msg: 'ERROR JARINGAN' });
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 p-6 mt-8 transition-colors duration-300">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-2">
-          <UserCog className="text-blue-600 dark:text-blue-400" size={24} />
-          <h2 className="text-lg font-bold text-slate-800 dark:text-white">Pengaturan Akun</h2>
+    <div className="p-px bg-slate-700/50 mt-8 mb-8" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
+      <div className="bg-[#12141C] p-6 md:p-8" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
+        
+        <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
+          <div className="flex items-center gap-3">
+            <UserCog className="text-[#80FF56] w-6 h-6" />
+            <h2 className="text-lg font-bold text-white uppercase tracking-widest">Pengaturan Akun</h2>
+          </div>
+          {!isEditing && (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="text-[10px] font-bold tracking-widest uppercase text-[#7F56FF] hover:text-[#80FF56] transition-colors border border-transparent hover:border-[#80FF56]/30 px-3 py-1.5 bg-transparent hover:bg-[#80FF56]/10"
+              style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+            >
+              [ EDIT PROFIL ]
+            </button>
+          )}
         </div>
-        {!isEditing && (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline"
-          >
-            Edit Profil
-          </button>
+
+        {status && (
+          <div className={`mb-6 p-4 flex items-start gap-3 text-xs font-bold tracking-widest uppercase border ${status.type === 'success' ? 'bg-[#80FF56]/10 text-[#80FF56] border-[#80FF56]/30' : 'bg-red-500/10 text-red-400 border-red-500/30'}`} style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+            {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-[#80FF56] mt-0.5" size={16} /> : <AlertCircle className="shrink-0 text-red-400 mt-0.5" size={16} />}
+            <p>{status.msg}</p>
+          </div>
         )}
-      </div>
 
-      {status && (
-        <div className={`mb-4 p-3 rounded-xl flex items-start gap-2 text-sm ${status.type === 'success' ? 'bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-500/20' : 'bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-500/20'}`}>
-          {status.type === 'success' ? <CheckCircle2 className="shrink-0 text-green-600 dark:text-green-400 mt-0.5" size={18} /> : <AlertCircle className="shrink-0 text-red-600 dark:text-red-400 mt-0.5" size={18} />}
-          <p className="font-bold">{status.msg}</p>
-        </div>
-      )}
-
-      {isEditing ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Username (Nama)</label>
-            <input
-              type="text"
-              value={editName}
-              onChange={(e) => setEditName(e.target.value)}
-              className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              placeholder="Nama lengkap"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Kata Sandi (NIM)</label>
-            <input
-              type="text"
-              value={editNim}
-              onChange={(e) => setEditNim(e.target.value)}
-              className="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              placeholder="NIM / Kata Sandi"
-              required
-            />
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Mengubah Sandi (NIM) juga akan merubah QR Code Anda.</p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl transition-colors disabled:opacity-50"
-            >
-              <Save size={18} />
-              {isLoading ? 'Menyimpan...' : 'Simpan Perubahan'}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setIsEditing(false);
-                setEditName(member.name);
-                setEditNim(member.nim);
-                setStatus(null);
-              }}
-              className="flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2.5 px-4 rounded-xl transition-colors w-full sm:w-auto"
-            >
-              <X size={18} />
-              Batal
-            </button>
-          </div>
-        </form>
-      ) : (
-        <div className="space-y-4">
-          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-white/5">
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Username (Nama)</p>
-            <p className="font-semibold text-slate-800 dark:text-slate-200">{member.name}</p>
-          </div>
-          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-white/5 flex justify-between items-center">
+        {isEditing ? (
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Kata Sandi (NIM)</p>
-              <p className="font-semibold text-slate-800 dark:text-slate-200 tracking-widest">••••••••••</p>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
+              <input
+                type="text"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+                className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                placeholder="Nama lengkap"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Kata Sandi (NIM)</label>
+              <input
+                type="text"
+                value={editNim}
+                onChange={(e) => setEditNim(e.target.value)}
+                className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                placeholder="NIM / Kata Sandi"
+                required
+              />
+              <p className="text-[10px] font-bold text-red-400 mt-2 uppercase tracking-widest">PERINGATAN: Mengubah Sandi (NIM) akan me-reset QR Code Anda.</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white font-bold py-3 px-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50 text-xs tracking-widest uppercase"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+              >
+                <Save size={16} className={isLoading ? "animate-spin" : ""} />
+                {isLoading ? 'Menyimpan...' : 'Simpan Perubahan'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditName(member.name);
+                  setEditNim(member.nim);
+                  setStatus(null);
+                }}
+                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-slate-300 font-bold py-3 px-6 transition-colors w-full sm:w-auto text-xs tracking-widest uppercase"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+              >
+                <X size={16} />
+                Batal
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-[#090A0F] border border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Nama Lengkap</p>
+              <p className="font-bold text-white text-sm">{member.name}</p>
+            </div>
+            <div className="bg-[#090A0F] border border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Kata Sandi (NIM)</p>
+              <p className="font-mono font-bold text-white tracking-[0.3em] text-sm">••••••••</p>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

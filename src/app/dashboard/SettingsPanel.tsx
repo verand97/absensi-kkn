@@ -109,102 +109,114 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 p-6 mb-8 animate-fade-in transition-colors duration-300">
-      <div className="flex items-center gap-2 mb-4 border-b border-slate-100 dark:border-white/5 pb-4">
-        <Clock className="text-blue-500 dark:text-blue-400" />
-        <h2 className="text-lg font-bold text-slate-800 dark:text-white">Mulai Absensi</h2>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Hari Ke-</label>
-          <select 
-            value={currentDay} 
-            onChange={(e) => setCurrentDay(Number(e.target.value))}
-            className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium"
-          >
-            {Array.from({ length: 40 }).map((_, i) => (
-              <option key={i + 1} value={i + 1}>Hari ke-{i + 1}</option>
-            ))}
-          </select>
+    <div className="p-px bg-slate-700/50 mb-10" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
+      <div className="bg-[#12141C] p-6 md:p-8 animate-fade-in" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
+        
+        <div className="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+          <Clock className="text-[#80FF56] w-6 h-6" />
+          <h2 className="text-xl font-bold text-white uppercase tracking-widest">Mulai Sesi Absensi</h2>
         </div>
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Jam Buka</label>
-          <input 
-            type="time" 
-            value={startTime} 
-            onChange={e => setStartTime(e.target.value)}
-            className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium scheme-light dark:scheme-dark"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Jam Tutup</label>
-          <input 
-            type="time" 
-            value={endTime} 
-            onChange={e => setEndTime(e.target.value)}
-            className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium scheme-light dark:scheme-dark"
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 cursor-pointer">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+          <div>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Hari Ke-</label>
+            <select 
+              value={currentDay} 
+              onChange={(e) => setCurrentDay(Number(e.target.value))}
+              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+              style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+            >
+              {Array.from({ length: 40 }).map((_, i) => (
+                <option key={i + 1} value={i + 1}>HARI {i + 1}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Jam Buka</label>
             <input 
-              type="checkbox" 
-              checked={isActive} 
-              onChange={e => setIsActive(e.target.checked)}
-              className="w-5 h-5 rounded text-blue-600 dark:text-blue-500 focus:ring-blue-500 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800"
+              type="time" 
+              value={startTime} 
+              onChange={e => setStartTime(e.target.value)}
+              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
+              style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
             />
-            Aktifkan Sesi Absensi
-          </label>
-          
-          <button 
-            onClick={handleSave} 
-            disabled={loading}
-            className="flex items-center justify-center gap-2 bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white px-5 py-3 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold w-full"
-          >
-            <Save size={18} />
-            {loading ? "Menyimpan..." : "Mulai Absensi"}
-          </button>
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Jam Tutup</label>
+            <input 
+              type="time" 
+              value={endTime} 
+              onChange={e => setEndTime(e.target.value)}
+              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
+              style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            <label className="flex items-center gap-3 text-xs font-bold text-slate-300 uppercase tracking-widest cursor-pointer group mt-2">
+              <div className={`w-5 h-5 flex items-center justify-center border transition-colors ${isActive ? 'bg-[#80FF56]/20 border-[#80FF56]' : 'bg-[#090A0F] border-slate-700'}`}>
+                <input 
+                  type="checkbox" 
+                  checked={isActive} 
+                  onChange={e => setIsActive(e.target.checked)}
+                  className="opacity-0 absolute cursor-pointer"
+                />
+                {isActive && <div className="w-2.5 h-2.5 bg-[#80FF56] shadow-[0_0_8px_#80FF56]"></div>}
+              </div>
+              Aktifkan Sesi
+            </label>
+            
+            <button 
+              onClick={handleSave} 
+              disabled={loading}
+              className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white px-5 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50"
+              style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+            >
+              <Save size={16} className={loading ? "animate-spin" : ""} />
+              {loading ? "Menyimpan..." : "Mulai Absensi"}
+            </button>
+          </div>
         </div>
-      </div>
-      
-      {msg && (
-        <div className={`mt-4 text-sm font-medium p-3 rounded-lg border ${msg.includes("Gagal") || msg.includes("kesalahan") ? "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border-red-100 dark:border-red-500/20" : "bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400 border-green-100 dark:border-green-500/20"}`}>
-          {msg}
-        </div>
-      )}
+        
+        {msg && (
+          <div className={`mt-6 text-xs font-bold tracking-widest uppercase p-4 border ${msg.includes("Gagal") || msg.includes("kesalahan") ? "bg-red-500/10 text-red-400 border-red-500/30" : "bg-[#80FF56]/10 text-[#80FF56] border-[#80FF56]/30"}`} style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+            {msg}
+          </div>
+        )}
 
-      {isActive && qrToken && (
-        <div className="mt-8 pt-8 border-t border-slate-100 dark:border-white/5 flex flex-col items-center justify-center">
-          <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">QR Code Absensi Hari ke-{currentDay}</h3>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 text-center max-w-md">
-            Minta anggota untuk scan QR ini dari perangkat mereka masing-masing untuk melakukan absensi otomatis.
-          </p>
-          <div id="qr-wrapper" className="bg-white p-4 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
-            <QRCode value={qrToken} size={250} />
-          </div>
-          <div className="flex flex-col sm:flex-row items-center gap-3 mt-6">
-            <div className="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-4 py-2.5 rounded-xl font-mono font-bold text-sm border border-blue-100 dark:border-blue-500/20">
-              <QrCode size={18} />
-              <span>KODE: {qrToken}</span>
+        {isActive && qrToken && (
+          <div className="mt-8 pt-8 border-t border-slate-800 flex flex-col items-center justify-center">
+            <h3 className="text-lg font-black text-white uppercase tracking-widest drop-shadow-md mb-2">QR Code Hari {currentDay}</h3>
+            <p className="text-slate-400 text-xs tracking-widest uppercase font-medium mb-6 text-center max-w-md">
+              Arahkan anggota untuk memindai kode ini.
+            </p>
+            <div id="qr-wrapper" className="bg-white p-4 mb-6" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
+              <QRCode value={qrToken} size={250} />
             </div>
-            <button 
-              onClick={handleDownload}
-              className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold border border-slate-700"
-            >
-              <Download size={18} />
-              Download
-            </button>
-            <button 
-              onClick={handlePrint}
-              className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold border border-slate-700"
-            >
-              <Printer size={18} />
-              Cetak
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
+              <div className="flex items-center justify-center gap-3 text-[#80FF56] bg-[#80FF56]/5 px-5 py-3 font-mono font-bold text-sm border border-[#80FF56]/20 tracking-widest uppercase" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+                <QrCode size={18} />
+                <span>{qrToken}</span>
+              </div>
+              <button 
+                onClick={handleDownload}
+                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+              >
+                <Download size={16} />
+                Download
+              </button>
+              <button 
+                onClick={handlePrint}
+                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+              >
+                <Printer size={16} />
+                Cetak
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

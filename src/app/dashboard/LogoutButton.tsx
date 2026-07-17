@@ -18,10 +18,11 @@ export default function LogoutButton() {
     <button 
       onClick={handleLogout}
       disabled={loading}
-      className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-2.5 rounded-xl transition-colors text-sm font-semibold disabled:opacity-70 border border-slate-700 w-full sm:w-auto"
+      className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-slate-700 hover:border-red-500/50 px-5 py-3 transition-colors text-xs font-bold tracking-widest uppercase disabled:opacity-50"
+      style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
     >
-      <LogOut size={18} />
-      Keluar
+      <LogOut size={16} />
+      {loading ? "KELUAR..." : "KELUAR"}
     </button>
   );
 }
