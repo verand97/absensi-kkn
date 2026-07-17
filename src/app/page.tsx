@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { 
   Bell, ChevronDown, MapPin, Calendar, Activity, Users, 
-  Fingerprint, ArrowUpRight, Menu, Home as HomeIcon, 
-  Scan as ScanIcon, BarChart2, User, ChevronRight 
+  Fingerprint, ArrowUpRight, Menu, ChevronRight 
 } from "lucide-react";
 
 export default function Home() {
@@ -145,7 +144,7 @@ export default function Home() {
                   style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
                 >
                   <div className="px-6 md:px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-[11px] md:text-sm flex flex-1 items-center justify-center md:justify-start">
-                    MASUK KE DASHBOARD
+                    LOGIN
                   </div>
                   <div className="px-4 py-3.5 md:py-4 border-l border-white/10 flex items-center justify-center bg-white/5">
                      <ChevronRight className="w-5 h-5 text-[#80FF56] lg:hidden" />
@@ -329,26 +328,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation (Sticky) */}
-      <div className="fixed bottom-0 left-0 w-full bg-[#090A0F]/95 backdrop-blur-xl border-t border-slate-800/80 flex justify-between items-center px-6 py-3 lg:hidden z-50">
-        <Link href="#" className="flex flex-col items-center gap-1 relative w-16">
-          <div className="w-10 h-0.5 bg-[#7F56FF] absolute -top-3 rounded-b-sm shadow-[0_0_5px_#7F56FF]"></div>
-          <HomeIcon className="w-6 h-6 text-[#7F56FF]" strokeWidth={2} />
-          <span className="text-[10px] font-medium text-[#7F56FF]">Beranda</span>
-        </Link>
-        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
-          <ScanIcon className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
-          <span className="text-[10px] font-medium text-slate-300">Scan</span>
-        </Link>
-        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
-          <BarChart2 className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
-          <span className="text-[10px] font-medium text-slate-300">Rekap</span>
-        </Link>
-        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
-          <User className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
-          <span className="text-[10px] font-medium text-slate-300">Profil</span>
-        </Link>
-      </div>
+
 
     </div>
   );
