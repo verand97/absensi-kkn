@@ -18,7 +18,7 @@ export default function LogoutButton() {
     <button 
       onClick={handleLogout}
       disabled={loading}
-      className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-slate-700 hover:border-red-500/50 px-5 py-3 transition-colors text-xs font-bold tracking-widest uppercase disabled:opacity-50"
+      className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-red-500/20 text-slate-700 dark:text-slate-300 hover:text-red-400 border border-slate-300 dark:border-slate-700 hover:border-red-500/50 px-5 py-3 transition-colors text-xs font-bold tracking-widest uppercase disabled:opacity-50"
       style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
     >
       <LogOut size={16} />

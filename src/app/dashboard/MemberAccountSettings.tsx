@@ -54,13 +54,13 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
   }
 
   return (
-    <div className="p-px bg-slate-700/50 mt-8 mb-8" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
-      <div className="bg-[#12141C] p-6 md:p-8" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
+    <div className="p-px bg-slate-200 dark:bg-slate-700/50 mt-8 mb-8" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
+      <div className="bg-white dark:bg-[#12141C] p-6 md:p-8" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
         
-        <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
+        <div className="flex justify-between items-center mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
           <div className="flex items-center gap-3">
             <UserCog className="text-[#80FF56] w-6 h-6" />
-            <h2 className="text-lg font-bold text-white uppercase tracking-widest">Pengaturan Akun</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white uppercase tracking-widest">Pengaturan Akun</h2>
           </div>
           {!isEditing && (
             <button
@@ -83,24 +83,24 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
               <input
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+                className="w-full p-3 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                 placeholder="Nama lengkap"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Kata Sandi (NIM)</label>
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Kata Sandi (NIM)</label>
               <input
                 type="text"
                 value={editNim}
                 onChange={(e) => setEditNim(e.target.value)}
-                className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+                className="w-full p-3 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                 placeholder="NIM / Kata Sandi"
                 required
@@ -112,7 +112,7 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white font-bold py-3 px-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50 text-xs tracking-widest uppercase"
+                className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white font-bold py-3 px-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50 text-xs tracking-widest uppercase"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <Save size={16} className={isLoading ? "animate-spin" : ""} />
@@ -126,7 +126,7 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
                   setEditNim(member.nim);
                   setStatus(null);
                 }}
-                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-slate-300 font-bold py-3 px-6 transition-colors w-full sm:w-auto text-xs tracking-widest uppercase"
+                className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold py-3 px-6 transition-colors w-full sm:w-auto text-xs tracking-widest uppercase"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <X size={16} />
@@ -136,13 +136,13 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
           </form>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-[#090A0F] border border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Nama Lengkap</p>
-              <p className="font-bold text-white text-sm">{member.name}</p>
+            <div className="bg-slate-200 dark:bg-[#090A0F] border border-slate-200 dark:border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest mb-1">Nama Lengkap</p>
+              <p className="font-bold text-slate-900 dark:text-white text-sm">{member.name}</p>
             </div>
-            <div className="bg-[#090A0F] border border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Kata Sandi (NIM)</p>
-              <p className="font-mono font-bold text-white tracking-[0.3em] text-sm">••••••••</p>
+            <div className="bg-slate-200 dark:bg-[#090A0F] border border-slate-200 dark:border-slate-800 p-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <p className="text-[10px] font-bold text-slate-500 dark:text-slate-500 uppercase tracking-widest mb-1">Kata Sandi (NIM)</p>
+              <p className="font-mono font-bold text-slate-900 dark:text-white tracking-[0.3em] text-sm">••••••••</p>
             </div>
           </div>
         )}

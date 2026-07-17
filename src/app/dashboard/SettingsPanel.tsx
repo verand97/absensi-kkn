@@ -109,21 +109,21 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
   };
 
   return (
-    <div className="p-px bg-slate-700/50 mb-10" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
-      <div className="bg-[#12141C] p-6 md:p-8 animate-fade-in" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
+    <div className="p-px bg-slate-200 dark:bg-slate-700/50 mb-10" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
+      <div className="bg-white dark:bg-[#12141C] p-6 md:p-8 animate-fade-in" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
         
-        <div className="flex items-center gap-3 mb-6 border-b border-slate-800 pb-4">
+        <div className="flex items-center gap-3 mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
           <Clock className="text-[#80FF56] w-6 h-6" />
-          <h2 className="text-xl font-bold text-white uppercase tracking-widest">Mulai Sesi Absensi</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-widest">Mulai Sesi Absensi</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
           <div>
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Hari Ke-</label>
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Hari Ke-</label>
             <select 
               value={currentDay} 
               onChange={(e) => setCurrentDay(Number(e.target.value))}
-              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
+              className="w-full p-3 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none"
               style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
             >
               {Array.from({ length: 40 }).map((_, i) => (
@@ -132,28 +132,28 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
             </select>
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Jam Buka</label>
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Jam Buka</label>
             <input 
               type="time" 
               value={startTime} 
               onChange={e => setStartTime(e.target.value)}
-              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
+              className="w-full p-3 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
               style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Jam Tutup</label>
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Jam Tutup</label>
             <input 
               type="time" 
               value={endTime} 
               onChange={e => setEndTime(e.target.value)}
-              className="w-full p-3 bg-[#090A0F] border border-slate-700 text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
+              className="w-full p-3 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono scheme-dark"
               style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
             />
           </div>
           <div className="flex flex-col gap-4">
-            <label className="flex items-center gap-3 text-xs font-bold text-slate-300 uppercase tracking-widest cursor-pointer group mt-2">
-              <div className={`w-5 h-5 flex items-center justify-center border transition-colors ${isActive ? 'bg-[#80FF56]/20 border-[#80FF56]' : 'bg-[#090A0F] border-slate-700'}`}>
+            <label className="flex items-center gap-3 text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest cursor-pointer group mt-2">
+              <div className={`w-5 h-5 flex items-center justify-center border transition-colors ${isActive ? 'bg-[#80FF56]/20 border-[#80FF56]' : 'bg-slate-200 dark:bg-[#090A0F] border-slate-300 dark:border-slate-700'}`}>
                 <input 
                   type="checkbox" 
                   checked={isActive} 
@@ -168,7 +168,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
             <button 
               onClick={handleSave} 
               disabled={loading}
-              className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white px-5 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50"
+              className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-5 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50"
               style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
             >
               <Save size={16} className={loading ? "animate-spin" : ""} />
@@ -184,9 +184,9 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
         )}
 
         {isActive && qrToken && (
-          <div className="mt-8 pt-8 border-t border-slate-800 flex flex-col items-center justify-center">
-            <h3 className="text-lg font-black text-white uppercase tracking-widest drop-shadow-md mb-2">QR Code Hari {currentDay}</h3>
-            <p className="text-slate-400 text-xs tracking-widest uppercase font-medium mb-6 text-center max-w-md">
+          <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
+            <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-widest drop-shadow-md mb-2">QR Code Hari {currentDay}</h3>
+            <p className="text-slate-600 dark:text-slate-400 text-xs tracking-widest uppercase font-medium mb-6 text-center max-w-md">
               Arahkan anggota untuk memindai kode ini.
             </p>
             <div id="qr-wrapper" className="bg-white p-4 mb-6" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
@@ -199,7 +199,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
               </div>
               <button 
                 onClick={handleDownload}
-                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <Download size={16} />
@@ -207,7 +207,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
               </button>
               <button 
                 onClick={handlePrint}
-                className="flex items-center justify-center gap-2 bg-[#1A1C23] hover:bg-[#252836] border border-slate-700 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <Printer size={16} />
