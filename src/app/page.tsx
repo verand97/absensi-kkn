@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { 
-  Bell, ChevronDown, MapPin, Calendar, Activity, Users, 
-  Fingerprint, ArrowUpRight, Menu, ChevronRight 
+  MapPin, Calendar, Activity, 
+  Fingerprint, ArrowUpRight, Users, ChevronRight
 } from "lucide-react";
 
 export default function Home() {
@@ -50,42 +50,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Nav Links (Desktop) */}
-          <div className="hidden lg:flex items-center gap-10 text-sm font-medium text-slate-400">
-            <div className="relative text-[#7F56FF] font-bold">
-              Beranda
-              <div className="absolute -bottom-3 left-0 w-full h-[2px] bg-[#7F56FF] shadow-[0_0_8px_#7F56FF]"></div>
-            </div>
-            <Link href="#" className="hover:text-white transition-colors">Fitur</Link>
-            <Link href="#" className="hover:text-white transition-colors">Rekap</Link>
-            <Link href="#" className="hover:text-white transition-colors">Anggota</Link>
-            <Link href="#" className="hover:text-white transition-colors">Pengaturan</Link>
-          </div>
-
-          {/* Right Nav */}
-          <div className="flex items-center gap-4 md:gap-5">
-            <button className="text-slate-400 hover:text-white transition-colors relative">
-              <Bell className="w-5 h-5 md:w-6 md:h-6" />
-              <div className="absolute -top-0.5 -right-0.5 md:top-0 md:right-0 w-2 h-2 rounded-full bg-[#7F56FF]"></div>
-            </button>
-            
-            {/* Hamburger Menu (Mobile) */}
-            <button className="lg:hidden p-2 rounded-xl border border-slate-700/80 bg-[#12141C]">
-              <Menu className="w-5 h-5 text-slate-300" />
-            </button>
-
-            {/* Profile (Desktop) */}
-            <div className="hidden lg:flex items-center gap-3 border-l border-slate-800 pl-5 cursor-pointer group">
-              <div className="w-9 h-9 rounded-full bg-[#12141C] border border-slate-700/50 flex items-center justify-center overflow-hidden">
-                <Users className="w-4 h-4 text-slate-500" />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="text-xs font-bold text-white group-hover:text-[#80FF56] transition-colors mb-1">Admin KKN</span>
-                <span className="text-[10px] text-slate-500">Sumanding 2026</span>
-              </div>
-              <ChevronDown className="w-4 h-4 text-slate-500" />
-            </div>
-          </div>
         </nav>
 
         {/* Main Content Grid */}
@@ -134,21 +98,20 @@ export default function Home() {
             </p>
 
             {/* Action Button */}
-            <Link href="/login" className="inline-block group relative w-full md:w-auto">
+            <Link href="/login" className="inline-flex group relative">
               <div 
-                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-[2px] transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)] w-full" 
+                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-[2px] transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)]" 
                 style={{ clipPath: "polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)" }}
               >
                 <div 
-                  className="flex items-stretch w-full bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
+                  className="flex items-stretch bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
                   style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
                 >
-                  <div className="px-6 md:px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-[11px] md:text-sm flex flex-1 items-center justify-center md:justify-start">
+                  <div className="px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-xs md:text-sm flex items-center justify-center">
                     LOGIN
                   </div>
                   <div className="px-4 py-3.5 md:py-4 border-l border-white/10 flex items-center justify-center bg-white/5">
-                     <ChevronRight className="w-5 h-5 text-[#80FF56] lg:hidden" />
-                     <ArrowUpRight className="w-5 h-5 text-[#80FF56] hidden lg:block" />
+                     <ArrowUpRight className="w-5 h-5 text-[#80FF56]" />
                   </div>
                 </div>
               </div>
