@@ -6,9 +6,9 @@ export default function Home() {
   return (
     <div className="min-h-screen text-slate-100 overflow-hidden relative selection:bg-blue-500/30">
       
-      <div className="container mx-auto px-6 py-12 md:py-24 min-h-screen flex flex-col justify-center">
+      <div className="container mx-auto px-6 pb-12 pt-28 md:py-24 min-h-screen flex flex-col md:justify-center">
         
-        <nav className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
+        <nav className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-center z-10">
           <div className="flex items-center gap-3 opacity-0 animate-slide-up">
             <div className="bg-slate-800/50 p-2 rounded-xl backdrop-blur-md border border-white/5">
               <Image src="/newlogokkn.png" alt="Logo KKN" width={40} height={40} className="drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
@@ -17,7 +17,7 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center z-10 mt-16 lg:mt-0">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center z-10 mt-4 lg:mt-0 flex-1">
           
           {/* Left Column - Copy */}
           <div className="max-w-2xl">

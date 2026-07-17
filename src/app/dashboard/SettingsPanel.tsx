@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, Save, QrCode, Download } from "lucide-react";
+import { Clock, Save, QrCode, Download, Printer } from "lucide-react";
 import QRCode from "react-qr-code";
 
 interface SettingData {
@@ -66,6 +66,44 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
       downloadLink.download = `QR-Absensi-Hari-${currentDay}.png`;
       downloadLink.href = pngFile;
       downloadLink.click();
+    };
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  const handlePrint = () => {
+    const svg = document.querySelector("#qr-wrapper svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width + 40;
+      canvas.height = img.height + 40;
+      if (ctx) {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 20, 20);
+      }
+      const pngFile = canvas.toDataURL("image/png");
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <html>
+            <head><title>Cetak QR Code Admin</title></head>
+            <body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
+              <img src="${pngFile}" style="max-width: 100%; width: 500px;" />
+              <script>
+                setTimeout(() => {
+                  window.print();
+                  window.close();
+                }, 250);
+              </script>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+      }
     };
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
@@ -152,10 +190,17 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
             </div>
             <button 
               onClick={handleDownload}
-              className="flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold"
+              className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold border border-slate-700"
             >
               <Download size={18} />
-              Download QR Code
+              Download
+            </button>
+            <button 
+              onClick={handlePrint}
+              className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-5 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg text-sm font-bold border border-slate-700"
+            >
+              <Printer size={18} />
+              Cetak
             </button>
           </div>
         </div>

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { QrCode, CalendarDays, ArrowLeft } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
-import AdminAccountSettings from "../AdminAccountSettings";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ResetAttendanceButton from "../ResetAttendanceButton";
@@ -66,7 +65,6 @@ export default async function AdminDashboard() {
           </div>
         </header>
 
-        <AdminAccountSettings currentName={currentUser.name} currentNim={currentUser.nim} />
 
         <SettingsPanel initialSetting={setting} />
 

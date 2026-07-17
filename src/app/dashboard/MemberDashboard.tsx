@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Camera, X, CheckCircle2, AlertCircle } from "lucide-react";
+import { Camera, X, CheckCircle2, AlertCircle, Eye, EyeOff, Download, Printer, QrCode } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import QRCode from "react-qr-code";
 import { Html5QrcodeScanner } from "html5-qrcode";
@@ -29,11 +29,74 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
   const hasAttendedToday = presentDays.has(setting.currentDay);
   
   const [showScanner, setShowScanner] = useState(false);
+  const [showMyQR, setShowMyQR] = useState(false);
   const lastScannedRef = useRef<string>("");
   const isProcessingRef = useRef<boolean>(false);
   const [status, setStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
   const scannerRef = useRef<Html5QrcodeScanner | null>(null);
   const router = useRouter();
+
+  const handleDownloadQR = () => {
+    const svg = document.querySelector("#member-qr-wrapper svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width + 40;
+      canvas.height = img.height + 40;
+      if (ctx) {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 20, 20);
+      }
+      const pngFile = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.download = `QR-${member.nim}.png`;
+      downloadLink.href = pngFile;
+      downloadLink.click();
+    };
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  const handlePrintQR = () => {
+    const svg = document.querySelector("#member-qr-wrapper svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width + 40;
+      canvas.height = img.height + 40;
+      if (ctx) {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 20, 20);
+      }
+      const pngFile = canvas.toDataURL("image/png");
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(`
+          <html>
+            <head><title>Cetak QR Code ${member.name}</title></head>
+            <body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
+              <img src="${pngFile}" style="max-width: 100%; width: 400px;" />
+              <script>
+                setTimeout(() => {
+                  window.print();
+                  window.close();
+                }, 250);
+              </script>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+      }
+    };
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+  };
 
   useEffect(() => {
     if (!showScanner) {
@@ -152,12 +215,54 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                 {/* QR Code Anda */}
                 <div className="flex-1 flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-white/5 shadow-inner">
                   <h3 className="font-bold text-slate-700 dark:text-slate-200 mb-4">QR Code Anda</h3>
-                  <div className="bg-white p-3 rounded-xl shadow-sm mb-4 border border-slate-100 dark:border-white/10">
-                    <QRCode value={member.nim} size={160} />
-                  </div>
-                  <p className="text-sm text-center text-slate-500 dark:text-slate-400 font-medium">
-                    Tunjukkan QR ini ke Admin untuk di-scan.
-                  </p>
+                  
+                  {!showMyQR ? (
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-40 h-40 bg-slate-800 rounded-xl flex flex-col items-center justify-center border border-slate-700 mb-4 opacity-50 relative overflow-hidden group">
+                         <QrCode size={48} className="text-slate-500 mb-2" />
+                         <span className="text-xs text-slate-400 font-bold">TERSEMBUNYI</span>
+                      </div>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mb-4">
+                        QR Code sengaja disembunyikan untuk mencegah pemindaian tidak sah.
+                      </p>
+                      <button 
+                        onClick={() => setShowMyQR(true)}
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md transition-all"
+                      >
+                        <Eye size={18} />
+                        Tampilkan QR Saya
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center">
+                      <div id="member-qr-wrapper" className="bg-white p-3 rounded-xl shadow-sm mb-4 border border-slate-100 dark:border-white/10 animate-fade-in">
+                        <QRCode value={member.nim} size={160} />
+                      </div>
+                      <div className="flex flex-wrap justify-center gap-2 mb-4 animate-fade-in">
+                        <button 
+                          onClick={handleDownloadQR}
+                          className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition-colors"
+                        >
+                          <Download size={14} /> Download
+                        </button>
+                        <button 
+                          onClick={handlePrintQR}
+                          className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition-colors"
+                        >
+                          <Printer size={14} /> Cetak
+                        </button>
+                        <button 
+                          onClick={() => setShowMyQR(false)}
+                          className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-3 py-2 rounded-lg text-xs font-bold transition-colors"
+                        >
+                          <EyeOff size={14} /> Sembunyikan
+                        </button>
+                      </div>
+                      <p className="text-sm text-center text-slate-500 dark:text-slate-400 font-medium animate-fade-in">
+                        Tunjukkan QR ini ke Admin untuk di-scan.
+                      </p>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Scanner Absen Mandiri */}
