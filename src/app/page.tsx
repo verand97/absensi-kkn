@@ -1,119 +1,355 @@
 import Link from "next/link";
-import { ChevronRight, CheckCircle2, ScanFace } from "lucide-react";
 import Image from "next/image";
+import { 
+  Bell, ChevronDown, MapPin, Calendar, Activity, Users, 
+  Fingerprint, ArrowUpRight, Menu, Home as HomeIcon, 
+  Scan as ScanIcon, BarChart2, User, ChevronRight 
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-slate-100 overflow-hidden relative selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#0B0D14] text-white font-sans overflow-hidden relative selection:bg-purple-500/30">
       
-      <div className="container mx-auto px-6 pb-12 pt-28 md:py-24 min-h-screen flex flex-col md:justify-center">
+      {/* Background Gradients & Textures */}
+      <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-[#7F56FF]/10 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#80FF56]/10 blur-[150px] rounded-full pointer-events-none"></div>
+      
+      {/* Grid Lines */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
+
+      {/* Cyberpunk Tech Lines */}
+      <div className="absolute bottom-[5%] right-[5%] flex gap-2">
+         <div className="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-slate-700"></div>
+      </div>
+      <div className="absolute bottom-[5%] right-[8%] w-32 h-px bg-slate-800"></div>
+
+      <div className="container mx-auto px-6 py-6 md:py-8 min-h-screen flex flex-col relative z-10">
         
-        <nav className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-center z-10">
-          <div className="flex items-center gap-3 opacity-0 animate-slide-up">
-            <div className="bg-slate-800/50 p-2 rounded-xl backdrop-blur-md border border-white/5">
-              <Image src="/newlogokkn.png" alt="Logo KKN" width={40} height={40} className="drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
+        {/* Navigation */}
+        <nav className="flex justify-between items-center mb-10 md:mb-24">
+          
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#12141C] border border-slate-700/50 flex items-center justify-center overflow-hidden p-1 shadow-[0_0_10px_rgba(128,255,86,0.1)]">
+              <Image src="/newlogokkn.png" alt="Logo KKN" width={40} height={40} className="object-contain" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-white">KKN Sumanding <span className="text-blue-400">2026</span></span>
+            
+            {/* Mobile Logo Text */}
+            <div className="flex flex-col leading-[1.1] md:hidden">
+              <span className="font-bold text-sm tracking-widest text-white uppercase">KKN</span>
+              <span className="font-medium text-[9px] tracking-widest text-slate-400 uppercase">SUMANDING</span>
+              <span className="font-bold text-sm tracking-widest text-[#80FF56]">2026</span>
+            </div>
+
+            {/* Desktop Logo Text */}
+            <div className="hidden md:flex flex-col leading-none">
+              <span className="font-bold text-base tracking-widest text-white uppercase">KKN SUMANDING</span>
+              <span className="font-bold text-base tracking-widest text-[#80FF56]">2026</span>
+            </div>
+          </div>
+
+          {/* Nav Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-10 text-sm font-medium text-slate-400">
+            <div className="relative text-[#7F56FF] font-bold">
+              Beranda
+              <div className="absolute -bottom-3 left-0 w-full h-[2px] bg-[#7F56FF] shadow-[0_0_8px_#7F56FF]"></div>
+            </div>
+            <Link href="#" className="hover:text-white transition-colors">Fitur</Link>
+            <Link href="#" className="hover:text-white transition-colors">Rekap</Link>
+            <Link href="#" className="hover:text-white transition-colors">Anggota</Link>
+            <Link href="#" className="hover:text-white transition-colors">Pengaturan</Link>
+          </div>
+
+          {/* Right Nav */}
+          <div className="flex items-center gap-4 md:gap-5">
+            <button className="text-slate-400 hover:text-white transition-colors relative">
+              <Bell className="w-5 h-5 md:w-6 md:h-6" />
+              <div className="absolute -top-0.5 -right-0.5 md:top-0 md:right-0 w-2 h-2 rounded-full bg-[#7F56FF]"></div>
+            </button>
+            
+            {/* Hamburger Menu (Mobile) */}
+            <button className="lg:hidden p-2 rounded-xl border border-slate-700/80 bg-[#12141C]">
+              <Menu className="w-5 h-5 text-slate-300" />
+            </button>
+
+            {/* Profile (Desktop) */}
+            <div className="hidden lg:flex items-center gap-3 border-l border-slate-800 pl-5 cursor-pointer group">
+              <div className="w-9 h-9 rounded-full bg-[#12141C] border border-slate-700/50 flex items-center justify-center overflow-hidden">
+                <Users className="w-4 h-4 text-slate-500" />
+              </div>
+              <div className="flex flex-col leading-none">
+                <span className="text-xs font-bold text-white group-hover:text-[#80FF56] transition-colors mb-1">Admin KKN</span>
+                <span className="text-[10px] text-slate-500">Sumanding 2026</span>
+              </div>
+              <ChevronDown className="w-4 h-4 text-slate-500" />
+            </div>
           </div>
         </nav>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center z-10 mt-4 lg:mt-0 flex-1">
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 flex-1 items-center pb-20 md:pb-0">
           
-          {/* Left Column - Copy */}
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6 opacity-0 animate-slide-up delay-100 shadow-[0_0_15px_rgba(127,86,255,0.2)]">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-              </span>
-              Sistem Absensi Terintegrasi
-            </div>
+          {/* Left Column */}
+          <div className="lg:col-span-6 flex flex-col items-start relative z-20 w-full">
             
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 opacity-0 animate-slide-up delay-200 text-white">
-              Presensi KKN, <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-400 to-purple-400">
-                Lebih Praktis dan Akurat.
-              </span>
+            {/* Mobile Fingerprint Background overlay */}
+            <div className="absolute top-10 right-[-10%] w-64 h-64 lg:hidden flex items-center justify-center opacity-[0.25] pointer-events-none overflow-hidden z-[-1]">
+              <div className="absolute w-[250px] h-[250px] border border-[#7F56FF]/40 rounded-full"></div>
+              <div className="absolute w-[180px] h-[180px] border border-[#7F56FF]/50 rounded-full border-dashed"></div>
+              <Fingerprint className="w-28 h-28 text-[#7F56FF]" strokeWidth={1} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130px] h-[130px]">
+                 <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#80FF56]"></div>
+                 <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#80FF56]"></div>
+                 <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#80FF56]"></div>
+                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#80FF56]"></div>
+               </div>
+            </div>
+
+            {/* Tag Pill */}
+            <div 
+              className="relative inline-flex items-center gap-3 mb-6 md:mb-8 p-px bg-slate-700/50"
+              style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}
+            >
+              <div 
+                className="flex items-center gap-3 px-3 py-1.5 bg-[#101217]"
+                style={{ clipPath: "polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px)" }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#80FF56] shadow-[0_0_8px_#80FF56]"></div>
+                <span className="text-[9px] md:text-xs font-bold tracking-widest text-slate-300 uppercase">Sistem Absensi Terintegrasi</span>
+              </div>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black uppercase tracking-tight leading-[0.95] mb-5 md:mb-6">
+              <div className="text-white drop-shadow-md">REKAM</div>
+              <div className="text-white drop-shadow-md">KEHADIRAN</div>
+              <div className="text-[#7F56FF] drop-shadow-[0_0_20px_rgba(127,86,255,0.4)]">LEBIH CEPAT.</div>
             </h1>
-            
-            <p className="text-lg md:text-xl text-slate-400 mb-10 opacity-0 animate-slide-up delay-400 max-w-lg leading-relaxed">
-              Sistem absensi digital yang dirancang khusus untuk mahasiswa KKN Sumanding 2026. Lakukan pemindaian QR Code secara instan dan pantau rekapitulasi kehadiran otomatis sepanjang 40 hari pengabdian.
+
+            {/* Description */}
+            <p className="text-slate-400 text-[13px] md:text-base max-w-md mb-8 md:mb-10 leading-relaxed pr-4 md:pr-0">
+              Platform absensi modern yang dirancang khusus untuk peserta KKN Sumanding 2026. Mendukung pemindaian QR Code cepat dan rekapan otomatis selama 40 hari pengabdian.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-slide-up delay-300">
-              <Link href="/login" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 font-bold text-white transition-all duration-300 bg-blue-600 rounded-2xl hover:bg-blue-500 shadow-[0_0_20px_rgba(127,86,255,0.3)] hover:shadow-[0_0_30px_rgba(127,86,255,0.6)] hover:-translate-y-1">
-                <span>Masuk ke Dashboard</span>
-                <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
 
-            <div className="mt-12 flex items-center gap-6 opacity-0 animate-slide-up delay-300">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 drop-shadow-[0_0_10px_rgba(127,86,255,0.8)]" />
-                <span className="text-sm text-slate-300 font-medium">Data Real-time</span>
+            {/* Action Button */}
+            <Link href="/login" className="inline-block group relative w-full md:w-auto">
+              <div 
+                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-[2px] transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)] w-full" 
+                style={{ clipPath: "polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)" }}
+              >
+                <div 
+                  className="flex items-stretch w-full bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
+                  style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
+                >
+                  <div className="px-6 md:px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-[11px] md:text-sm flex flex-1 items-center justify-center md:justify-start">
+                    MASUK KE DASHBOARD
+                  </div>
+                  <div className="px-4 py-3.5 md:py-4 border-l border-white/10 flex items-center justify-center bg-white/5">
+                     <ChevronRight className="w-5 h-5 text-[#80FF56] lg:hidden" />
+                     <ArrowUpRight className="w-5 h-5 text-[#80FF56] hidden lg:block" />
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 drop-shadow-[0_0_10px_rgba(127,86,255,0.8)]" />
-                <span className="text-sm text-slate-300 font-medium">Aman & Terenkripsi</span>
+            </Link>
+
+            {/* Location (Desktop Only) */}
+            <div className="mt-24 hidden md:flex items-center gap-3">
+              <MapPin className="w-6 h-6 text-[#80FF56]" />
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Sumanding</span>
+                <span className="text-[10px] font-bold text-[#80FF56] tracking-widest uppercase">2026</span>
               </div>
+            </div>
+            
+            {/* Mobile Dashboard Cards (Hidden on Desktop) */}
+            <div className="flex flex-col gap-3 w-full lg:hidden mt-10">
+              
+              {/* Mobile Card 1 */}
+              <div className="w-full flex items-center p-4 bg-[#101217] rounded-xl border border-slate-800 shadow-lg relative overflow-hidden">
+                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-purple-500 to-transparent"></div>
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
+                    <Users className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <span className="text-[9px] font-bold text-slate-400 tracking-widest uppercase mb-0.5">Anggota KKN</span>
+                    <span className="text-[13px] font-bold text-white mb-1">Sumanding 2026</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl font-black text-[#80FF56] leading-none">128</span>
+                      <span className="text-[10px] text-slate-500">Anggota Aktif</span>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-purple-600 shrink-0" />
+                </div>
+              </div>
+
+              {/* Mobile Card 2 */}
+              <div className="w-full flex items-center p-4 bg-[#101217] rounded-xl border border-slate-800 shadow-lg relative overflow-hidden">
+                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-green-500 to-transparent"></div>
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <span className="text-[9px] font-bold text-slate-400 tracking-widest uppercase mb-0.5">Kehadiran Hari Ini</span>
+                    <span className="text-lg font-bold text-[#80FF56] mb-0.5">Hari ke-12</span>
+                    <span className="text-[10px] text-slate-400">Rabu, 16 Juli 2026</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-purple-600 shrink-0" />
+                </div>
+              </div>
+
+              {/* Mobile Card 3 */}
+              <div className="w-full flex items-center p-4 bg-[#101217] rounded-xl border border-slate-800 shadow-lg relative overflow-hidden">
+                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-purple-500 to-transparent"></div>
+                <div className="flex items-center gap-4 w-full">
+                  <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
+                    <Activity className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[9px] font-bold text-slate-400 tracking-widest uppercase">Sesi Aktif</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#80FF56]"></div>
+                    </div>
+                    <span className="text-[10px] text-slate-300 mb-2">Progress Absensi</span>
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-2 bg-[#1A1C23] rounded-full overflow-hidden">
+                        <div className="h-full w-[70%] bg-[#80FF56]"></div>
+                      </div>
+                      <span className="text-lg font-bold text-[#80FF56] leading-none">70%</span>
+                    </div>
+                    <span className="text-[9px] text-slate-500 mt-1">28 / 40 Hari</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          {/* Right Column - Visual/Mockup */}
-          <div className="relative hidden lg:block opacity-0 animate-slide-up delay-300">
-            <div className="absolute inset-0 bg-linear-to-tr from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+          {/* Right Column - Desktop Cyberpunk Dashboard Cards (Hidden on Mobile) */}
+          <div className="hidden lg:block lg:col-span-6 relative min-h-[550px] w-full mt-12 lg:mt-0 z-10">
             
-            <div className="relative w-full aspect-square max-w-md mx-auto mt-8">
-              {/* Floating Card 1 */}
-              <div className="absolute top-10 -left-10 w-64 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-float z-20">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                    <Image src="/newlogokkn.png" alt="Avatar" width={24} height={24} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-white">Anggota KKN</div>
-                    <div className="text-xs text-slate-400">Sumanding 2026</div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/5">
-                  <span className="text-xs text-slate-400">Kehadiran</span>
-                  <span className="text-sm font-bold text-green-400 drop-shadow-[0_0_8px_rgba(128,255,86,0.6)]">Hari ke-12</span>
-                </div>
-              </div>
+            {/* SVG Gradient Defs */}
+            <svg width="0" height="0" className="absolute">
+              <linearGradient id="purple-green-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop stopColor="#7F56FF" offset="0%" />
+                <stop stopColor="#80FF56" offset="100%" />
+              </linearGradient>
+            </svg>
 
-              {/* Floating Card 2 */}
-              <div className="absolute bottom-20 -right-10 w-72 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-float-delayed z-20">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="text-sm font-bold text-white">Sesi Aktif</div>
-                  <div className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 shadow-[0_0_10px_rgba(128,255,86,1)]"></span>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-linear-to-r from-blue-500 to-indigo-500 w-[70%] shadow-[0_0_15px_rgba(127,86,255,0.8)]"></div>
-                  </div>
-                  <div className="flex justify-between text-xs text-slate-400">
-                    <span>Progress Absensi</span>
-                    <span className="text-white font-bold">70%</span>
-                  </div>
-                </div>
-              </div>
+            {/* Circular Grid Background (Desktop only) */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] border border-slate-800/50 rounded-full flex items-center justify-center pointer-events-none">
+              <div className="w-[300px] h-[300px] border border-slate-700/30 rounded-full border-dashed"></div>
+              <div className="absolute w-[500px] h-px bg-slate-800/30 rotate-45"></div>
+              <div className="absolute w-[500px] h-px bg-slate-800/30 -rotate-45"></div>
+            </div>
 
-              {/* Center Element - Stylized Scan Placeholder */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-linear-to-br from-blue-500 to-purple-600 rounded-3xl p-[2px] shadow-[0_0_40px_-5px_rgba(127,86,255,0.6)] rotate-3 hover:rotate-0 transition-transform duration-500 z-10">
-                <div className="w-full h-full bg-slate-950 rounded-[22px] flex flex-col items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                  <ScanFace className="w-16 h-16 text-blue-400 animate-pulse mb-2 drop-shadow-[0_0_15px_rgba(127,86,255,1)]" />
-                  <span className="text-xs font-bold text-blue-200 tracking-wider">SCAN QR</span>
+            {/* Card 1: ANGGOTA KKN */}
+            <div 
+              className="absolute -top-4 right-4 w-[360px] p-px bg-slate-700/50 shadow-2xl" 
+              style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}
+            >
+              <div 
+                className="bg-[#12141C] p-7 h-full flex justify-between items-start" 
+                style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}
+              >
+                <div>
+                  <div className="text-[10px] font-bold text-slate-400 tracking-widest uppercase mb-1">Anggota KKN</div>
+                  <div className="text-base font-bold text-white mb-3">Sumanding 2026</div>
+                  <div className="text-6xl font-black text-[#80FF56] mb-1">128</div>
+                  <div className="text-xs text-slate-500">Anggota Aktif</div>
+                </div>
+                <div className="mt-4">
+                  <Users className="w-20 h-20 drop-shadow-[0_0_15px_rgba(127,86,255,0.4)]" stroke="url(#purple-green-grad)" strokeWidth={1.5} />
                 </div>
               </div>
             </div>
-          </div>
 
+            {/* Card 2: KEHADIRAN HARI INI */}
+            <div 
+              className="absolute top-[42%] left-0 -translate-y-1/2 w-[280px] p-px bg-slate-700/50 shadow-2xl z-20" 
+              style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
+            >
+              <div 
+                className="bg-[#12141C] p-5 h-full" 
+                style={{ clipPath: "polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)" }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <Calendar className="w-4 h-4 text-[#7F56FF]" />
+                  <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Kehadiran Hari Ini</span>
+                </div>
+                <div className="text-2xl font-bold text-[#80FF56] mb-1">Hari ke-12</div>
+                <div className="text-xs text-slate-500">Rabu, 16 Juli 2026</div>
+              </div>
+            </div>
+
+            {/* Card 3: SESI AKTIF */}
+            <div 
+              className="absolute bottom-4 right-8 w-[380px] p-px bg-slate-700/50 shadow-2xl" 
+              style={{ clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))" }}
+            >
+              <div 
+                className="bg-[#12141C] p-6 h-full" 
+                style={{ clipPath: "polygon(0 0, calc(100% - 19px) 0, 100% 19px, 100% 100%, 19px 100%, 0 calc(100% - 19px))" }}
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <Activity className="w-4 h-4 text-[#7F56FF]" />
+                    <span className="text-[10px] font-bold text-white tracking-widest uppercase">Sesi Aktif</span>
+                  </div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#80FF56] shadow-[0_0_8px_#80FF56]"></div>
+                </div>
+                <div className="mb-3 flex justify-between items-center">
+                  <span className="text-xs text-slate-400">Progress Absensi</span>
+                  <span className="text-xl font-bold text-[#80FF56]">70%</span>
+                </div>
+                <div 
+                  className="h-2.5 w-full bg-[#0B0D14] mb-3 relative" 
+                  style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
+                >
+                  <div className="absolute top-0 left-0 h-full w-[70%] bg-[#80FF56] shadow-[0_0_10px_#80FF56]"></div>
+                </div>
+                <div className="text-[10px] text-slate-500">28 / 40 Hari</div>
+              </div>
+            </div>
+
+            {/* Fingerprint Scanner Graphic (Desktop only) */}
+            <div className="flex absolute top-[45%] right-10 -translate-y-1/2 w-40 h-40 items-center justify-center">
+               <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#80FF56]"></div>
+               <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#80FF56]"></div>
+               <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#80FF56]"></div>
+               <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#80FF56]"></div>
+               <Fingerprint className="w-24 h-24 text-[#7F56FF] drop-shadow-[0_0_15px_rgba(127,86,255,0.8)]" strokeWidth={1} />
+            </div>
+
+          </div>
         </div>
       </div>
+
+      {/* Mobile Bottom Navigation (Sticky) */}
+      <div className="fixed bottom-0 left-0 w-full bg-[#090A0F]/95 backdrop-blur-xl border-t border-slate-800/80 flex justify-between items-center px-6 py-3 lg:hidden z-50">
+        <Link href="#" className="flex flex-col items-center gap-1 relative w-16">
+          <div className="w-10 h-0.5 bg-[#7F56FF] absolute -top-3 rounded-b-sm shadow-[0_0_5px_#7F56FF]"></div>
+          <HomeIcon className="w-6 h-6 text-[#7F56FF]" strokeWidth={2} />
+          <span className="text-[10px] font-medium text-[#7F56FF]">Beranda</span>
+        </Link>
+        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
+          <ScanIcon className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
+          <span className="text-[10px] font-medium text-slate-300">Scan</span>
+        </Link>
+        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
+          <BarChart2 className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
+          <span className="text-[10px] font-medium text-slate-300">Rekap</span>
+        </Link>
+        <Link href="#" className="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity w-16">
+          <User className="w-6 h-6 text-slate-300" strokeWidth={1.5} />
+          <span className="text-[10px] font-medium text-slate-300">Profil</span>
+        </Link>
+      </div>
+
     </div>
   );
 }
