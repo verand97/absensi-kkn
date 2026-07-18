@@ -50,8 +50,8 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white dark:bg-[#12141C] p-6 md:p-8 w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
             
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full border border-[#7F56FF]/30 bg-[#7F56FF]/10 flex items-center justify-center shrink-0">
-                <Image src="/newlogokkn.png" alt="Logo" width={32} height={32} className="object-contain w-8 h-8 drop-shadow-[0_0_10px_rgba(127,86,255,0.4)]" />
+              <div className="flex items-center justify-center shrink-0">
+                <Image src="/newlogokkn.png" alt="Logo" width={56} height={56} className="object-contain w-14 h-14 drop-shadow-[0_0_10px_rgba(127,86,255,0.4)]" />
               </div>
               <div>
                 <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md mb-1">Dashboard Admin</h1>

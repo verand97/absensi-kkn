@@ -9,6 +9,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
 import Link from "next/link";
+import Image from "next/image";
 
 interface SettingData {
   startTime: string;
@@ -51,7 +52,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
     const svgData = new XMLSerializer().serializeToString(svg);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    const img = new Image();
+    const img = new window.Image();
     img.onload = () => {
       canvas.width = img.width + 40;
       canvas.height = img.height + 40;
@@ -75,7 +76,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
     const svgData = new XMLSerializer().serializeToString(svg);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
-    const img = new Image();
+    const img = new window.Image();
     img.onload = () => {
       canvas.width = img.width + 40;
       canvas.height = img.height + 40;
@@ -188,9 +189,14 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
         {/* Header - Always visible */}
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-6 p-px bg-slate-200 dark:bg-slate-700/50" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white dark:bg-[#12141C] p-6 md:p-8 w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
-            <div className="flex flex-col">
-              <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md mb-1">Dashboard</h1>
-              <p className="text-slate-600 dark:text-slate-400 text-xs tracking-widest uppercase font-bold">Halo, <span className="text-[#80FF56]">{member.name}</span></p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center shrink-0">
+                <Image src="/newlogokkn.png" alt="Logo" width={56} height={56} className="object-contain w-14 h-14 drop-shadow-[0_0_10px_rgba(127,86,255,0.4)]" />
+              </div>
+              <div className="flex flex-col">
+                <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md mb-1">Dashboard</h1>
+                <p className="text-slate-600 dark:text-slate-400 text-xs tracking-widest uppercase font-bold">Halo, <span className="text-[#80FF56]">{member.name}</span></p>
+              </div>
             </div>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
