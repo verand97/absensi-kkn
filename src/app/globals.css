@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Override Blue with Neon Purple (#7F56FF) */
   --color-blue-50: #f2eeff;
@@ -31,8 +33,6 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: var(--color-slate-900, #1E1F22);
-  color: white;
 }
 
 .animate-fade-in {
