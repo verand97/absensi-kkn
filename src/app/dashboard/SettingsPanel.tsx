@@ -183,7 +183,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
           </div>
         )}
 
-        {isActive && qrToken && (
+        {isActive && qrToken ? (
           <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center">
             <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-widest drop-shadow-md mb-2">QR Code Hari {currentDay}</h3>
             <p className="text-slate-600 dark:text-slate-400 text-xs tracking-widest uppercase font-medium mb-6 text-center max-w-md">
@@ -214,6 +214,16 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
                 Cetak
               </button>
             </div>
+          </div>
+        ) : (
+          <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center animate-fade-in">
+            <div className="w-20 h-20 bg-slate-100 dark:bg-[#1A1C23] border border-slate-300 dark:border-slate-700 flex items-center justify-center mb-6 opacity-60" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <QrCode className="w-10 h-10 text-slate-400 dark:text-slate-500" />
+            </div>
+            <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-widest drop-shadow-md mb-2 text-center">Sesi Absensi Ditutup</h3>
+            <p className="text-slate-600 dark:text-slate-400 text-xs tracking-widest uppercase font-medium text-center max-w-md">
+              Sesi absensi untuk saat ini sedang tidak aktif. <br className="hidden md:block" /> Centang &quot;Aktifkan Sesi&quot; dan simpan untuk menampilkan QR Code.
+            </p>
           </div>
         )}
       </div>
