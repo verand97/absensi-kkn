@@ -284,7 +284,7 @@ export default function Home() {
             </div>
 
             {/* Fingerprint Scanner Graphic (Desktop only) */}
-            <div className="flex absolute top-[55%] xl:top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 xl:w-40 xl:h-40 items-center justify-center z-0">
+            <div className="flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 xl:w-40 xl:h-40 items-center justify-center z-0">
                <div className="absolute top-0 left-0 w-5 h-5 xl:w-6 xl:h-6 border-t-2 border-l-2 border-[#80FF56]"></div>
                <div className="absolute top-0 right-0 w-5 h-5 xl:w-6 xl:h-6 border-t-2 border-r-2 border-[#80FF56]"></div>
                <div className="absolute bottom-0 left-0 w-5 h-5 xl:w-6 xl:h-6 border-b-2 border-l-2 border-[#80FF56]"></div>
