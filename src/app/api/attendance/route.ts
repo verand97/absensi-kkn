@@ -32,15 +32,22 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: `Absensi hanya diperbolehkan dari jam ${setting.startTime} sampai ${setting.endTime}.` }, { status: 400 });
       }
 
-      const attendance = await prisma.attendance.upsert({
+      // Cek apakah sudah absen hari ini
+      const existingAttendance = await prisma.attendance.findUnique({
         where: {
           memberId_day: {
             memberId: session.user.id,
             day: setting.currentDay
           }
-        },
-        update: {},
-        create: {
+        }
+      });
+
+      if (existingAttendance) {
+        return NextResponse.json({ error: "Anda sudah melakukan absensi untuk hari ini." }, { status: 400 });
+      }
+
+      const attendance = await prisma.attendance.create({
+        data: {
           memberId: session.user.id,
           day: setting.currentDay
         }
@@ -78,15 +85,22 @@ export async function POST(request: Request) {
       }
     }
 
-    const attendance = await prisma.attendance.upsert({
+    // Cek apakah sudah absen hari ini
+    const existingAttendance = await prisma.attendance.findUnique({
       where: {
         memberId_day: {
           memberId: member.id,
           day: Number(day)
         }
-      },
-      update: {},
-      create: {
+      }
+    });
+
+    if (existingAttendance) {
+      return NextResponse.json({ error: "Anggota ini sudah melakukan absensi untuk hari ini." }, { status: 400 });
+    }
+
+    const attendance = await prisma.attendance.create({
+      data: {
         memberId: member.id,
         day: Number(day)
       }

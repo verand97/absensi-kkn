@@ -24,7 +24,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
   const handleSave = async () => {
     setLoading(true);
     setMsg("");
-    const token = `ABSEN-HARI-${currentDay}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    const token = "QR-ABSEN-KKN-SUMANDING-2026";
     
     try {
       const res = await fetch("/api/settings", {
