@@ -13,7 +13,14 @@ export async function POST(request: Request) {
       }
     });
 
-    if (!member || member.name.toLowerCase().trim() !== name.toLowerCase().trim()) {
+    const normalizeName = (str: string) =>
+      str
+        .toLowerCase()
+        .replace(/['’`‘]/g, "'")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (!member || normalizeName(member.name) !== normalizeName(name)) {
       return NextResponse.json({ error: "Nama atau NIM salah." }, { status: 401 });
     }
 

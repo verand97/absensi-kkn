@@ -34,10 +34,14 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
       });
       if (res.ok) {
         setQrToken(token);
-        setMsg("Pengaturan berhasil disimpan. QR Code Absensi siap digunakan!");
+        if (isActive) {
+          setMsg(`Sesi absensi Hari ${currentDay} BERHASIL DIAKTIFKAN.`);
+        } else {
+          setMsg(`Sesi absensi Hari ${currentDay} BERHASIL DIMATIKAN.`);
+        }
         setTimeout(() => setMsg(""), 5000);
       } else {
-        setMsg("Gagal menyimpan.");
+        setMsg("Gagal menyimpan pengaturan.");
       }
     } catch {
       setMsg("Terjadi kesalahan.");
