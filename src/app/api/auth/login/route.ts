@@ -5,29 +5,59 @@ import { login } from "@/lib/auth";
 export async function POST(request: Request) {
   try {
     const { name, password } = await request.json();
-    
-    // Login with name and NIM as password
-    const member = await prisma.member.findUnique({
+
+    const trimmedPass = (password || "").toString().trim();
+    const trimmedName = (name || "").toString().trim();
+
+    if (!trimmedPass || !trimmedName) {
+      return NextResponse.json({ error: "Nama dan NIM wajib diisi." }, { status: 400 });
+    }
+
+    const cleanName = (str: string) =>
+      str
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+
+    // 1. Try finding by NIM first
+    let member = await prisma.member.findFirst({
       where: {
-        nim: password.trim()
+        OR: [
+          { nim: trimmedPass },
+          { nim: trimmedName }
+        ]
       }
     });
 
-    const normalizeName = (str: string) =>
-      str
-        .toLowerCase()
-        .replace(/['’`‘]/g, "'")
-        .replace(/\s+/g, " ")
-        .trim();
+    // 2. If not found by NIM, search all members by normalized name
+    if (!member) {
+      const allMembers = await prisma.member.findMany();
+      const targetCleanName = cleanName(trimmedName);
+      member = allMembers.find((m) => cleanName(m.name) === targetCleanName) || null;
+    }
 
-    if (!member || normalizeName(member.name) !== normalizeName(name)) {
+    if (!member) {
+      return NextResponse.json({ error: "Nama atau NIM salah." }, { status: 401 });
+    }
+
+    const dbCleanName = cleanName(member.name);
+    const inputCleanName = cleanName(trimmedName);
+
+    const isNameMatch =
+      dbCleanName === inputCleanName ||
+      dbCleanName.includes(inputCleanName) ||
+      inputCleanName.includes(dbCleanName);
+    const isNimMatch = member.nim === trimmedPass || member.nim === trimmedName;
+
+    if (!isNameMatch && !isNimMatch) {
       return NextResponse.json({ error: "Nama atau NIM salah." }, { status: 401 });
     }
 
     await login({ id: member.id, name: member.name, isAdmin: member.isAdmin });
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error("Login error:", error);
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
   }
 }
+
