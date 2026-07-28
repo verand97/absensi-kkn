@@ -292,12 +292,12 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
 
                       {!showScanner ? (
                         <div className="text-center flex flex-col items-center w-full justify-center h-full">
-                          <p className="text-xs text-slate-500 dark:text-slate-500 font-bold tracking-widest uppercase mb-6 max-w-[200px]">
+                          <p className="text-xs text-slate-500 dark:text-slate-500 font-bold tracking-widest uppercase mb-6 max-w-50">
                             Pindai kode QR dari layar admin
                           </p>
                           <button
                             onClick={() => { setShowScanner(true); setActiveTab('scan'); }}
-                            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] w-full max-w-[220px]"
+                            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] w-full max-w-55"
                             style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                           >
                             <Camera size={16} /> Buka Mode Scan
@@ -381,7 +381,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                               </div>
 
                               {/* Reader Element & Preview Box */}
-                              <div className="w-full relative overflow-hidden border border-slate-300 dark:border-slate-700 bg-black min-h-[240px] flex flex-col items-center justify-center" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+                              <div className="w-full relative overflow-hidden border border-slate-300 dark:border-slate-700 bg-black min-h-60 flex flex-col items-center justify-center" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
                                 <div id="reader" className="w-full"></div>
 
                                 {!isCameraActive && (
@@ -418,7 +418,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                             <div className="w-full flex flex-col items-center animate-fade-in">
                               <div 
                                 onClick={() => fileInputRef.current?.click()}
-                                className="w-full border-2 border-dashed border-slate-400 dark:border-slate-700 hover:border-[#7F56FF] bg-slate-100/50 dark:bg-[#12141C] p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center group min-h-[240px]"
+                                className="w-full border-2 border-dashed border-slate-400 dark:border-slate-700 hover:border-[#7F56FF] bg-slate-100/50 dark:bg-[#12141C] p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center group min-h-60"
                                 style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}
                               >
                                 <div className="w-12 h-12 rounded-full bg-[#7F56FF]/10 text-[#7F56FF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">

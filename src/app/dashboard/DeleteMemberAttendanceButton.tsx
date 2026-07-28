@@ -9,7 +9,7 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
   const router = useRouter();
 
   const handleDelete = async () => {
-    if (!confirm(`[ PERINGATAN ]\nYakin ingin mereset/menghapus semua data absensi untuk ${memberName}?`)) {
+    if (!confirm(`Kurangi 1 absensi (kehadiran terbaru) untuk ${memberName}?`)) {
       return;
     }
 
@@ -19,10 +19,12 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
         method: "DELETE",
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         router.refresh();
       } else {
-        alert("GAGAL MENGHAPUS ABSENSI");
+        alert(data.error?.toUpperCase() || "GAGAL MENGURANGI ABSENSI");
       }
     } catch {
       alert("ERROR JARINGAN/SISTEM");
@@ -35,7 +37,7 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      title={`Reset absensi ${memberName}`}
+      title={`Kurangi 1 absensi ${memberName}`}
       className="text-slate-500 dark:text-slate-500 hover:text-red-400 bg-slate-200 dark:bg-[#090A0F] hover:bg-red-500/10 border border-slate-200 dark:border-slate-800 hover:border-red-500/30 p-2 transition-colors disabled:opacity-50 inline-flex items-center justify-center"
       style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
     >

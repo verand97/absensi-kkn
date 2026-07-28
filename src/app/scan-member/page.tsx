@@ -212,7 +212,7 @@ export default function MemberScannerPage() {
                   </div>
                 </div>
 
-                <div className="w-full relative overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-950 min-h-[260px] flex flex-col items-center justify-center">
+                <div className="w-full relative overflow-hidden rounded-2xl border-2 border-slate-700 bg-slate-950 min-h-65 flex flex-col items-center justify-center">
                   <div id="reader" className="w-full"></div>
 
                   {!isCameraActive && (
@@ -247,7 +247,7 @@ export default function MemberScannerPage() {
               <div className="w-full flex flex-col items-center">
                 <div 
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-full border-2 border-dashed border-slate-700 hover:border-blue-500 bg-slate-950/60 p-8 text-center rounded-2xl cursor-pointer transition-all flex flex-col items-center justify-center group min-h-[250px]"
+                  className="w-full border-2 border-dashed border-slate-700 hover:border-blue-500 bg-slate-950/60 p-8 text-center rounded-2xl cursor-pointer transition-all flex flex-col items-center justify-center group min-h-62.5"
                 >
                   <div className="w-14 h-14 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                     <Upload size={28} />
