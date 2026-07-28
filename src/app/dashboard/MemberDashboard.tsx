@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Camera, X, CheckCircle2, AlertCircle, Eye, EyeOff, Download, Printer, QrCode, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload } from "lucide-react";
+import { Camera, X, CheckCircle2, AlertCircle, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import { ThemeToggle } from "@/components/theme-toggle";
-import QRCode from "react-qr-code";
 import { Html5Qrcode } from "html5-qrcode";
 import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
@@ -34,7 +33,6 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [showMyQR, setShowMyQR] = useState(false);
   const [activeTab, setActiveTab] = useState<'beranda' | 'scan' | 'rekap' | 'profil'>('beranda');
 
   const lastScannedRef = useRef<string>("");
@@ -50,68 +48,6 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
       setShowScanner(false);
       stopCamera();
     }
-  };
-
-  const handleDownloadQR = () => {
-    const svg = document.querySelector("#member-qr-wrapper svg");
-    if (!svg) return;
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const img = new window.Image();
-    img.onload = () => {
-      canvas.width = img.width + 40;
-      canvas.height = img.height + 40;
-      if (ctx) {
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 20, 20);
-      }
-      const pngFile = canvas.toDataURL("image/png");
-      const downloadLink = document.createElement("a");
-      downloadLink.download = `QR-${member.nim}.png`;
-      downloadLink.href = pngFile;
-      downloadLink.click();
-    };
-    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
-  };
-
-  const handlePrintQR = () => {
-    const svg = document.querySelector("#member-qr-wrapper svg");
-    if (!svg) return;
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const img = new window.Image();
-    img.onload = () => {
-      canvas.width = img.width + 40;
-      canvas.height = img.height + 40;
-      if (ctx) {
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 20, 20);
-      }
-      const pngFile = canvas.toDataURL("image/png");
-      const printWindow = window.open('', '_blank');
-      if (printWindow) {
-        printWindow.document.write(`
-          <html>
-            <head><title>Cetak QR Code ${member.name}</title></head>
-            <body style="margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
-              <img src="${pngFile}" style="max-width: 100%; width: 400px;" />
-              <script>
-                setTimeout(() => {
-                  window.print();
-                  window.close();
-                }, 250);
-              </script>
-            </body>
-          </html>
-        `);
-        printWindow.document.close();
-      }
-    };
-    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
 
   const stopCamera = async () => {
@@ -343,49 +279,9 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
           {(!hasAttendedToday && setting.isActive) && (
             <div className={`${activeTab === 'scan' ? 'block' : 'hidden'} md:block p-px bg-slate-200 dark:bg-slate-700/50`} style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
               <div className="bg-white dark:bg-[#12141C] w-full p-6 md:p-8" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
-                <div className="flex flex-col md:flex-row gap-6">
-                    {/* Left Box: My QR */}
-                    <div className="flex-1 flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-[#090A0F] border border-slate-200 dark:border-slate-800" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
-                      <h3 className="font-bold text-xs uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-6 flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-[#7F56FF] rounded-full"></div>
-                        Identitas Anda
-                      </h3>
-                      
-                      {!showMyQR ? (
-                        <div className="flex flex-col items-center text-center">
-                          <div className="w-40 h-40 bg-white dark:bg-[#12141C] border border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center opacity-60 mb-6 relative" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
-                             <QrCode size={40} className="text-slate-500 dark:text-slate-500 mb-2" />
-                             <span className="text-[10px] text-slate-500 dark:text-slate-500 font-bold tracking-widest">TERKUNCI</span>
-                          </div>
-                          <button 
-                            onClick={() => setShowMyQR(true)}
-                            className="flex items-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
-                            style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
-                          >
-                            <Eye size={16} /> Buka QR Code
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center w-full">
-                          <div id="member-qr-wrapper" className="bg-white p-3 mb-6" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
-                            <QRCode value={member.nim} size={160} />
-                          </div>
-                          <div className="flex flex-wrap justify-center gap-3 mb-4">
-                            <button onClick={handleDownloadQR} className="p-2.5 bg-slate-100 dark:bg-[#1A1C23] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-[#252836] transition-colors"><Download size={16} /></button>
-                            <button onClick={handlePrintQR} className="p-2.5 bg-slate-100 dark:bg-[#1A1C23] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-[#252836] transition-colors"><Printer size={16} /></button>
-                            <button onClick={() => setShowMyQR(false)} className="p-2.5 bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20 transition-colors flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
-                              <EyeOff size={16} /> Tutup
-                            </button>
-                          </div>
-                          <p className="text-[10px] text-center text-slate-500 dark:text-slate-500 font-bold uppercase tracking-widest">
-                            Scan melalui admin
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Right Box: Scan Self */}
-                    <div className="flex-1 flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-[#090A0F] border border-slate-200 dark:border-slate-800" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
+                <div className="w-full max-w-xl mx-auto">
+                    {/* Scan Self */}
+                    <div className="w-full flex flex-col items-center justify-center p-6 bg-slate-200 dark:bg-[#090A0F] border border-slate-200 dark:border-slate-800" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
                       <h3 className="font-bold text-xs uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-6 flex items-center gap-2">
                         <div className="w-1.5 h-1.5 bg-[#80FF56] rounded-full"></div>
                         Scan Mandiri
