@@ -108,14 +108,14 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
               </div>
               
               <div className="overflow-x-auto p-4 md:p-6 custom-scrollbar">
-                <table className="w-full text-left border-collapse min-w-[800px]">
+                <table className="w-full text-left border-collapse min-w-200">
                   <thead>
                     <tr className="text-slate-500 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest">
                       <th className="p-4 border-b border-slate-200 dark:border-slate-800 pb-4">Nama Lengkap</th>
                       <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Total Hadir</th>
                       <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Aksi</th>
                       {Array.from({ length: 40 }).map((_, i) => (
-                        <th key={i} className="p-4 border-b border-slate-200 dark:border-slate-800 text-center min-w-[45px] pb-4">
+                        <th key={i} className="p-4 border-b border-slate-200 dark:border-slate-800 text-center min-w-11.25 pb-4">
                           H{i + 1}
                         </th>
                       ))}

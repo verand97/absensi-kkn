@@ -65,10 +65,10 @@ export default function Home() {
             
             {/* Mobile Fingerprint Background overlay */}
             <div className="absolute top-10 right-[-10%] w-64 h-64 lg:hidden flex items-center justify-center opacity-[0.25] pointer-events-none overflow-hidden z-[-1]">
-              <div className="absolute w-[250px] h-[250px] border border-[#7F56FF]/40 rounded-full"></div>
-              <div className="absolute w-[180px] h-[180px] border border-[#7F56FF]/50 rounded-full border-dashed"></div>
+              <div className="absolute w-62.5 h-62.5 border border-[#7F56FF]/40 rounded-full"></div>
+              <div className="absolute w-45 h-45 border border-[#7F56FF]/50 rounded-full border-dashed"></div>
               <Fingerprint className="w-28 h-28 text-[#7F56FF]" strokeWidth={1} />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130px] h-[130px]">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32.5 h-32.5">
                  <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#80FF56]"></div>
                  <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#80FF56]"></div>
                  <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#80FF56]"></div>
@@ -105,12 +105,12 @@ export default function Home() {
             {/* Action Button */}
             <Link href="/login" className="inline-flex group relative">
               <div 
-                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-[2px] transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)]" 
+                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-0.5 transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)]" 
                 style={{ clipPath: "polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)" }}
               >
                 <div 
                   className="flex items-stretch bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
-                  style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
+                  style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
                 >
                   <div className="px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-xs md:text-sm flex items-center justify-center">
                     LOGIN
@@ -136,7 +136,7 @@ export default function Home() {
               
               {/* Mobile Card 1 */}
               <div className="w-full flex items-center p-4 bg-slate-100 dark:bg-[#101217] rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden">
-                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-purple-500 to-transparent"></div>
+                <div className="absolute left-0 top-0 w-0.5 h-full bg-linear-to-b from-purple-500 to-transparent"></div>
                 <div className="flex items-center gap-4 flex-1">
                   <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
                     <Users className="w-6 h-6 text-purple-400" />
@@ -155,7 +155,7 @@ export default function Home() {
 
               {/* Mobile Card 2 */}
               <div className="w-full flex items-center p-4 bg-slate-100 dark:bg-[#101217] rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden">
-                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-green-500 to-transparent"></div>
+                <div className="absolute left-0 top-0 w-0.5 h-full bg-linear-to-b from-green-500 to-transparent"></div>
                 <div className="flex items-center gap-4 flex-1">
                   <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
                     <Calendar className="w-6 h-6 text-purple-400" />
@@ -171,7 +171,7 @@ export default function Home() {
 
               {/* Mobile Card 3 */}
               <div className="w-full flex items-center p-4 bg-slate-100 dark:bg-[#101217] rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden">
-                <div className="absolute left-0 top-0 w-[2px] h-full bg-linear-to-b from-purple-500 to-transparent"></div>
+                <div className="absolute left-0 top-0 w-0.5 h-full bg-linear-to-b from-purple-500 to-transparent"></div>
                 <div className="flex items-center gap-4 w-full">
                   <div className="w-14 h-14 shrink-0 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center">
                     <Activity className="w-6 h-6 text-purple-400" />
@@ -197,7 +197,7 @@ export default function Home() {
           </div>
 
           {/* Right Column - Desktop Cyberpunk Dashboard Cards (Hidden on Mobile) */}
-          <div className="hidden lg:block lg:col-span-6 relative min-h-[480px] w-full mt-12 lg:mt-0 z-10">
+          <div className="hidden lg:block lg:col-span-6 relative min-h-120 w-full mt-12 lg:mt-0 z-10">
             
             {/* SVG Gradient Defs */}
             <svg width="0" height="0" className="absolute">
@@ -208,15 +208,15 @@ export default function Home() {
             </svg>
 
             {/* Circular Grid Background (Desktop only) */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] border border-slate-200 dark:border-slate-800/50 rounded-full flex items-center justify-center pointer-events-none">
-              <div className="w-[300px] h-[300px] border border-slate-300 dark:border-slate-700/30 rounded-full border-dashed"></div>
-              <div className="absolute w-[500px] h-px bg-slate-200 dark:bg-slate-800/30 rotate-45"></div>
-              <div className="absolute w-[500px] h-px bg-slate-200 dark:bg-slate-800/30 -rotate-45"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-112.5 h-112.5 border border-slate-200 dark:border-slate-800/50 rounded-full flex items-center justify-center pointer-events-none">
+              <div className="w-75 h-75 border border-slate-300 dark:border-slate-700/30 rounded-full border-dashed"></div>
+              <div className="absolute w-125 h-px bg-slate-200 dark:bg-slate-800/30 rotate-45"></div>
+              <div className="absolute w-125 h-px bg-slate-200 dark:bg-slate-800/30 -rotate-45"></div>
             </div>
 
             {/* Card 1: ANGGOTA KKN */}
             <div 
-              className="absolute -top-4 right-0 xl:right-4 w-[280px] xl:w-[320px] p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" 
+              className="absolute -top-4 right-0 xl:right-4 w-70 xl:w-[320px] p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" 
               style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}
             >
               <div 
@@ -237,7 +237,7 @@ export default function Home() {
 
             {/* Card 2: KEHADIRAN HARI INI */}
             <div 
-              className="absolute top-[40%] xl:top-[42%] left-0 -translate-y-1/2 w-[220px] xl:w-[260px] p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl z-20" 
+              className="absolute top-[40%] xl:top-[42%] left-0 -translate-y-1/2 w-55 xl:w-65 p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl z-20" 
               style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
             >
               <div 
@@ -255,7 +255,7 @@ export default function Home() {
 
             {/* Card 3: SESI AKTIF */}
             <div 
-              className="absolute bottom-0 right-0 xl:right-4 w-[280px] xl:w-[340px] p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" 
+              className="absolute bottom-0 right-0 xl:right-4 w-70 xl:w-85 p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" 
               style={{ clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))" }}
             >
               <div 
