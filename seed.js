@@ -6,19 +6,20 @@ const prisma = new PrismaClient();
 async function main() {
   const members = JSON.parse(fs.readFileSync('members.json', 'utf8'));
   
-  const adminNames = ["Mohamad Alfan Ni'am", "Novita Sari"];
+  const adminNames = ["Mohamad Alfan Ni'am", "Novita Sari", "Muhamad Verri Andika Pratama", "Muhammad Verri Andika Pratama"];
   
   for (const m of members) {
+    const isMemberAdmin = Boolean(m.isAdmin || adminNames.includes(m.name));
     await prisma.member.upsert({
       where: { nim: m.nim },
       update: {
         name: m.name,
-        isAdmin: adminNames.includes(m.name)
+        isAdmin: isMemberAdmin
       },
       create: {
         name: m.name,
         nim: m.nim,
-        isAdmin: adminNames.includes(m.name)
+        isAdmin: isMemberAdmin
       }
     });
   }
