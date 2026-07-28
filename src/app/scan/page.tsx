@@ -79,7 +79,7 @@ export default function ScannerPage() {
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
       <div className="w-full max-w-md relative z-10 animate-fade-in">
-        <Link href="/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-[#80FF56] mb-8 transition-colors text-xs font-bold tracking-widest uppercase">
+        <Link href="/dashboard/admin" className="flex items-center gap-2 text-slate-500 hover:text-[#80FF56] mb-8 transition-colors text-xs font-bold tracking-widest uppercase">
           <ArrowLeft size={16} /> Dashboard Admin
         </Link>
         

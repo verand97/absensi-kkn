@@ -40,7 +40,7 @@ export default function ResetAttendanceButton() {
         <button
           onClick={handleReset}
           disabled={isDeleting}
-          className="bg-red-500 hover:bg-red-600 text-slate-900 dark:text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
           style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
         >
           {isDeleting ? "PROSES..." : "YA, HAPUS!"}

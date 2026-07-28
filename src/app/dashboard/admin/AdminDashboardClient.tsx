@@ -71,7 +71,7 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
               
               <Link 
                 href="/scan" 
-                className="hidden md:flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)]"
+                className="hidden md:flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)]"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <QrCode size={16} className="text-[#80FF56]" />

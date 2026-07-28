@@ -261,7 +261,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                     <p className="text-xs font-bold uppercase tracking-widest text-[#7F56FF]/70 mb-6">Silakan buka menu Scan untuk absensi</p>
                     <button 
                       onClick={() => setActiveTab('scan')}
-                      className="inline-flex md:hidden items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-6 py-3 text-xs font-bold tracking-widest uppercase"
+                      className="inline-flex md:hidden items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white px-6 py-3 text-xs font-bold tracking-widest uppercase"
                       style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                     >
                       Buka Kamera
@@ -297,7 +297,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                           </p>
                           <button
                             onClick={() => { setShowScanner(true); setActiveTab('scan'); }}
-                            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] w-full max-w-55"
+                            className="flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] w-full max-w-55"
                             style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                           >
                             <Camera size={16} /> Buka Mode Scan

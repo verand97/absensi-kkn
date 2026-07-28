@@ -112,7 +112,7 @@ export default function Home() {
                   className="flex items-stretch bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
                   style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
                 >
-                  <div className="px-8 py-3.5 md:py-4 font-bold tracking-widest text-slate-900 dark:text-white text-xs md:text-sm flex items-center justify-center">
+                  <div className="px-8 py-3.5 md:py-4 font-bold tracking-widest text-white text-xs md:text-sm flex items-center justify-center">
                     LOGIN
                   </div>
                   <div className="px-4 py-3.5 md:py-4 border-l border-slate-300 dark:border-white/10 flex items-center justify-center bg-slate-200/50 dark:bg-white/5">

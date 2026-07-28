@@ -220,7 +220,7 @@ export default function MemberAccountSettings({ member }: { member: MemberData }
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-slate-900 dark:text-white font-bold py-3 px-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50 text-xs tracking-widest uppercase"
+                  className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white font-bold py-3 px-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(127,86,255,0.3)] disabled:opacity-50 text-xs tracking-widest uppercase"
                   style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                 >
                   <Save size={16} className={isLoading ? "animate-spin" : ""} />
