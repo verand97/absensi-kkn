@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard } from "lucide-react";
+import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
 import ResetAttendanceButton from "../ResetAttendanceButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
+import { exportToXLSX, exportToCSV } from "@/lib/exportAttendance";
 
 interface SettingData {
   startTime: string;
@@ -21,6 +22,7 @@ interface SettingData {
 interface MemberData {
   id: string;
   name: string;
+  nim?: string;
   isAdmin: boolean;
   attendances: { day: number }[];
 }
@@ -104,14 +106,37 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
                   <CalendarDays className="text-[#7F56FF] w-6 h-6" />
                   <h2 className="text-xl font-bold uppercase tracking-widest text-slate-900 dark:text-white">Rekap Kehadiran</h2>
                 </div>
-                <ResetAttendanceButton />
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => exportToXLSX(members)}
+                    className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                    style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                    title="Download Rekap Format XLSX (Excel)"
+                  >
+                    <FileSpreadsheet size={16} />
+                    Download XLSX
+                  </button>
+
+                  <button
+                    onClick={() => exportToCSV(members)}
+                    className="flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                    style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                    title="Download Rekap Format CSV"
+                  >
+                    <FileText size={16} />
+                    Download CSV
+                  </button>
+
+                  <ResetAttendanceButton />
+                </div>
               </div>
               
               <div className="overflow-x-auto p-4 md:p-6 custom-scrollbar">
                 <table className="w-full text-left border-collapse min-w-200">
                   <thead>
                     <tr className="text-slate-500 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                      <th className="p-4 border-b border-slate-200 dark:border-slate-800 pb-4">Nama Lengkap</th>
+                      <th className="p-4 border-b border-slate-200 dark:border-slate-800 pb-4">Nama Lengkap & NIM</th>
                       <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Total Hadir</th>
                       <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Aksi</th>
                       {Array.from({ length: 40 }).map((_, i) => (
@@ -126,13 +151,22 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
                       const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
                       return (
                         <tr key={member.id} className="hover:bg-slate-200 dark:bg-slate-800/30 transition-colors group">
-                          <td className="p-4 font-bold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                            {member.name}
-                            {member.isAdmin && (
-                              <span className="ml-3 text-[9px] bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 rounded-sm font-black tracking-widest uppercase shadow-[0_0_8px_rgba(127,86,255,0.2)]">
-                                ADMIN
+                          <td className="p-4 text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                            <div className="flex flex-col">
+                              <span className="font-bold flex items-center">
+                                {member.name}
+                                {member.isAdmin && (
+                                  <span className="ml-3 text-[9px] bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 rounded-sm font-black tracking-widest uppercase shadow-[0_0_8px_rgba(127,86,255,0.2)]">
+                                    ADMIN
+                                  </span>
+                                )}
                               </span>
-                            )}
+                              {member.nim && (
+                                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                                  NIM: {member.nim}
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="p-4 text-center font-black text-xl text-[#80FF56]">
                             {presentDays.size}
