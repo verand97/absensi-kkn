@@ -32,8 +32,14 @@ export default function ScannerPage() {
         const now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         
         if (res.ok) {
-          setStatus({ type: 'success', msg: `BERHASIL: ${data.memberName} (H-${data.day})` });
-          setHistory(prev => [{name: data.memberName, status: 'success' as const, msg: `HADIR (H-${data.day})`, time: now}, ...prev].slice(0, 10));
+          const successMsg = data.allAttended
+            ? `BERHASIL: ${data.memberName} (H-${data.day}) - SEMUA ANGGOTA TELAH ABSEN (SESI DITUTUP)`
+            : `BERHASIL: ${data.memberName} (H-${data.day})`;
+          const logMsg = data.allAttended
+            ? `HADIR (H-${data.day}) - SESI DITUTUP`
+            : `HADIR (H-${data.day})`;
+          setStatus({ type: 'success', msg: successMsg });
+          setHistory(prev => [{name: data.memberName, status: 'success' as const, msg: logMsg, time: now}, ...prev].slice(0, 10));
         } else {
           const errorMsg = data.error?.toUpperCase() || "GAGAL ABSEN";
           setStatus({ type: 'error', msg: errorMsg });

@@ -51,11 +51,14 @@ export default function MemberScannerPage() {
       const data = await res.json();
       
       if (res.ok) {
-        setStatus({ type: 'success', msg: `Berhasil absen untuk Hari ke-${data.day}!` });
+        const msg = data.allAttended 
+          ? `Berhasil absen Hari ke-${data.day}! Semua anggota telah absen, sesi otomatis ditutup.`
+          : `Berhasil absen untuk Hari ke-${data.day}!`;
+        setStatus({ type: 'success', msg });
         setTimeout(() => {
           stopCamera();
           router.push("/dashboard");
-        }, 2000);
+        }, 2500);
       } else {
         const errorMsg = data.error || "Gagal absen";
         setStatus({ type: 'error', msg: errorMsg });

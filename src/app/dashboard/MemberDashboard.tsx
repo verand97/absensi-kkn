@@ -82,14 +82,17 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
       const data = await res.json();
       
       if (res.ok) {
-        setStatus({ type: 'success', msg: `BERHASIL ABSEN HARI KE-${data.day}` });
+        const msg = data.allAttended
+          ? `BERHASIL ABSEN HARI KE-${data.day}! SEMUA ANGGOTA TELAH ABSEN, SESI OTOMATIS DITUTUP`
+          : `BERHASIL ABSEN HARI KE-${data.day}`;
+        setStatus({ type: 'success', msg });
         setTimeout(() => {
           stopCamera();
           router.refresh();
           setShowScanner(false);
           setStatus(null);
           handleTabChange('beranda');
-        }, 2000);
+        }, 2500);
       } else {
         setStatus({ type: 'error', msg: data.error?.toUpperCase() || "GAGAL ABSEN" });
       }

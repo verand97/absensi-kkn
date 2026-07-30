@@ -53,7 +53,27 @@ export async function POST(request: Request) {
         }
       });
 
-      return NextResponse.json({ success: true, memberName: session.user.name, day: attendance.day });
+      // Auto-close session if all members have checked in
+      const totalMembers = await prisma.member.count();
+      const attendedCount = await prisma.attendance.count({
+        where: { day: setting.currentDay }
+      });
+
+      let allAttended = false;
+      if (totalMembers > 0 && attendedCount >= totalMembers) {
+        allAttended = true;
+        await prisma.setting.update({
+          where: { id: "global" },
+          data: { isActive: false }
+        });
+      }
+
+      return NextResponse.json({ 
+        success: true, 
+        memberName: session.user.name, 
+        day: attendance.day,
+        allAttended 
+      });
     }
 
     // Handle old feature: Admin scanning Member's QR code or direct manual submit
@@ -69,6 +89,8 @@ export async function POST(request: Request) {
     if (!session.user.isAdmin && member.id !== session.user.id) {
       return NextResponse.json({ error: "Anda hanya bisa melakukan absensi untuk diri sendiri" }, { status: 403 });
     }
+
+    const targetDay = Number(day);
 
     if (setting && setting.isActive) {
       // Check time limit (adjusted for WIB UTC+7)
@@ -90,7 +112,7 @@ export async function POST(request: Request) {
       where: {
         memberId_day: {
           memberId: member.id,
-          day: Number(day)
+          day: targetDay
         }
       }
     });
@@ -102,11 +124,33 @@ export async function POST(request: Request) {
     const attendance = await prisma.attendance.create({
       data: {
         memberId: member.id,
-        day: Number(day)
+        day: targetDay
       }
     });
 
-    return NextResponse.json({ success: true, memberName: member.name, day: attendance.day });
+    // Auto-close session if all members have checked in
+    const totalMembers = await prisma.member.count();
+    const attendedCount = await prisma.attendance.count({
+      where: { day: targetDay }
+    });
+
+    let allAttended = false;
+    if (totalMembers > 0 && attendedCount >= totalMembers) {
+      allAttended = true;
+      if (setting && setting.currentDay === targetDay) {
+        await prisma.setting.update({
+          where: { id: "global" },
+          data: { isActive: false }
+        });
+      }
+    }
+
+    return NextResponse.json({ 
+      success: true, 
+      memberName: member.name, 
+      day: attendance.day,
+      allAttended 
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Internal error" }, { status: 500 });
