@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText } from "lucide-react";
+import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText, Search } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
 import ResetAttendanceButton from "../ResetAttendanceButton";
@@ -34,6 +34,21 @@ interface AdminDashboardClientProps {
 
 export default function AdminDashboardClient({ setting, members }: AdminDashboardClientProps) {
   const [activeTab, setActiveTab] = useState<'sesi' | 'anggota'>('sesi');
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredMembers = members.filter((m) =>
+    m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (m.nim && m.nim.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
+  // Calculate daily attendance totals for summary row
+  const dailyTotals = Array.from({ length: 40 }, (_, i) => {
+    const dayNum = i + 1;
+    return members.reduce(
+      (acc, m) => acc + (m.attendances.some((a) => a.day === dayNum) ? 1 : 0),
+      0
+    );
+  });
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0B0D14] text-slate-900 dark:text-white font-sans overflow-x-hidden relative selection:bg-[#7F56FF]/30 pb-24 md:pb-8">
@@ -101,13 +116,29 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
           <div className={`${activeTab === 'anggota' ? 'block' : 'hidden'} md:block p-px bg-slate-200 dark:bg-slate-700/50`} style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
             <div className="bg-white dark:bg-[#12141C] w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
               
-              <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="flex items-center gap-3">
                   <CalendarDays className="text-[#7F56FF] w-6 h-6" />
-                  <h2 className="text-xl font-bold uppercase tracking-widest text-slate-900 dark:text-white">Rekap Kehadiran</h2>
+                  <div>
+                    <h2 className="text-xl font-bold uppercase tracking-widest text-slate-900 dark:text-white">Rekap Kehadiran</h2>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">Total: {members.length} Anggota Terdaftar</p>
+                  </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
+                  {/* Search input */}
+                  <div className="relative flex-1 sm:flex-initial min-w-50">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Cari nama / NIM..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-4 py-2 bg-slate-100 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors"
+                      style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                    />
+                  </div>
+
                   <button
                     onClick={() => exportToXLSX(members)}
                     className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
@@ -133,64 +164,105 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
               </div>
               
               <div className="overflow-x-auto p-4 md:p-6 custom-scrollbar">
-                <table className="w-full text-left border-collapse min-w-200">
+                <table className="w-full text-left border-collapse min-w-220">
                   <thead>
-                    <tr className="text-slate-500 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                      <th className="p-4 border-b border-slate-200 dark:border-slate-800 pb-4">Nama Lengkap & NIM</th>
-                      <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Total Hadir</th>
-                      <th className="p-4 border-b border-slate-200 dark:border-slate-800 text-center pb-4">Aksi</th>
-                      {Array.from({ length: 40 }).map((_, i) => (
-                        <th key={i} className="p-4 border-b border-slate-200 dark:border-slate-800 text-center min-w-11.25 pb-4">
-                          H{i + 1}
-                        </th>
-                      ))}
+                    <tr className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
+                      {/* Sticky Name Column */}
+                      <th className="p-4 pb-4 sticky left-0 z-20 bg-white dark:bg-[#12141C] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)] min-w-55">
+                        Nama Lengkap & NIM
+                      </th>
+                      <th className="p-4 text-center pb-4 min-w-22.5">Total Hadir</th>
+                      <th className="p-4 text-center pb-4 min-w-25">Aksi</th>
+                      {Array.from({ length: 40 }).map((_, i) => {
+                        const dayNum = i + 1;
+                        const isCurrent = dayNum === setting.currentDay;
+                        return (
+                          <th 
+                            key={i} 
+                            className={`p-3 text-center min-w-12 pb-4 transition-colors ${
+                              isCurrent 
+                                ? 'text-[#80FF56] bg-[#80FF56]/10 border-b-2 border-[#80FF56]' 
+                                : ''
+                            }`}
+                          >
+                            <span className="block font-bold">H{dayNum}</span>
+                            {isCurrent && <span className="block text-[8px] text-[#80FF56] font-normal">AKTIF</span>}
+                          </th>
+                        );
+                      })}
                     </tr>
                   </thead>
-                  <tbody className="text-sm divide-y divide-slate-800/50">
-                    {members.map((member) => {
-                      const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
-                      return (
-                        <tr key={member.id} className="hover:bg-slate-200 dark:bg-slate-800/30 transition-colors group">
-                          <td className="p-4 text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                            <div className="flex flex-col">
-                              <span className="font-bold flex items-center">
-                                {member.name}
-                                {member.isAdmin && (
-                                  <span className="ml-3 text-[9px] bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 rounded-sm font-black tracking-widest uppercase shadow-[0_0_8px_rgba(127,86,255,0.2)]">
-                                    ADMIN
+                  <tbody className="text-sm divide-y divide-slate-200 dark:divide-slate-800/60">
+                    {filteredMembers.length === 0 ? (
+                      <tr>
+                        <td colSpan={43} className="p-8 text-center text-slate-500 text-xs uppercase tracking-widest">
+                          Tidak ada data anggota yang cocok dengan pencarian
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredMembers.map((member) => {
+                        const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
+                        return (
+                          <tr key={member.id} className="hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors group">
+                            {/* Sticky Member Name & NIM */}
+                            <td className="p-4 sticky left-0 z-10 bg-white dark:bg-[#12141C] group-hover:bg-slate-100 dark:group-hover:bg-[#181A24] transition-colors shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)]">
+                              <div className="flex flex-col">
+                                <span className="font-bold flex items-center text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                                  {member.name}
+                                  {member.isAdmin && (
+                                    <span className="ml-2 text-[9px] bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 rounded-sm font-black tracking-widest uppercase shadow-[0_0_8px_rgba(127,86,255,0.2)]">
+                                      ADMIN
+                                    </span>
+                                  )}
+                                </span>
+                                {member.nim && (
+                                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">
+                                    NIM: {member.nim}
                                   </span>
                                 )}
-                              </span>
-                              {member.nim && (
-                                <span className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">
-                                  NIM: {member.nim}
-                                </span>
-                              )}
-                            </div>
-                          </td>
-                          <td className="p-4 text-center font-black text-xl text-[#80FF56]">
-                            {presentDays.size}
-                          </td>
-                          <td className="p-4 text-center">
-                            <DeleteMemberAttendanceButton memberId={member.id} memberName={member.name} />
-                          </td>
-                          {Array.from({ length: 40 }).map((_, i) => (
-                            <td key={i} className="p-4 text-center">
-                              {presentDays.has(i + 1) ? (
-                                <div className="w-5 h-5 bg-[#80FF56]/20 border border-[#80FF56]/50 text-[#80FF56] flex items-center justify-center mx-auto shadow-[0_0_5px_rgba(128,255,86,0.2)]" style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
-                                  <span className="text-xs font-black">✓</span>
-                                </div>
-                              ) : (
-                                <div className="w-5 h-5 bg-slate-200 dark:bg-slate-800/50 flex items-center justify-center mx-auto text-slate-600" style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
-                                  -
-                                </div>
-                              )}
+                              </div>
                             </td>
-                          ))}
-                        </tr>
-                      );
-                    })}
+                            <td className="p-4 text-center font-black text-xl text-[#80FF56]">
+                              <span className="bg-[#80FF56]/10 px-3 py-1 border border-[#80FF56]/30 inline-block font-mono">
+                                {presentDays.size}
+                              </span>
+                            </td>
+                            <td className="p-4 text-center">
+                              <DeleteMemberAttendanceButton memberId={member.id} memberName={member.name} />
+                            </td>
+                            {Array.from({ length: 40 }).map((_, i) => (
+                              <td key={i} className="p-3 text-center">
+                                {presentDays.has(i + 1) ? (
+                                  <div className="w-5 h-5 bg-[#80FF56]/20 border border-[#80FF56]/50 text-[#80FF56] flex items-center justify-center mx-auto shadow-[0_0_5px_rgba(128,255,86,0.2)]" style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
+                                    <span className="text-xs font-black">✓</span>
+                                  </div>
+                                ) : (
+                                  <div className="w-5 h-5 bg-slate-100 dark:bg-slate-800/40 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-600" style={{ clipPath: "polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px)" }}>
+                                    -
+                                  </div>
+                                )}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })
+                    )}
                   </tbody>
+                  {/* Footer Summary Row */}
+                  <tfoot className="border-t-2 border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-[#090A0F] font-bold text-xs">
+                    <tr>
+                      <td className="p-4 sticky left-0 z-10 bg-slate-100 dark:bg-[#090A0F] text-slate-700 dark:text-slate-300 uppercase tracking-widest shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:shadow-[2px_0_5px_-2px_rgba(0,0,0,0.5)]">
+                        TOTAL HADIR PER HARI
+                      </td>
+                      <td className="p-4 text-center text-slate-500 font-mono">-</td>
+                      <td className="p-4 text-center text-slate-500 font-mono">-</td>
+                      {dailyTotals.map((total, i) => (
+                        <td key={i} className="p-3 text-center font-mono text-[#80FF56]">
+                          {total}
+                        </td>
+                      ))}
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>
