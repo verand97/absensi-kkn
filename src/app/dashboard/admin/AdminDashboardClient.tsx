@@ -7,6 +7,7 @@ import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, File
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
 import ResetAttendanceButton from "../ResetAttendanceButton";
+import MarkAllAttendanceButton from "../MarkAllAttendanceButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
 import { exportToXLSX, exportToCSV } from "@/lib/exportAttendance";
@@ -159,6 +160,7 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
                     Download CSV
                   </button>
 
+                  <MarkAllAttendanceButton currentDay={setting.currentDay} totalMembers={members.length} />
                   <ResetAttendanceButton />
                 </div>
               </div>
