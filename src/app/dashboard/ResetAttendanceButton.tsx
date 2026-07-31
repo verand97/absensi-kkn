@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/toast";
 
 export default function ResetAttendanceButton() {
   const [isConfirming, setIsConfirming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
+  const { error } = useToast();
 
   const handleReset = async () => {
     if (!isConfirming) {
@@ -25,10 +27,10 @@ export default function ResetAttendanceButton() {
         setIsConfirming(false);
         router.refresh();
       } else {
-        alert("GAGAL MENGHAPUS ABSENSI");
+        error("Gagal menghapus absensi");
       }
     } catch {
-      alert("ERROR JARINGAN/SISTEM");
+      error("Terjadi kesalahan jaringan/sistem");
     } finally {
       setIsDeleting(false);
     }

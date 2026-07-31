@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCheck } from "lucide-react";
+import { useToast } from "@/components/toast";
 
 interface Props {
   currentDay: number;
@@ -11,6 +12,7 @@ interface Props {
 export default function MarkAllAttendanceButton({ currentDay, totalMembers }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { success, error } = useToast();
 
   const handleConfirm = async () => {
     setShowConfirm(false);
@@ -21,13 +23,13 @@ export default function MarkAllAttendanceButton({ currentDay, totalMembers }: Pr
       });
       const data = await res.json();
       if (res.ok) {
-        alert(`✅ ${data.message}`);
+        success(data.message);
         window.location.reload();
       } else {
-        alert(`❌ Gagal: ${data.error}`);
+        error(`Gagal: ${data.error}`);
       }
     } catch {
-      alert("❌ Terjadi kesalahan jaringan");
+      error("Terjadi kesalahan jaringan");
     } finally {
       setIsLoading(false);
     }
