@@ -40,17 +40,28 @@ export async function POST() {
     );
 
     const succeeded = results.filter((r) => r.status === "fulfilled").length;
-    const alreadyExisted = results.filter(
-      (r) => r.status === "fulfilled"
-    ).length;
+
+    // Auto-close sesi jika semua member sudah terabsen
+    const attendedCount = await prisma.attendance.count({
+      where: { day: currentDay },
+    });
+
+    let sessionClosed = false;
+    if (members.length > 0 && attendedCount >= members.length && setting.isActive) {
+      await prisma.setting.update({
+        where: { id: "global" },
+        data: { isActive: false },
+      });
+      sessionClosed = true;
+    }
 
     return NextResponse.json({
       success: true,
-      message: `Berhasil mengabsen ${succeeded} dari ${members.length} anggota untuk Hari ke-${currentDay}`,
+      message: `Berhasil mengabsen ${succeeded} dari ${members.length} anggota untuk Hari ke-${currentDay}${sessionClosed ? ". Sesi otomatis ditutup ✓" : ""}`,
       day: currentDay,
       total: members.length,
       succeeded,
-      alreadyExisted,
+      sessionClosed,
     });
   } catch (error) {
     console.error("Mark all attendance error:", error);
