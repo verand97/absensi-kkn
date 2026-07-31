@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 const replacements = {
     'bg-[#0B0D14]': 'bg-slate-50 dark:bg-[#0B0D14]',
     'text-white': 'text-slate-900 dark:text-white',
