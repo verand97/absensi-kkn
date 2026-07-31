@@ -60,15 +60,15 @@ export default function MarkAllAttendanceButton({ currentDay, totalMembers }: Pr
 
       {/* Dialog konfirmasi */}
       {showConfirm && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          onClick={() => setShowConfirm(false)}
+        >
           <div
-            className="bg-white dark:bg-[#12141C] border border-slate-200 dark:border-slate-700/50 shadow-2xl shadow-black/40 max-w-sm w-full p-px"
-            style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
+            className="bg-white dark:bg-[#12141C] border border-slate-200 dark:border-slate-700/50 shadow-2xl shadow-black/40 max-w-sm w-full overflow-y-auto max-h-[90vh] rounded-sm"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="bg-white dark:bg-[#12141C] p-6"
-              style={{ clipPath: "polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)" }}
-            >
+            <div className="p-6">
               {/* Icon */}
               <div className="flex justify-center mb-4">
                 <div className="w-14 h-14 rounded-full bg-[#80FF56]/10 border border-[#80FF56]/30 flex items-center justify-center shadow-[0_0_20px_rgba(128,255,86,0.2)]">
@@ -95,15 +95,13 @@ export default function MarkAllAttendanceButton({ currentDay, totalMembers }: Pr
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="flex-1 py-2.5 text-xs font-bold uppercase tracking-widest border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                  className="flex-1 py-2.5 text-xs font-bold uppercase tracking-widest border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer rounded-sm"
                 >
                   Batal
                 </button>
                 <button
                   onClick={handleConfirm}
-                  className="flex-1 py-2.5 text-xs font-black uppercase tracking-widest bg-[#80FF56] hover:bg-emerald-400 text-slate-900 transition-all shadow-[0_0_12px_rgba(128,255,86,0.3)] hover:shadow-[0_0_18px_rgba(128,255,86,0.5)] cursor-pointer"
-                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                  className="flex-1 py-2.5 text-xs font-black uppercase tracking-widest bg-[#80FF56] hover:bg-emerald-400 text-slate-900 transition-all shadow-[0_0_12px_rgba(128,255,86,0.3)] hover:shadow-[0_0_18px_rgba(128,255,86,0.5)] cursor-pointer rounded-sm"
                 >
                   Ya, Absenkan!
                 </button>
