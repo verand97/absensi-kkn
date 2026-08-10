@@ -1,3 +1,5 @@
+import { getScheduledDateForDay } from "./dateUtils";
+
 export interface MemberDataForExport {
   id: string;
   name: string;
@@ -49,7 +51,8 @@ export function exportToXLSX(members: MemberDataForExport[], totalDays: number =
 
   let dayHeaderHtml = "";
   for (let i = 1; i <= totalDays; i++) {
-    dayHeaderHtml += `<th style="background-color: #1E293B; color: #FFFFFF; text-align: center; font-weight: bold; border: 1px solid #475569; padding: 6px; min-width: 32px;">H${i}</th>`;
+    const d = getScheduledDateForDay(i);
+    dayHeaderHtml += `<th style="background-color: #1E293B; color: #FFFFFF; text-align: center; font-weight: bold; border: 1px solid #475569; padding: 6px; min-width: 45px;">H${i}<br/><span style="font-size: 9px; font-weight: normal;">${d.dateNum}/${d.monthShort}</span></th>`;
   }
 
   let totalSummaryDaysHtml = "";
@@ -170,7 +173,10 @@ export function exportToCSV(members: MemberDataForExport[], totalDays: number = 
     "Role",
     "Total Hadir",
     "Persentase",
-    ...Array.from({ length: totalDays }, (_, i) => `H${i + 1}`),
+    ...Array.from({ length: totalDays }, (_, i) => {
+      const d = getScheduledDateForDay(i + 1);
+      return `H${i + 1} (${d.dateNum}/${d.monthShort})`;
+    }),
   ];
 
   const dailyTotalAttendance = Array.from({ length: totalDays }, () => 0);

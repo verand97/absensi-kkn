@@ -1,16 +1,20 @@
 /**
  * Utility to format dates with Hari (Day), Tanggal (Date number), Bulan (Month), and Tahun (Year) in Indonesian locale.
+ * Tanggal Mulai Absensi KKN: 27 Juli 2026
  */
 
 export interface IndonesianDateInfo {
   dayName: string;    // Hari (e.g. Senin)
-  dateNum: string;    // Tanggal (e.g. 10)
-  monthName: string;  // Bulan (e.g. Agustus)
-  monthShort: string; // Bulan pendek (e.g. Agt)
+  dateNum: string;    // Tanggal (e.g. 27)
+  monthName: string;  // Bulan (e.g. Juli)
+  monthShort: string; // Bulan pendek (e.g. Jul)
   yearNum: string;    // Tahun (e.g. 2026)
-  fullFormatted: string;  // e.g. "Senin, 10 Agustus 2026"
-  shortFormatted: string; // e.g. "Sen, 10 Agt 2026"
+  fullFormatted: string;  // e.g. "Senin, 27 Juli 2026"
+  shortFormatted: string; // e.g. "Sen, 27 Jul 2026"
 }
+
+// Tanggal awal dimulainya absensi KKN: 27 Juli 2026 (Month index 6 = Juli)
+export const KKN_START_DATE = new Date(2026, 6, 27);
 
 export function getIndonesianDateDetails(dateInput?: Date | string | number | null): IndonesianDateInfo {
   const date = dateInput ? new Date(dateInput) : new Date();
@@ -46,4 +50,13 @@ export function getIndonesianDateDetails(dateInput?: Date | string | number | nu
 
 export function getTodayIndonesianDate(): IndonesianDateInfo {
   return getIndonesianDateDetails(new Date());
+}
+
+/**
+ * Menghitung tanggal resmi KKN untuk Hari Ke-N berdasarkan tanggal mulai (27 Juli 2026).
+ */
+export function getScheduledDateForDay(dayNum: number): IndonesianDateInfo {
+  const date = new Date(KKN_START_DATE);
+  date.setDate(date.getDate() + (dayNum - 1));
+  return getIndonesianDateDetails(date);
 }

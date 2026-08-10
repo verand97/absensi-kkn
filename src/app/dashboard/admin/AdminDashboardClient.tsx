@@ -11,7 +11,7 @@ import MarkAllAttendanceButton from "../MarkAllAttendanceButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
 import { exportToXLSX, exportToCSV } from "@/lib/exportAttendance";
-import { getTodayIndonesianDate } from "@/lib/dateUtils";
+import { getTodayIndonesianDate, getScheduledDateForDay } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;
@@ -194,16 +194,19 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
                       {Array.from({ length: 40 }).map((_, i) => {
                         const dayNum = i + 1;
                         const isCurrent = dayNum === setting.currentDay;
+                        const dateInfo = getScheduledDateForDay(dayNum);
                         return (
                           <th 
                             key={i} 
-                            className={`p-3 text-center min-w-12 pb-4 transition-colors ${
+                            className={`p-2 text-center min-w-14 pb-3 transition-colors ${
                               isCurrent 
                                 ? 'text-[#80FF56] bg-[#80FF56]/10 border-b-2 border-[#80FF56]' 
                                 : ''
                             }`}
+                            title={`Hari Ke-${dayNum}: ${dateInfo.fullFormatted}`}
                           >
                             <span className="block font-bold">H{dayNum}</span>
+                            <span className="block text-[8px] font-mono opacity-70">{dateInfo.dateNum}/{dateInfo.monthShort}</span>
                             {isCurrent && <span className="block text-[8px] text-[#80FF56] font-normal">AKTIF</span>}
                           </th>
                         );

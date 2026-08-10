@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
 import Link from "next/link";
 import Image from "next/image";
-import { getIndonesianDateDetails, getTodayIndonesianDate, IndonesianDateInfo } from "@/lib/dateUtils";
+import { getIndonesianDateDetails, getTodayIndonesianDate, getScheduledDateForDay, IndonesianDateInfo } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;
@@ -533,32 +533,31 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
               <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
                 {Array.from({ length: 40 }).map((_, i) => {
                   const dayNum = i + 1;
+                  const scheduledDate = getScheduledDateForDay(dayNum);
                   const att = member.attendances.find((a: { day: number; createdAt?: string | Date }) => a.day === dayNum);
                   const isPresent = Boolean(att);
-                  const dateInfo = att?.createdAt ? getIndonesianDateDetails(att.createdAt) : null;
+                  const dateInfo = att?.createdAt ? getIndonesianDateDetails(att.createdAt) : scheduledDate;
 
                   return (
                     <button 
                       key={i} 
                       type="button"
-                      onClick={() => setSelectedDayDetail({ dayNum, isPresent, dateInfo: dateInfo || undefined })}
+                      onClick={() => setSelectedDayDetail({ dayNum, isPresent, dateInfo })}
                       className={`flex flex-col items-center justify-center py-2 px-1 border transition-all cursor-pointer hover:scale-105 active:scale-95 group relative ${
                         isPresent 
                           ? 'bg-[#80FF56]/10 border-[#80FF56]/40 text-[#80FF56] shadow-[0_0_10px_rgba(128,255,86,0.1)] hover:bg-[#80FF56]/20' 
                           : 'bg-slate-200 dark:bg-[#090A0F] border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-700'
                       }`}
                       style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
-                      title={`Hari ${dayNum}${dateInfo ? `: ${dateInfo.fullFormatted}` : ' (Tekan untuk detail)'}`}
+                      title={`Hari Ke-${dayNum}: ${dateInfo.fullFormatted}`}
                     >
                       <span className="text-[9px] font-bold tracking-widest mb-0.5 opacity-70">H{dayNum}</span>
                       <span className="text-xs font-black">{isPresent ? '✓' : '-'}</span>
-                      {dateInfo ? (
-                        <span className="text-[7px] font-mono mt-1 opacity-90 truncate max-w-full px-1 bg-[#80FF56]/20 text-[#80FF56] rounded-xs font-bold">
-                          {dateInfo.dateNum}/{dateInfo.monthShort}
-                        </span>
-                      ) : (
-                        <span className="text-[7px] opacity-30 mt-1 font-mono">-</span>
-                      )}
+                      <span className={`text-[7px] font-mono mt-1 opacity-90 truncate max-w-full px-1 rounded-xs font-bold ${
+                        isPresent ? 'bg-[#80FF56]/20 text-[#80FF56]' : 'bg-slate-300 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                      }`}>
+                        {dateInfo.dateNum}/{dateInfo.monthShort}
+                      </span>
                     </button>
                   );
                 })}
@@ -590,23 +589,23 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                     <div className="space-y-2.5 bg-slate-100 dark:bg-slate-900/80 p-4 border border-slate-200 dark:border-slate-800 font-mono text-xs">
                       <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
                         <span className="text-slate-500 dark:text-slate-400 font-sans">HARI:</span>
-                        <span className="font-bold text-[#7F56FF]">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.dayName : '-'}</span>
+                        <span className="font-bold text-[#7F56FF]">{selectedDayDetail.dateInfo?.dayName || '-'}</span>
                       </div>
                       <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
                         <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL:</span>
-                        <span className="font-bold text-[#80FF56]">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.dateNum : '-'}</span>
+                        <span className="font-bold text-[#80FF56]">{selectedDayDetail.dateInfo?.dateNum || '-'}</span>
                       </div>
                       <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
                         <span className="text-slate-500 dark:text-slate-400 font-sans">BULAN:</span>
-                        <span className="font-bold text-cyan-400">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.monthName : '-'}</span>
+                        <span className="font-bold text-cyan-400">{selectedDayDetail.dateInfo?.monthName || '-'}</span>
                       </div>
                       <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
                         <span className="text-slate-500 dark:text-slate-400 font-sans">TAHUN:</span>
-                        <span className="font-bold text-amber-400">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.yearNum : '-'}</span>
+                        <span className="font-bold text-amber-400">{selectedDayDetail.dateInfo?.yearNum || '-'}</span>
                       </div>
                       <div className="flex justify-between pt-0.5">
                         <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL LENGKAP:</span>
-                        <span className="font-bold text-slate-900 dark:text-white text-right">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.fullFormatted : '-'}</span>
+                        <span className="font-bold text-slate-900 dark:text-white text-right">{selectedDayDetail.dateInfo?.fullFormatted || '-'}</span>
                       </div>
                     </div>
 
