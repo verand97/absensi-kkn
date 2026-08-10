@@ -34,6 +34,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
     dayNum: number;
     isPresent: boolean;
     dateInfo?: IndonesianDateInfo;
+    scanDateInfo?: IndonesianDateInfo;
   } | null>(null);
 
   const [showScanner, setShowScanner] = useState(false);
@@ -533,16 +534,16 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
               <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
                 {Array.from({ length: 40 }).map((_, i) => {
                   const dayNum = i + 1;
-                  const scheduledDate = getScheduledDateForDay(dayNum);
+                  const dateInfo = getScheduledDateForDay(dayNum);
                   const att = member.attendances.find((a: { day: number; createdAt?: string | Date }) => a.day === dayNum);
                   const isPresent = Boolean(att);
-                  const dateInfo = att?.createdAt ? getIndonesianDateDetails(att.createdAt) : scheduledDate;
+                  const scanDateInfo = att?.createdAt ? getIndonesianDateDetails(att.createdAt) : null;
 
                   return (
                     <button 
                       key={i} 
                       type="button"
-                      onClick={() => setSelectedDayDetail({ dayNum, isPresent, dateInfo })}
+                      onClick={() => setSelectedDayDetail({ dayNum, isPresent, dateInfo, scanDateInfo: scanDateInfo || undefined })}
                       className={`flex flex-col items-center justify-center py-2 px-1 border transition-all cursor-pointer hover:scale-105 active:scale-95 group relative ${
                         isPresent 
                           ? 'bg-[#80FF56]/10 border-[#80FF56]/40 text-[#80FF56] shadow-[0_0_10px_rgba(128,255,86,0.1)] hover:bg-[#80FF56]/20' 
@@ -604,9 +605,15 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                         <span className="font-bold text-amber-400">{selectedDayDetail.dateInfo?.yearNum || '-'}</span>
                       </div>
                       <div className="flex justify-between pt-0.5">
-                        <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL LENGKAP:</span>
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL JADWAL:</span>
                         <span className="font-bold text-slate-900 dark:text-white text-right">{selectedDayDetail.dateInfo?.fullFormatted || '-'}</span>
                       </div>
+                      {selectedDayDetail.scanDateInfo && (
+                        <div className="flex justify-between border-t border-slate-200 dark:border-slate-800 pt-1.5 text-[10px]">
+                          <span className="text-slate-500 dark:text-slate-400 font-sans">WAKTU ABSEN:</span>
+                          <span className="font-bold text-[#80FF56] text-right">{selectedDayDetail.scanDateInfo.fullFormatted}</span>
+                        </div>
+                      )}
                     </div>
 
                     <button
