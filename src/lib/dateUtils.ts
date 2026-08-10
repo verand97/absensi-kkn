@@ -60,3 +60,19 @@ export function getScheduledDateForDay(dayNum: number): IndonesianDateInfo {
   date.setDate(date.getDate() + (dayNum - 1));
   return getIndonesianDateDetails(date);
 }
+
+/**
+ * Menghitung Hari Ke-N KKN berdasarkan tanggal hari ini secara otomatis (dimulai 27 Juli 2026 = Hari 1).
+ */
+export function getCurrentDayFromStartDate(targetDate?: Date): number {
+  const now = targetDate || new Date();
+  const start = new Date(2026, 6, 27); // 27 Juli 2026
+
+  const startMidnight = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
+  const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+  const diffTime = nowMidnight - startMidnight;
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+  return Math.min(Math.max(diffDays, 1), 40);
+}

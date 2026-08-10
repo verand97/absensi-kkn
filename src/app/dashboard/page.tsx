@@ -3,6 +3,8 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import MemberDashboard from "./MemberDashboard";
 
+import { getCurrentDayFromStartDate } from "@/lib/dateUtils";
+
 export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
@@ -20,10 +22,16 @@ export default async function Dashboard() {
     redirect("/login");
   }
 
+  const autoDay = getCurrentDayFromStartDate();
   let setting = await prisma.setting.findUnique({ where: { id: "global" } });
   if (!setting) {
     setting = await prisma.setting.create({
-      data: { id: "global", startTime: "07:00", endTime: "09:00", isActive: true }
+      data: { id: "global", startTime: "07:00", endTime: "09:00", isActive: true, currentDay: autoDay }
+    });
+  } else if (setting.currentDay !== autoDay) {
+    setting = await prisma.setting.update({
+      where: { id: "global" },
+      data: { currentDay: autoDay }
     });
   }
 

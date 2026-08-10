@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 
+import { getCurrentDayFromStartDate } from "@/lib/dateUtils";
+
 export async function POST(request: Request) {
   try {
     const session = await getSession();
@@ -11,7 +13,14 @@ export async function POST(request: Request) {
 
     const { nim, day, qrToken } = await request.json();
 
-    const setting = await prisma.setting.findUnique({ where: { id: "global" } });
+    const autoDay = getCurrentDayFromStartDate();
+    let setting = await prisma.setting.findUnique({ where: { id: "global" } });
+    if (setting && setting.currentDay !== autoDay) {
+      setting = await prisma.setting.update({
+        where: { id: "global" },
+        data: { currentDay: autoDay }
+      });
+    }
 
     // Handle new feature: Member scanning Admin's QR code
     if (qrToken) {
