@@ -31,7 +31,15 @@ export default async function AdminDashboard() {
     orderBy: { name: 'asc' }
   });
 
+  const formattedMembers = members.map((m) => ({
+    ...m,
+    attendances: m.attendances.map((a) => ({
+      ...a,
+      createdAt: a.createdAt ? a.createdAt.toISOString() : undefined,
+    })),
+  }));
+
   return (
-    <AdminDashboardClient setting={setting} members={members} />
+    <AdminDashboardClient setting={setting} members={formattedMembers} />
   );
 }

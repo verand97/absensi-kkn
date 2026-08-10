@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, Save, QrCode, Download, Printer } from "lucide-react";
+import { Clock, Save, QrCode, Download, Printer, Calendar } from "lucide-react";
 import QRCode from "react-qr-code";
+import { getTodayIndonesianDate } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;
@@ -20,6 +21,7 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
   const [qrToken, setQrToken] = useState(initialSetting?.qrToken || "");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const todayInfo = getTodayIndonesianDate();
 
   const handleSave = async () => {
     setLoading(true);
@@ -116,9 +118,25 @@ export default function SettingsPanel({ initialSetting }: { initialSetting: Sett
     <div className="p-px bg-slate-200 dark:bg-slate-700/50 mb-10" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
       <div className="bg-white dark:bg-[#12141C] p-6 md:p-8 animate-fade-in" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
         
-        <div className="flex items-center gap-3 mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
-          <Clock className="text-[#80FF56] w-6 h-6" />
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-widest">Mulai Sesi Absensi</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div className="flex items-center gap-3">
+            <Clock className="text-[#80FF56] w-6 h-6 shrink-0" />
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-widest">Mulai Sesi Absensi</h2>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2.5 py-1 text-[10px] font-black uppercase rounded-xs">
+              Hari: {todayInfo.dayName}
+            </span>
+            <span className="bg-[#80FF56]/20 text-[#80FF56] border border-[#80FF56]/30 px-2.5 py-1 text-[10px] font-black uppercase rounded-xs">
+              Tgl: {todayInfo.dateNum}
+            </span>
+            <span className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-2.5 py-1 text-[10px] font-black uppercase rounded-xs">
+              Bulan: {todayInfo.monthName}
+            </span>
+            <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2.5 py-1 text-[10px] font-black uppercase rounded-xs">
+              Tahun: {todayInfo.yearNum}
+            </span>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">

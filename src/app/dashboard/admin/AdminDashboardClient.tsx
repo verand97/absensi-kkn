@@ -11,6 +11,7 @@ import MarkAllAttendanceButton from "../MarkAllAttendanceButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
 import { exportToXLSX, exportToCSV } from "@/lib/exportAttendance";
+import { getTodayIndonesianDate, getIndonesianDateDetails } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;
@@ -25,7 +26,7 @@ interface MemberData {
   name: string;
   nim?: string;
   isAdmin: boolean;
-  attendances: { day: number }[];
+  attendances: { day: number; createdAt?: string | Date }[];
 }
 
 interface AdminDashboardClientProps {
@@ -36,6 +37,7 @@ interface AdminDashboardClientProps {
 export default function AdminDashboardClient({ setting, members }: AdminDashboardClientProps) {
   const [activeTab, setActiveTab] = useState<'sesi' | 'anggota'>('sesi');
   const [searchQuery, setSearchQuery] = useState("");
+  const todayInfo = getTodayIndonesianDate();
 
   const filteredMembers = members.filter((m) =>
     m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -119,10 +121,24 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
               
               <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-800 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="flex items-center gap-3">
-                  <CalendarDays className="text-[#7F56FF] w-6 h-6" />
+                  <CalendarDays className="text-[#7F56FF] w-6 h-6 shrink-0" />
                   <div>
                     <h2 className="text-xl font-bold uppercase tracking-widest text-slate-900 dark:text-white">Rekap Kehadiran</h2>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">Total: {members.length} Anggota Terdaftar</p>
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mr-1">Total: {members.length} Anggota</span>
+                      <span className="bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                        Hari: {todayInfo.dayName}
+                      </span>
+                      <span className="bg-[#80FF56]/20 text-[#80FF56] border border-[#80FF56]/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                        Tgl: {todayInfo.dateNum}
+                      </span>
+                      <span className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                        Bulan: {todayInfo.monthName}
+                      </span>
+                      <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                        Tahun: {todayInfo.yearNum}
+                      </span>
+                    </div>
                   </div>
                 </div>
 

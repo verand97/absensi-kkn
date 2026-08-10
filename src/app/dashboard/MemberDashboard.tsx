@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Camera, X, CheckCircle2, AlertCircle, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload } from "lucide-react";
+import { Camera, X, CheckCircle2, AlertCircle, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload, Calendar, CalendarDays, Info } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Html5Qrcode } from "html5-qrcode";
@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import MemberAccountSettings from "./MemberAccountSettings";
 import Link from "next/link";
 import Image from "next/image";
+import { getIndonesianDateDetails, getTodayIndonesianDate, IndonesianDateInfo } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;
@@ -21,13 +22,20 @@ interface MemberData {
   name: string;
   nim: string;
   isAdmin?: boolean;
-  attendances: { day: number }[];
+  attendances: { day: number; createdAt?: string | Date }[];
 }
 
 export default function MemberDashboard({ member, setting }: { member: MemberData, setting: SettingData }) {
   const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
   const hasAttendedToday = presentDays.has(setting.currentDay);
+  const todayInfo = getTodayIndonesianDate();
   
+  const [selectedDayDetail, setSelectedDayDetail] = useState<{
+    dayNum: number;
+    isPresent: boolean;
+    dateInfo?: IndonesianDateInfo;
+  } | null>(null);
+
   const [showScanner, setShowScanner] = useState(false);
   const [scanMode, setScanMode] = useState<'camera' | 'upload'>('camera');
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
@@ -238,7 +246,23 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
             <div className="bg-white dark:bg-[#12141C] w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
               {/* Banner Top */}
               <div className="bg-slate-100 dark:bg-[#1A1C23] border-b border-slate-200 dark:border-slate-800 p-6 text-center">
-                <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1">Status Absensi (Hari {setting.currentDay})</h2>
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
+                  <span className="bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/40 px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-sm">
+                    Hari: {todayInfo.dayName}
+                  </span>
+                  <span className="bg-[#80FF56]/20 text-[#80FF56] border border-[#80FF56]/40 px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-sm">
+                    Tanggal: {todayInfo.dateNum}
+                  </span>
+                  <span className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-sm">
+                    Bulan: {todayInfo.monthName}
+                  </span>
+                  <span className="bg-amber-500/20 text-amber-400 border border-amber-500/40 px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-sm">
+                    Tahun: {todayInfo.yearNum}
+                  </span>
+                </div>
+                <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1">
+                  Status Absensi (Hari Ke-{setting.currentDay} • {todayInfo.fullFormatted})
+                </h2>
                 <p className="text-[#80FF56] font-mono text-xs tracking-widest">
                   [ JAM BUKA: {setting.startTime} - {setting.endTime} ]
                 </p>
@@ -475,30 +499,128 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
           {/* TAB 3: REKAP */}
           <div className={`${activeTab === 'rekap' ? 'block' : 'hidden'} md:block p-px bg-slate-200 dark:bg-slate-700/50`} style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
             <div className="bg-white dark:bg-[#12141C] w-full p-6 md:p-8" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400 mb-6 flex items-center justify-between">
-                <span>Riwayat Kehadiran</span>
-                <span className="text-[#80FF56]">Total: {presentDays.size} Hari</span>
-              </h2>
+              
+              {/* Header Rekap dengan Hari, Tanggal, Bulan, Tahun */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                  <h2 className="text-sm font-bold uppercase tracking-widest text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                    <CalendarDays size={18} className="text-[#7F56FF]" />
+                    <span>Riwayat Kehadiran</span>
+                  </h2>
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase">Hari Ini:</span>
+                    <span className="bg-[#7F56FF]/20 text-[#7F56FF] border border-[#7F56FF]/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                      Hari: {todayInfo.dayName}
+                    </span>
+                    <span className="bg-[#80FF56]/20 text-[#80FF56] border border-[#80FF56]/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                      Tgl: {todayInfo.dateNum}
+                    </span>
+                    <span className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                      Bulan: {todayInfo.monthName}
+                    </span>
+                    <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 text-[9px] font-black uppercase rounded-xs">
+                      Tahun: {todayInfo.yearNum}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 self-start md:self-auto">
+                  <span className="text-xs font-black px-3 py-1.5 bg-[#80FF56]/10 border border-[#80FF56]/30 text-[#80FF56]" style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}>
+                    TOTAL: {presentDays.size} HARI
+                  </span>
+                </div>
+              </div>
               
               <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2">
                 {Array.from({ length: 40 }).map((_, i) => {
-                  const isPresent = presentDays.has(i + 1);
+                  const dayNum = i + 1;
+                  const att = member.attendances.find((a: { day: number; createdAt?: string | Date }) => a.day === dayNum);
+                  const isPresent = Boolean(att);
+                  const dateInfo = att?.createdAt ? getIndonesianDateDetails(att.createdAt) : null;
+
                   return (
-                    <div 
+                    <button 
                       key={i} 
-                      className={`flex flex-col items-center justify-center py-2.5 border transition-colors ${
+                      type="button"
+                      onClick={() => setSelectedDayDetail({ dayNum, isPresent, dateInfo: dateInfo || undefined })}
+                      className={`flex flex-col items-center justify-center py-2 px-1 border transition-all cursor-pointer hover:scale-105 active:scale-95 group relative ${
                         isPresent 
-                          ? 'bg-[#80FF56]/10 border-[#80FF56]/30 text-[#80FF56] shadow-[0_0_10px_rgba(128,255,86,0.1)]' 
-                          : 'bg-slate-200 dark:bg-[#090A0F] border-slate-200 dark:border-slate-800 text-slate-600'
+                          ? 'bg-[#80FF56]/10 border-[#80FF56]/40 text-[#80FF56] shadow-[0_0_10px_rgba(128,255,86,0.1)] hover:bg-[#80FF56]/20' 
+                          : 'bg-slate-200 dark:bg-[#090A0F] border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-700'
                       }`}
                       style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
+                      title={`Hari ${dayNum}${dateInfo ? `: ${dateInfo.fullFormatted}` : ' (Tekan untuk detail)'}`}
                     >
-                      <span className="text-[9px] font-bold tracking-widest mb-1 opacity-70">H{i + 1}</span>
-                      <span className="text-sm font-black">{isPresent ? '✓' : '-'}</span>
-                    </div>
+                      <span className="text-[9px] font-bold tracking-widest mb-0.5 opacity-70">H{dayNum}</span>
+                      <span className="text-xs font-black">{isPresent ? '✓' : '-'}</span>
+                      {dateInfo ? (
+                        <span className="text-[7px] font-mono mt-1 opacity-90 truncate max-w-full px-1 bg-[#80FF56]/20 text-[#80FF56] rounded-xs font-bold">
+                          {dateInfo.dateNum}/{dateInfo.monthShort}
+                        </span>
+                      ) : (
+                        <span className="text-[7px] opacity-30 mt-1 font-mono">-</span>
+                      )}
+                    </button>
                   );
                 })}
               </div>
+
+              {/* Day Detail Modal */}
+              {selectedDayDetail && (
+                <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+                  <div className="bg-white dark:bg-[#12141C] border border-slate-300 dark:border-slate-700 w-full max-w-sm p-6 shadow-2xl relative text-slate-900 dark:text-white" style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}>
+                    <button 
+                      onClick={() => setSelectedDayDetail(null)}
+                      className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      <X size={20} />
+                    </button>
+                    
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`w-11 h-11 flex items-center justify-center font-black text-base border ${selectedDayDetail.isPresent ? 'bg-[#80FF56]/20 border-[#80FF56]/50 text-[#80FF56]' : 'bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-500'}`}>
+                        H{selectedDayDetail.dayNum}
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">Detail Presensi Hari Ke-{selectedDayDetail.dayNum}</h3>
+                        <p className={`text-xs font-bold tracking-widest uppercase ${selectedDayDetail.isPresent ? 'text-[#80FF56]' : 'text-slate-400'}`}>
+                          {selectedDayDetail.isPresent ? '✓ SUDAH ABSEN' : '- BELUM ADA RECORD'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2.5 bg-slate-100 dark:bg-slate-900/80 p-4 border border-slate-200 dark:border-slate-800 font-mono text-xs">
+                      <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">HARI:</span>
+                        <span className="font-bold text-[#7F56FF]">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.dayName : '-'}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL:</span>
+                        <span className="font-bold text-[#80FF56]">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.dateNum : '-'}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">BULAN:</span>
+                        <span className="font-bold text-cyan-400">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.monthName : '-'}</span>
+                      </div>
+                      <div className="flex justify-between border-b border-slate-200 dark:border-slate-800 pb-1.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">TAHUN:</span>
+                        <span className="font-bold text-amber-400">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.yearNum : '-'}</span>
+                      </div>
+                      <div className="flex justify-between pt-0.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-sans">TANGGAL LENGKAP:</span>
+                        <span className="font-bold text-slate-900 dark:text-white text-right">{selectedDayDetail.dateInfo ? selectedDayDetail.dateInfo.fullFormatted : '-'}</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedDayDetail(null)}
+                      className="w-full mt-5 bg-[#7F56FF] hover:bg-[#6c42f5] text-white py-2.5 font-bold uppercase tracking-wider text-xs transition-colors cursor-pointer"
+                      style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                    >
+                      Tutup
+                    </button>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
 

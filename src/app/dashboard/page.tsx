@@ -27,5 +27,13 @@ export default async function Dashboard() {
     });
   }
 
-  return <MemberDashboard member={currentUser} setting={setting} />;
+  const formattedMember = {
+    ...currentUser,
+    attendances: currentUser.attendances.map((a) => ({
+      ...a,
+      createdAt: a.createdAt ? a.createdAt.toISOString() : undefined,
+    })),
+  };
+
+  return <MemberDashboard member={formattedMember} setting={setting} />;
 }
