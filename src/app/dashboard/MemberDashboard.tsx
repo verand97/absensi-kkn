@@ -10,6 +10,7 @@ import MemberAccountSettings from "./MemberAccountSettings";
 import Link from "next/link";
 import Image from "next/image";
 import { getIndonesianDateDetails, getTodayIndonesianDate, getScheduledDateForDay, IndonesianDateInfo } from "@/lib/dateUtils";
+import CountdownTimer from "@/components/CountdownTimer";
 
 interface SettingData {
   startTime: string;
@@ -238,6 +239,11 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
             </div>
           </div>
         </header>
+
+        {/* Countdown Timer Widget */}
+        <div className="mb-8">
+          <CountdownTimer title="HITUNGAN MUNDUR HINGGA PENUTUPAN KKN (4 SEPT 2026)" />
+        </div>
 
         {/* Tab Content Wrapper */}
         <div className="space-y-8">

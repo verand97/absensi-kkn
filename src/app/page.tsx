@@ -5,6 +5,7 @@ import {
   Fingerprint, ArrowUpRight, Users, ChevronRight
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import CountdownTimer from "@/components/CountdownTimer";
 
 export default function Home() {
   return (
@@ -101,6 +102,11 @@ export default function Home() {
             <p className="text-slate-600 dark:text-slate-400 text-[13px] md:text-base max-w-md mb-6 md:mb-8 leading-relaxed pr-4 md:pr-0">
               Platform absensi modern yang dirancang khusus untuk peserta KKN Sumanding 2026. Mendukung pemindaian QR Code cepat dan rekapan otomatis selama 40 hari pengabdian.
             </p>
+
+            {/* Countdown Widget */}
+            <div className="w-full max-w-md mb-6">
+              <CountdownTimer title="HITUNGAN MUNDUR HINGGA SELESAI KKN (4 SEPT 2026)" />
+            </div>
 
             {/* Action Button */}
             <Link href="/login" className="inline-flex group relative">
