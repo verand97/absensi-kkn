@@ -105,7 +105,7 @@ export default function Home() {
 
             {/* Countdown Widget */}
             <div className="w-full max-w-md mb-6">
-              <CountdownTimer title="HITUNGAN MUNDUR HINGGA SELESAI KKN (4 SEPT 2026)" />
+              <CountdownTimer title="COUNTDOWN TO THE CLOSING OF KKN (04 SEPT 2026)" />
             </div>
 
             {/* Action Button */}

@@ -242,7 +242,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
 
         {/* Countdown Timer Widget */}
         <div className="mb-8">
-          <CountdownTimer title="HITUNGAN MUNDUR HINGGA PENUTUPAN KKN (4 SEPT 2026)" />
+          <CountdownTimer title="COUNTDOWN TO THE CLOSING OF KKN (04 SEPT 2026)" />
         </div>
 
         {/* Tab Content Wrapper */}

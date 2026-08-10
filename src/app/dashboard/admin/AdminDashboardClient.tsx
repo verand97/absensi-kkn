@@ -110,7 +110,7 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
 
         {/* Countdown Timer Widget */}
         <div className="mb-8">
-          <CountdownTimer title="HITUNGAN MUNDUR HINGGA PENUTUPAN KKN (4 SEPT 2026)" />
+          <CountdownTimer title="COUNTDOWN TO THE CLOSING OF KKN (04 SEPT 2026)" />
         </div>
 
         {/* Desktop View: Show Both, Mobile View: Show based on activeTab */}
