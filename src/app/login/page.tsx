@@ -54,15 +54,15 @@ export default function Login() {
           <div className="bg-white dark:bg-[#12141C] p-8 md:p-10" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
             
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center mb-4">
+              <Link href="/" className="inline-flex items-center justify-center mb-4 group cursor-pointer" title="Kembali ke Halaman Awal">
                 <Image 
                   src="/newlogokkn.png" 
                   alt="Logo KKN Sumanding 2026" 
                   width={80} 
                   height={80} 
-                  className="object-contain w-20 h-20" 
+                  className="object-contain w-20 h-20 group-hover:scale-105 transition-transform" 
                 />
-              </div>
+              </Link>
               <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md">Portal Anggota</h1>
               <p className="text-[#80FF56] text-xs font-bold uppercase tracking-widest mt-1">Sistem Absensi Terintegrasi</p>
             </div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText, Search } from "lucide-react";
+import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText, Search, Home } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
 import ResetAttendanceButton from "../ResetAttendanceButton";
@@ -70,20 +70,29 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6 p-px bg-slate-200 dark:bg-slate-700/50" style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white dark:bg-[#12141C] p-6 md:p-8 w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
             
-            <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center shrink-0">
+            <Link href="/" className="flex items-center gap-4 group cursor-pointer" title="Ke Halaman Awal / Landing Page">
+              <div className="flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <Image src="/newlogokkn.png" alt="Logo" width={56} height={56} className="object-contain w-14 h-14 drop-shadow-[0_0_10px_rgba(127,86,255,0.4)]" />
               </div>
               <div>
                 <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md mb-1">Dashboard Admin</h1>
                 <p className="text-[#80FF56] text-xs tracking-widest uppercase font-bold">Kelola absensi KKN Sumanding 2026</p>
               </div>
-            </div>
+            </Link>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
               <Link 
+                href="/" 
+                className="hidden md:flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-slate-200 dark:hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-4 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                title="Kembali ke Landing Page / Halaman Awal"
+              >
+                <Home size={16} className="text-[#80FF56]" />
+                <span>Halaman Awal</span>
+              </Link>
+              <Link 
                 href="/dashboard" 
-                className="hidden md:flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                className="hidden md:flex items-center justify-center gap-2 bg-slate-100 dark:bg-[#1A1C23] hover:bg-slate-200 dark:hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
                 style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
               >
                 <ArrowLeft size={16} />
