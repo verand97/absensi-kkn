@@ -11,7 +11,7 @@ import MarkAllAttendanceButton from "../MarkAllAttendanceButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import DeleteMemberAttendanceButton from "../DeleteMemberAttendanceButton";
 import { exportToXLSX, exportToCSV } from "@/lib/exportAttendance";
-import { getTodayIndonesianDate, getIndonesianDateDetails } from "@/lib/dateUtils";
+import { getTodayIndonesianDate } from "@/lib/dateUtils";
 
 interface SettingData {
   startTime: string;

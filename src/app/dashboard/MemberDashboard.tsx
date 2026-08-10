@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Camera, X, CheckCircle2, AlertCircle, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload, Calendar, CalendarDays, Info } from "lucide-react";
+import { Camera, X, CheckCircle2, AlertCircle, ArrowRight, Shield, Home, Scan, BarChart2, User, Upload, CalendarDays } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Html5Qrcode } from "html5-qrcode";

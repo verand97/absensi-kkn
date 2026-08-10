@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, Save, QrCode, Download, Printer, Calendar } from "lucide-react";
+import { Clock, Save, QrCode, Download, Printer } from "lucide-react";
 import QRCode from "react-qr-code";
 import { getTodayIndonesianDate } from "@/lib/dateUtils";
 
