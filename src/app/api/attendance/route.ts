@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 
-import { getCurrentDayFromStartDate } from "@/lib/dateUtils";
+import { getCurrentDayFromStartDate, getWibDateComponents } from "@/lib/dateUtils";
 
 export async function POST(request: Request) {
   try {
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     if (setting && setting.currentDay !== autoDay) {
       setting = await prisma.setting.update({
         where: { id: "global" },
-        data: { currentDay: autoDay }
+        data: { currentDay: autoDay, isActive: false }
       });
     }
 
@@ -32,10 +32,9 @@ export async function POST(request: Request) {
       }
 
       // Check time limit (adjusted for WIB UTC+7)
-      const now = new Date();
-      const wibTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
-      const currentHour = wibTime.getUTCHours().toString().padStart(2, '0');
-      const currentMinute = wibTime.getUTCMinutes().toString().padStart(2, '0');
+      const wib = getWibDateComponents();
+      const currentHour = wib.hour.toString().padStart(2, '0');
+      const currentMinute = wib.minute.toString().padStart(2, '0');
       const currentTime = `${currentHour}:${currentMinute}`;
       if (currentTime < setting.startTime || currentTime > setting.endTime) {
         return NextResponse.json({ error: `Absensi hanya diperbolehkan dari jam ${setting.startTime} sampai ${setting.endTime}.` }, { status: 400 });
@@ -103,10 +102,9 @@ export async function POST(request: Request) {
 
     if (setting && setting.isActive) {
       // Check time limit (adjusted for WIB UTC+7)
-      const now = new Date();
-      const wibTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
-      const currentHour = wibTime.getUTCHours().toString().padStart(2, '0');
-      const currentMinute = wibTime.getUTCMinutes().toString().padStart(2, '0');
+      const wib = getWibDateComponents();
+      const currentHour = wib.hour.toString().padStart(2, '0');
+      const currentMinute = wib.minute.toString().padStart(2, '0');
       const currentTime = `${currentHour}:${currentMinute}`;
       
       if (currentTime < setting.startTime || currentTime > setting.endTime) {

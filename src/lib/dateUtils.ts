@@ -16,6 +16,42 @@ export interface IndonesianDateInfo {
 // Tanggal awal dimulainya absensi KKN: 27 Juli 2026 (Month index 6 = Juli)
 export const KKN_START_DATE = new Date(2026, 6, 27);
 
+/**
+ * Helper to extract WIB (Asia/Jakarta, UTC+7) date components.
+ */
+export function getWibDateComponents(targetDate?: Date | string | number | null) {
+  const now = targetDate ? new Date(targetDate) : new Date();
+  const validDate = isNaN(now.getTime()) ? new Date() : now;
+
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: false,
+  });
+
+  const parts = formatter.formatToParts(validDate);
+  const map: Record<string, number> = {};
+  for (const part of parts) {
+    if (part.type !== "literal") {
+      map[part.type] = parseInt(part.value, 10);
+    }
+  }
+
+  return {
+    year: map.year,
+    month: map.month - 1, // 0-indexed month
+    day: map.day,
+    hour: map.hour === 24 ? 0 : map.hour,
+    minute: map.minute,
+    second: map.second,
+  };
+}
+
 export function getIndonesianDateDetails(dateInput?: Date | string | number | null): IndonesianDateInfo {
   const date = dateInput ? new Date(dateInput) : new Date();
 
@@ -31,11 +67,11 @@ export function getIndonesianDateDetails(dateInput?: Date | string | number | nu
     };
   }
 
-  const dayName = date.toLocaleDateString("id-ID", { weekday: "long" });
-  const dateNum = date.getDate().toString().padStart(2, "0");
-  const monthName = date.toLocaleDateString("id-ID", { month: "long" });
-  const monthShort = date.toLocaleDateString("id-ID", { month: "short" });
-  const yearNum = date.getFullYear().toString();
+  const dayName = date.toLocaleDateString("id-ID", { weekday: "long", timeZone: "Asia/Jakarta" });
+  const dateNum = date.toLocaleDateString("id-ID", { day: "2-digit", timeZone: "Asia/Jakarta" });
+  const monthName = date.toLocaleDateString("id-ID", { month: "long", timeZone: "Asia/Jakarta" });
+  const monthShort = date.toLocaleDateString("id-ID", { month: "short", timeZone: "Asia/Jakarta" });
+  const yearNum = date.toLocaleDateString("id-ID", { year: "numeric", timeZone: "Asia/Jakarta" });
 
   return {
     dayName,
@@ -56,22 +92,21 @@ export function getTodayIndonesianDate(): IndonesianDateInfo {
  * Menghitung tanggal resmi KKN untuk Hari Ke-N berdasarkan tanggal mulai (27 Juli 2026).
  */
 export function getScheduledDateForDay(dayNum: number): IndonesianDateInfo {
-  const date = new Date(KKN_START_DATE);
+  const date = new Date(2026, 6, 27);
   date.setDate(date.getDate() + (dayNum - 1));
   return getIndonesianDateDetails(date);
 }
 
 /**
- * Menghitung Hari Ke-N KKN berdasarkan tanggal hari ini secara otomatis (dimulai 27 Juli 2026 = Hari 1).
+ * Menghitung Hari Ke-N KKN berdasarkan tanggal hari ini secara otomatis dalam WIB (dimulai 27 Juli 2026 = Hari 1).
  */
 export function getCurrentDayFromStartDate(targetDate?: Date): number {
-  const now = targetDate || new Date();
-  const start = new Date(2026, 6, 27); // 27 Juli 2026
+  const wib = getWibDateComponents(targetDate);
 
-  const startMidnight = new Date(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
-  const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const startMidnight = Date.UTC(2026, 6, 27);
+  const targetMidnight = Date.UTC(wib.year, wib.month, wib.day);
 
-  const diffTime = nowMidnight - startMidnight;
+  const diffTime = targetMidnight - startMidnight;
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
   return Math.min(Math.max(diffDays, 1), 40);
