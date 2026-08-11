@@ -6,8 +6,31 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import CountdownTimer from "@/components/CountdownTimer";
+import { prisma } from "@/lib/prisma";
+import { getTodayIndonesianDate, getCurrentDayFromStartDate } from "@/lib/dateUtils";
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const totalMembers = await prisma.member.count();
+  const autoDay = getCurrentDayFromStartDate();
+  let setting = await prisma.setting.findUnique({ where: { id: "global" } });
+
+  if (!setting) {
+    setting = await prisma.setting.create({
+      data: { id: "global", startTime: "07:00", endTime: "09:00", isActive: false, currentDay: autoDay }
+    });
+  } else if (setting.currentDay !== autoDay) {
+    setting = await prisma.setting.update({
+      where: { id: "global" },
+      data: { currentDay: autoDay, isActive: false }
+    });
+  }
+
+  const currentDay = setting.currentDay;
+  const todayInfo = getTodayIndonesianDate();
+  const progressPercent = Math.min(Math.round((currentDay / 40) * 100), 100);
+
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50 dark:bg-[#0B0D14] text-slate-900 dark:text-white font-sans relative selection:bg-purple-500/30">
       
@@ -102,12 +125,9 @@ export default function Home() {
               <CountdownTimer title="COUNTDOWN TO THE CLOSING OF KKN (04 SEPT 2026)" />
             </div>
 
-            {/* Action Button */}
-            <Link href="/login" className="inline-flex group relative">
-              <div 
-                className="flex items-center bg-linear-to-r from-purple-600 to-[#7F56FF] p-0.5 transition-transform group-hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(127,86,255,0.3)]" 
-                style={{ clipPath: "polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px)" }}
-              >
+            {/* Call to Action Button */}
+            <div className="flex items-center gap-4 group cursor-pointer">
+              <Link href="/dashboard" className="relative p-px bg-[#7F56FF] group-hover:bg-[#80FF56] transition-colors" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
                 <div 
                   className="flex items-stretch bg-[#150F26] group-hover:bg-[#1D1438] transition-colors"
                   style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
@@ -119,8 +139,8 @@ export default function Home() {
                      <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-[#80FF56]" />
                   </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
 
             {/* Location (Desktop Only) */}
             <div className="mt-6 hidden md:flex items-center gap-3">
@@ -137,22 +157,22 @@ export default function Home() {
               {/* Stat 1 */}
               <div className="flex flex-col items-center justify-center p-2 bg-slate-100 dark:bg-[#101217] rounded-lg border border-slate-200 dark:border-slate-800 shadow-md">
                 <Users className="w-3.5 h-3.5 text-purple-400 mb-1" />
-                <span className="text-base font-black text-[#80FF56] leading-none">128</span>
+                <span className="text-base font-black text-[#80FF56] leading-none">{totalMembers}</span>
                 <span className="text-[7px] font-bold text-slate-500 dark:text-slate-500 tracking-wide uppercase mt-0.5 text-center">Anggota</span>
               </div>
 
               {/* Stat 2 */}
               <div className="flex flex-col items-center justify-center p-2 bg-slate-100 dark:bg-[#101217] rounded-lg border border-slate-200 dark:border-slate-800 shadow-md">
                 <Calendar className="w-3.5 h-3.5 text-purple-400 mb-1" />
-                <span className="text-base font-black text-[#80FF56] leading-none">H-12</span>
-                <span className="text-[7px] font-bold text-slate-500 dark:text-slate-500 tracking-wide uppercase mt-0.5 text-center">Hari Ini</span>
+                <span className="text-base font-black text-[#80FF56] leading-none">H-{currentDay}</span>
+                <span className="text-[7px] font-bold text-slate-500 dark:text-slate-500 tracking-wide uppercase mt-0.5 text-center">{todayInfo.dayName}</span>
               </div>
 
               {/* Stat 3 */}
               <div className="flex flex-col items-center justify-center p-2 bg-slate-100 dark:bg-[#101217] rounded-lg border border-slate-200 dark:border-slate-800 shadow-md">
                 <Activity className="w-3.5 h-3.5 text-purple-400 mb-1" />
-                <span className="text-base font-black text-[#80FF56] leading-none">70%</span>
-                <span className="text-[7px] font-bold text-slate-500 dark:text-slate-500 tracking-wide uppercase mt-0.5 text-center">28/40 Hari</span>
+                <span className="text-base font-black text-[#80FF56] leading-none">{progressPercent}%</span>
+                <span className="text-[7px] font-bold text-slate-500 dark:text-slate-500 tracking-wide uppercase mt-0.5 text-center">{currentDay}/40 Hari</span>
               </div>
 
             </div>
@@ -188,7 +208,7 @@ export default function Home() {
                 <div>
                   <div className="text-[9px] font-bold text-slate-600 dark:text-slate-400 tracking-widest uppercase mb-1">Anggota KKN</div>
                   <div className="text-xs xl:text-sm font-bold text-slate-900 dark:text-white mb-2">Sumanding 2026</div>
-                  <div className="text-3xl xl:text-4xl font-black text-[#80FF56] mb-1">128</div>
+                  <div className="text-3xl xl:text-4xl font-black text-[#80FF56] mb-1">{totalMembers}</div>
                   <div className="text-[10px] text-slate-500 dark:text-slate-500">Anggota Aktif</div>
                 </div>
                 <Users className="w-12 h-12 xl:w-14 xl:h-14 drop-shadow-[0_0_15px_rgba(127,86,255,0.4)] mt-2" stroke="url(#purple-green-grad)" strokeWidth={1.5} />
@@ -208,12 +228,12 @@ export default function Home() {
                   <Calendar className="w-3.5 h-3.5 text-[#7F56FF]" />
                   <span className="text-[9px] font-bold text-slate-600 dark:text-slate-400 tracking-widest uppercase">Kehadiran Hari Ini</span>
                 </div>
-                <div className="text-lg xl:text-xl font-bold text-[#80FF56] mb-1">Hari ke-12</div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-500">Rabu, 16 Juli 2026</div>
+                <div className="text-lg xl:text-xl font-bold text-[#80FF56] mb-1">Hari ke-{currentDay}</div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-500">{todayInfo.fullFormatted}</div>
               </div>
             </div>
 
-            {/* Card 3: SESI AKTIF */}
+            {/* Card 3: SESI AKTIF / DITUTUP */}
             <div 
               className="absolute bottom-0 right-0 xl:right-4 w-56 xl:w-72 p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" 
               style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))" }}
@@ -225,21 +245,26 @@ export default function Home() {
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
                     <Activity className="w-3.5 h-3.5 text-[#7F56FF]" />
-                    <span className="text-[9px] font-bold text-slate-900 dark:text-white tracking-widest uppercase">Sesi Aktif</span>
+                    <span className="text-[9px] font-bold text-slate-900 dark:text-white tracking-widest uppercase">
+                      {setting.isActive ? "Sesi Aktif" : "Sesi Ditutup"}
+                    </span>
                   </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#80FF56] shadow-[0_0_8px_#80FF56]"></div>
+                  <div className={`w-1.5 h-1.5 rounded-full ${setting.isActive ? 'bg-[#80FF56] shadow-[0_0_8px_#80FF56]' : 'bg-red-500 shadow-[0_0_8px_#ef4444]'}`}></div>
                 </div>
                 <div className="mb-2 flex justify-between items-center">
                   <span className="text-[10px] text-slate-600 dark:text-slate-400">Progress Absensi</span>
-                  <span className="text-base xl:text-lg font-bold text-[#80FF56]">70%</span>
+                  <span className="text-base xl:text-lg font-bold text-[#80FF56]">{progressPercent}%</span>
                 </div>
                 <div 
                   className="h-2 w-full bg-slate-50 dark:bg-[#0B0D14] mb-2 relative" 
                   style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
                 >
-                  <div className="absolute top-0 left-0 h-full w-[70%] bg-[#80FF56] shadow-[0_0_10px_#80FF56]"></div>
+                  <div 
+                    className="absolute top-0 left-0 h-full bg-[#80FF56] shadow-[0_0_10px_#80FF56] transition-all duration-500"
+                    style={{ width: `${progressPercent}%` }}
+                  ></div>
                 </div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-500">28 / 40 Hari</div>
+                <div className="text-[10px] text-slate-500 dark:text-slate-500">{currentDay} / 40 Hari</div>
               </div>
             </div>
 
