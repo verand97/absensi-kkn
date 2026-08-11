@@ -16,7 +16,7 @@ export default function Home() {
       <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#80FF56]/10 blur-[150px] rounded-full pointer-events-none"></div>
       
       {/* Grid Lines */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
       {/* Cyberpunk Tech Lines */}
       <div className="absolute bottom-[4%] right-[5%] hidden md:flex gap-2">
@@ -172,8 +172,8 @@ export default function Home() {
             {/* Circular Grid Background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 xl:w-96 xl:h-96 border border-slate-200 dark:border-slate-800/50 rounded-full flex items-center justify-center pointer-events-none">
               <div className="w-56 h-56 xl:w-64 xl:h-64 border border-slate-300 dark:border-slate-700/30 rounded-full border-dashed"></div>
-              <div className="absolute w-96 xl:w-[28rem] h-px bg-slate-200 dark:bg-slate-800/30 rotate-45"></div>
-              <div className="absolute w-96 xl:w-[28rem] h-px bg-slate-200 dark:bg-slate-800/30 -rotate-45"></div>
+              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-slate-800/30 rotate-45"></div>
+              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-slate-800/30 -rotate-45"></div>
             </div>
 
             {/* Card 1: ANGGOTA KKN */}
