@@ -47,10 +47,10 @@ export default function QRPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F1A14] text-[#D7DDD6] flex items-center justify-center p-4">
-      <div className="max-w-md w-full p-px bg-[#1C3324] shadow-2xl relative text-center" style={{ clipPath: "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)" }}>
-        <div className="bg-[#14241B] p-8" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
-          <Link href="/" className="absolute top-6 left-6 text-[#9BA79C] hover:text-[#8FE398] transition-colors print:hidden">
+    <div className="min-h-screen bg-forest-900 text-mist-200 flex items-center justify-center p-4">
+      <div className="max-w-md w-full p-px bg-forest-700 shadow-2xl relative text-center" style={{ clipPath: "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)" }}>
+        <div className="bg-forest-800 p-8" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
+          <Link href="/" className="absolute top-6 left-6 text-mist-500 hover:text-sprout-400 transition-colors print:hidden">
             <ArrowLeft size={24} />
           </Link>
           
@@ -63,12 +63,12 @@ export default function QRPage() {
           />
 
           <h1 className="text-2xl font-bold font-display uppercase tracking-widest text-white mb-1 print:hidden">QR Code Saya</h1>
-          <p className="text-[#9BA79C] text-xs uppercase tracking-widest mb-6 print:hidden">Pilih nama Anda untuk melihat QR Code absensi.</p>
+          <p className="text-mist-500 text-xs uppercase tracking-widest mb-6 print:hidden">Pilih nama Anda untuk melihat QR Code absensi.</p>
 
           <select 
             value={selectedNim}
             onChange={(e) => setSelectedNim(e.target.value)}
-            className="w-full p-4 border border-[#1C3324] bg-[#0F1A14] text-white focus:outline-none focus:border-[#3E7A4F] transition-all font-mono text-sm mb-6 print:hidden appearance-none"
+            className="w-full p-4 border border-forest-700 bg-forest-900 text-white focus:outline-none focus:border-pine-500 transition-all font-mono text-sm mb-6 print:hidden appearance-none"
             style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
           >
             <option value="" disabled>-- Pilih Nama Anggota --</option>
@@ -78,21 +78,21 @@ export default function QRPage() {
           </select>
 
           {selectedMember && (
-            <div className="animate-fade-in flex flex-col items-center bg-[#0F1A14] p-6 border border-[#1C3324]" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
+            <div className="animate-fade-in flex flex-col items-center bg-forest-900 p-6 border border-forest-700" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
               <div className="bg-white p-4 mb-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
                 <QRCode id="qr-code-svg" value={selectedMember.nim} size={200} />
               </div>
               <h2 className="font-bold text-base text-white uppercase tracking-wider">{selectedMember.name}</h2>
-              <p className="text-[#8FE398] font-mono mt-1 text-sm font-bold">{selectedMember.nim}</p>
+              <p className="text-sprout-400 font-mono mt-1 text-sm font-bold">{selectedMember.nim}</p>
               
-              <p className="text-[10px] text-[#8FE398] mt-4 bg-[#3E7A4F]/20 border border-[#3E7A4F]/40 px-3 py-1.5 font-bold uppercase tracking-widest print:hidden" style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}>
+              <p className="text-[10px] text-sprout-400 mt-4 bg-pine-500/20 border border-pine-500/40 px-3 py-1.5 font-bold uppercase tracking-widest print:hidden" style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}>
                 Tunjukkan QR Code ini ke admin saat absensi
               </p>
               
               <div className="flex items-center justify-center gap-3 w-full mt-6 print:hidden">
                 <button 
                   onClick={handleDownload}
-                  className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-[#326440] to-[#3E7A4F] hover:from-[#3E7A4F] hover:to-[#5FA872] text-white p-3 transition-colors font-bold text-xs uppercase tracking-widest shadow-sm cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-linear-to-r from-pine-600 to-pine-500 hover:from-pine-500 hover:to-pine-300 text-white p-3 transition-colors font-bold text-xs uppercase tracking-widest shadow-sm cursor-pointer"
                   style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
                 >
                   <Download size={16} />
@@ -100,7 +100,7 @@ export default function QRPage() {
                 </button>
                 <button 
                   onClick={handlePrint}
-                  className="flex items-center justify-center gap-2 bg-[#1C3324] hover:bg-[#24422E] border border-[#3E7A4F]/50 text-white p-3 transition-colors font-bold shadow-sm cursor-pointer"
+                  className="flex items-center justify-center gap-2 bg-forest-700 hover:bg-forest-600 border border-pine-500/50 text-white p-3 transition-colors font-bold shadow-sm cursor-pointer"
                   title="Print QR Code"
                   style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
                 >

@@ -32,23 +32,23 @@ export default async function Home() {
   const progressPercent = Math.min(Math.round((currentDay / 40) * 100), 100);
 
   return (
-    <div className="min-h-screen lg:h-screen w-full lg:w-screen overflow-y-auto lg:overflow-hidden bg-slate-50 dark:bg-[#0F1A14] text-slate-900 dark:text-[#D7DDD6] font-sans relative selection:bg-[#8FE398]/30">
+    <div className="min-h-screen lg:h-screen w-full lg:w-screen overflow-y-auto lg:overflow-hidden bg-slate-50 dark:bg-forest-900 text-slate-900 dark:text-mist-200 font-sans relative selection:bg-sprout-400/30">
       
       {/* Background Gradients & Textures */}
-      <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-[#3E7A4F]/15 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#8FE398]/10 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-pine-500/15 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-sprout-400/10 blur-[150px] rounded-full pointer-events-none"></div>
       
       {/* Grid Lines */}
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
       {/* Tech Accent Lines */}
       <div className="absolute bottom-[4%] right-[5%] hidden md:flex gap-2">
-         <div className="w-1.5 h-1.5 rounded-full bg-[#3E7A4F]"></div>
-         <div className="w-1.5 h-1.5 rounded-full bg-[#3E7A4F]"></div>
-         <div className="w-1.5 h-1.5 rounded-full bg-[#3E7A4F]"></div>
-         <div className="w-1.5 h-1.5 rounded-full bg-[#3E7A4F]"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-pine-500"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-pine-500"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-pine-500"></div>
+         <div className="w-1.5 h-1.5 rounded-full bg-pine-500"></div>
       </div>
-      <div className="absolute bottom-[4%] right-[8%] hidden md:block w-32 h-px bg-slate-200 dark:bg-[#1C3324]"></div>
+      <div className="absolute bottom-[4%] right-[8%] hidden md:block w-32 h-px bg-slate-200 dark:bg-forest-700"></div>
 
       <div className="container mx-auto px-4 md:px-6 h-full flex flex-col relative z-10 py-3 md:py-5">
         
@@ -64,14 +64,14 @@ export default async function Home() {
             {/* Mobile Logo Text */}
             <div className="flex flex-col leading-[1.1] md:hidden">
               <span className="font-bold font-display text-xs tracking-widest text-slate-900 dark:text-white uppercase">KKN</span>
-              <span className="font-medium text-[8px] tracking-widest text-slate-600 dark:text-[#9BA79C] uppercase">SUMANDING</span>
-              <span className="font-bold font-mono text-xs tracking-widest text-[#8FE398]">2026</span>
+              <span className="font-medium text-[8px] tracking-widest text-slate-600 dark:text-mist-500 uppercase">SUMANDING</span>
+              <span className="font-bold font-mono text-xs tracking-widest text-sprout-400">2026</span>
             </div>
 
             {/* Desktop Logo Text */}
             <div className="hidden md:flex flex-col leading-none">
               <span className="font-bold font-display text-base tracking-widest text-slate-900 dark:text-white uppercase">KKN SUMANDING</span>
-              <span className="font-bold font-mono text-base tracking-widest text-[#8FE398]">2026</span>
+              <span className="font-bold font-mono text-base tracking-widest text-sprout-400">2026</span>
             </div>
           </div>
 
@@ -89,22 +89,22 @@ export default async function Home() {
             
             {/* Mobile QR Background overlay */}
             <div className="absolute top-2 right-[-8%] w-40 h-40 lg:hidden flex items-center justify-center opacity-[0.12] pointer-events-none overflow-hidden z-[-1]">
-              <div className="absolute w-40 h-40 border border-[#3E7A4F]/40 rounded-full"></div>
-              <div className="absolute w-28 h-28 border border-[#8FE398]/50 rounded-full border-dashed"></div>
-              <QrCode className="w-16 h-16 text-[#8FE398]" strokeWidth={1} />
+              <div className="absolute w-40 h-40 border border-pine-500/40 rounded-full"></div>
+              <div className="absolute w-28 h-28 border border-sprout-400/50 rounded-full border-dashed"></div>
+              <QrCode className="w-16 h-16 text-sprout-400" strokeWidth={1} />
             </div>
 
             {/* Tag Pill */}
             <div 
-              className="relative inline-flex items-center gap-3 mb-2 md:mb-4 p-px bg-slate-200 dark:bg-[#1C3324]"
+              className="relative inline-flex items-center gap-3 mb-2 md:mb-4 p-px bg-slate-200 dark:bg-forest-700"
               style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}
             >
               <div 
-                className="flex items-center gap-2 md:gap-3 px-2.5 py-1 md:px-3 md:py-1.5 bg-slate-100 dark:bg-[#14241B]"
+                className="flex items-center gap-2 md:gap-3 px-2.5 py-1 md:px-3 md:py-1.5 bg-slate-100 dark:bg-forest-800"
                 style={{ clipPath: "polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px)" }}
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-[#8FE398] shadow-[0_0_8px_#8FE398]"></div>
-                <span className="text-[8px] md:text-xs font-bold tracking-widest text-slate-700 dark:text-[#D7DDD6] uppercase">Sistem Absensi Terintegrasi</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-sprout-400 shadow-[0_0_8px_#8FE398]"></div>
+                <span className="text-[8px] md:text-xs font-bold tracking-widest text-slate-700 dark:text-mist-200 uppercase">Sistem Absensi Terintegrasi</span>
               </div>
             </div>
 
@@ -112,11 +112,11 @@ export default async function Home() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.75rem] font-bold font-display uppercase tracking-tight leading-[0.95] mb-2 md:mb-4">
               <div className="text-slate-900 dark:text-white drop-shadow-md">REKAM</div>
               <div className="text-slate-900 dark:text-white drop-shadow-md">KEHADIRAN</div>
-              <div className="text-[#3E7A4F] dark:text-[#8FE398] drop-shadow-[0_0_20px_rgba(143,227,152,0.3)]">LEBIH CEPAT.</div>
+              <div className="text-pine-500 dark:text-sprout-400 drop-shadow-[0_0_20px_rgba(143,227,152,0.3)]">LEBIH CEPAT.</div>
             </h1>
 
             {/* Description */}
-            <p className="text-slate-600 dark:text-[#9BA79C] text-[11px] md:text-sm lg:text-base max-w-md mb-2.5 md:mb-5 leading-snug pr-2 md:pr-0">
+            <p className="text-slate-600 dark:text-mist-500 text-[11px] md:text-sm lg:text-base max-w-md mb-2.5 md:mb-5 leading-snug pr-2 md:pr-0">
               Platform absensi modern yang dirancang khusus untuk peserta KKN Sumanding 2026. Mendukung pemindaian QR Code cepat dan rekapan otomatis selama 40 hari pengabdian.
             </p>
 
@@ -127,16 +127,16 @@ export default async function Home() {
 
             {/* Call to Action Button */}
             <div className="flex items-center gap-4 group cursor-pointer mb-2.5 lg:mb-0">
-              <Link href="/dashboard" className="relative p-px bg-[#3E7A4F] group-hover:bg-[#8FE398] transition-colors" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
+              <Link href="/dashboard" className="relative p-px bg-pine-500 group-hover:bg-sprout-400 transition-colors" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
                 <div 
-                  className="flex items-stretch bg-[#14241B] group-hover:bg-[#1C3324] transition-colors"
+                  className="flex items-stretch bg-forest-800 group-hover:bg-forest-700 transition-colors"
                   style={{ clipPath: "polygon(11px 0, calc(100% - 11px) 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px)" }}
                 >
                   <div className="px-6 py-2 md:px-8 md:py-3.5 font-bold tracking-widest text-white text-[11px] md:text-sm flex items-center justify-center">
                     LOGIN
                   </div>
-                  <div className="px-3 py-2 md:px-4 md:py-3.5 border-l border-slate-300 dark:border-[#3E7A4F]/40 flex items-center justify-center bg-slate-200/50 dark:bg-white/5">
-                     <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-[#8FE398]" />
+                  <div className="px-3 py-2 md:px-4 md:py-3.5 border-l border-slate-300 dark:border-pine-500/40 flex items-center justify-center bg-slate-200/50 dark:bg-white/5">
+                     <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-sprout-400" />
                   </div>
                 </div>
               </Link>
@@ -144,10 +144,10 @@ export default async function Home() {
 
             {/* Location (Desktop Only) */}
             <div className="mt-6 hidden md:flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-[#8FE398]" />
+              <MapPin className="w-5 h-5 text-sprout-400" />
               <div className="flex flex-col">
-                <span className="text-[10px] font-bold text-slate-600 dark:text-[#9BA79C] tracking-widest uppercase">Sumanding</span>
-                <span className="text-[10px] font-bold font-mono text-[#8FE398] tracking-widest uppercase">2026</span>
+                <span className="text-[10px] font-bold text-slate-600 dark:text-mist-500 tracking-widest uppercase">Sumanding</span>
+                <span className="text-[10px] font-bold font-mono text-sprout-400 tracking-widest uppercase">2026</span>
               </div>
             </div>
             
@@ -155,24 +155,24 @@ export default async function Home() {
             <div className="grid grid-cols-3 gap-1.5 w-full lg:hidden mt-2">
               
               {/* Stat 1 */}
-              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-[#14241B] rounded-lg border border-slate-200 dark:border-[#1C3324] shadow-md">
-                <Users className="w-3.5 h-3.5 text-[#8FE398] mb-0.5" />
-                <span className="text-sm sm:text-base font-black font-mono text-[#8FE398] leading-none">{totalMembers}</span>
-                <span className="text-[7px] font-bold text-slate-500 dark:text-[#9BA79C] tracking-wide uppercase mt-0.5 text-center">Anggota</span>
+              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-forest-800 rounded-lg border border-slate-200 dark:border-forest-700 shadow-md">
+                <Users className="w-3.5 h-3.5 text-sprout-400 mb-0.5" />
+                <span className="text-sm sm:text-base font-black font-mono text-sprout-400 leading-none">{totalMembers}</span>
+                <span className="text-[7px] font-bold text-slate-500 dark:text-mist-500 tracking-wide uppercase mt-0.5 text-center">Anggota</span>
               </div>
 
               {/* Stat 2 */}
-              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-[#14241B] rounded-lg border border-slate-200 dark:border-[#1C3324] shadow-md">
-                <Calendar className="w-3.5 h-3.5 text-[#8FE398] mb-0.5" />
-                <span className="text-sm sm:text-base font-black font-mono text-[#8FE398] leading-none">H-{currentDay}</span>
-                <span className="text-[7px] font-bold text-slate-500 dark:text-[#9BA79C] tracking-wide uppercase mt-0.5 text-center">{todayInfo.dayName}</span>
+              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-forest-800 rounded-lg border border-slate-200 dark:border-forest-700 shadow-md">
+                <Calendar className="w-3.5 h-3.5 text-sprout-400 mb-0.5" />
+                <span className="text-sm sm:text-base font-black font-mono text-sprout-400 leading-none">H-{currentDay}</span>
+                <span className="text-[7px] font-bold text-slate-500 dark:text-mist-500 tracking-wide uppercase mt-0.5 text-center">{todayInfo.dayName}</span>
               </div>
 
               {/* Stat 3 */}
-              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-[#14241B] rounded-lg border border-slate-200 dark:border-[#1C3324] shadow-md">
-                <Activity className="w-3.5 h-3.5 text-[#8FE398] mb-0.5" />
-                <span className="text-sm sm:text-base font-black font-mono text-[#8FE398] leading-none">{progressPercent}%</span>
-                <span className="text-[7px] font-bold text-slate-500 dark:text-[#9BA79C] tracking-wide uppercase mt-0.5 text-center">{currentDay}/40 Hari</span>
+              <div className="flex flex-col items-center justify-center p-1.5 bg-slate-100 dark:bg-forest-800 rounded-lg border border-slate-200 dark:border-forest-700 shadow-md">
+                <Activity className="w-3.5 h-3.5 text-sprout-400 mb-0.5" />
+                <span className="text-sm sm:text-base font-black font-mono text-sprout-400 leading-none">{progressPercent}%</span>
+                <span className="text-[7px] font-bold text-slate-500 dark:text-mist-500 tracking-wide uppercase mt-0.5 text-center">{currentDay}/40 Hari</span>
               </div>
 
             </div>
@@ -190,26 +190,26 @@ export default async function Home() {
             </svg>
 
             {/* Circular Grid Background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 xl:w-96 xl:h-96 border border-slate-200 dark:border-[#1C3324]/60 rounded-full flex items-center justify-center pointer-events-none">
-              <div className="w-56 h-56 xl:w-64 xl:h-64 border border-slate-300 dark:border-[#3E7A4F]/30 rounded-full border-dashed"></div>
-              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-[#1C3324]/40 rotate-45"></div>
-              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-[#1C3324]/40 -rotate-45"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 xl:w-96 xl:h-96 border border-slate-200 dark:border-forest-700/60 rounded-full flex items-center justify-center pointer-events-none">
+              <div className="w-56 h-56 xl:w-64 xl:h-64 border border-slate-300 dark:border-pine-500/30 rounded-full border-dashed"></div>
+              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-forest-700/40 rotate-45"></div>
+              <div className="absolute w-96 xl:w-md h-px bg-slate-200 dark:bg-forest-700/40 -rotate-45"></div>
             </div>
 
             {/* Card 1: ANGGOTA KKN */}
             <div 
-              className="absolute top-0 right-0 xl:right-4 w-56 xl:w-70 p-px bg-slate-200 dark:bg-[#1C3324] shadow-2xl" 
+              className="absolute top-0 right-0 xl:right-4 w-56 xl:w-70 p-px bg-slate-200 dark:bg-forest-700 shadow-2xl" 
               style={{ clipPath: "polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px)" }}
             >
               <div 
-                className="bg-white dark:bg-[#14241B] p-4 xl:p-5 h-full flex justify-between items-start" 
+                className="bg-white dark:bg-forest-800 p-4 xl:p-5 h-full flex justify-between items-start" 
                 style={{ clipPath: "polygon(17px 0, 100% 0, 100% calc(100% - 17px), calc(100% - 17px) 100%, 0 100%, 0 17px)" }}
               >
                 <div>
-                  <div className="text-[9px] font-bold text-slate-600 dark:text-[#9BA79C] tracking-widest uppercase mb-1">Anggota KKN</div>
+                  <div className="text-[9px] font-bold text-slate-600 dark:text-mist-500 tracking-widest uppercase mb-1">Anggota KKN</div>
                   <div className="text-xs xl:text-sm font-bold font-display text-slate-900 dark:text-white mb-2">Sumanding 2026</div>
-                  <div className="text-3xl xl:text-4xl font-black font-mono text-[#8FE398] mb-1">{totalMembers}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-[#9BA79C]">Anggota Aktif</div>
+                  <div className="text-3xl xl:text-4xl font-black font-mono text-sprout-400 mb-1">{totalMembers}</div>
+                  <div className="text-[10px] text-slate-500 dark:text-mist-500">Anggota Aktif</div>
                 </div>
                 <Users className="w-12 h-12 xl:w-14 xl:h-14 drop-shadow-[0_0_15px_rgba(143,227,152,0.3)] mt-2" stroke="url(#forest-sprout-grad)" strokeWidth={1.5} />
               </div>
@@ -217,64 +217,64 @@ export default async function Home() {
 
             {/* Card 2: KEHADIRAN HARI INI */}
             <div 
-              className="absolute top-[42%] left-0 -translate-y-1/2 w-46 xl:w-56 p-px bg-slate-200 dark:bg-[#1C3324] shadow-2xl z-20" 
+              className="absolute top-[42%] left-0 -translate-y-1/2 w-46 xl:w-56 p-px bg-slate-200 dark:bg-forest-700 shadow-2xl z-20" 
               style={{ clipPath: "polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px)" }}
             >
               <div 
-                className="bg-white dark:bg-[#14241B] p-4 h-full" 
+                className="bg-white dark:bg-forest-800 p-4 h-full" 
                 style={{ clipPath: "polygon(13px 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 13px)" }}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="w-3.5 h-3.5 text-[#8FE398]" />
-                  <span className="text-[9px] font-bold text-slate-600 dark:text-[#9BA79C] tracking-widest uppercase">Kehadiran Hari Ini</span>
+                  <Calendar className="w-3.5 h-3.5 text-sprout-400" />
+                  <span className="text-[9px] font-bold text-slate-600 dark:text-mist-500 tracking-widest uppercase">Kehadiran Hari Ini</span>
                 </div>
-                <div className="text-lg xl:text-xl font-bold font-mono text-[#8FE398] mb-1">Hari ke-{currentDay}</div>
-                <div className="text-[10px] text-slate-500 dark:text-[#9BA79C]">{todayInfo.fullFormatted}</div>
+                <div className="text-lg xl:text-xl font-bold font-mono text-sprout-400 mb-1">Hari ke-{currentDay}</div>
+                <div className="text-[10px] text-slate-500 dark:text-mist-500">{todayInfo.fullFormatted}</div>
               </div>
             </div>
 
             {/* Card 3: SESI AKTIF / DITUTUP */}
             <div 
-              className="absolute bottom-0 right-0 xl:right-4 w-56 xl:w-72 p-px bg-slate-200 dark:bg-[#1C3324] shadow-2xl" 
+              className="absolute bottom-0 right-0 xl:right-4 w-56 xl:w-72 p-px bg-slate-200 dark:bg-forest-700 shadow-2xl" 
               style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))" }}
             >
               <div 
-                className="bg-white dark:bg-[#14241B] p-4 xl:p-5 h-full" 
+                className="bg-white dark:bg-forest-800 p-4 xl:p-5 h-full" 
                 style={{ clipPath: "polygon(0 0, calc(100% - 17px) 0, 100% 17px, 100% 100%, 17px 100%, 0 calc(100% - 17px))" }}
               >
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
-                    <Activity className="w-3.5 h-3.5 text-[#8FE398]" />
+                    <Activity className="w-3.5 h-3.5 text-sprout-400" />
                     <span className="text-[9px] font-bold text-slate-900 dark:text-white tracking-widest uppercase font-display">
                       {setting.isActive ? "Sesi Aktif" : "Sesi Ditutup"}
                     </span>
                   </div>
-                  <div className={`w-2 h-2 rounded-full ${setting.isActive ? 'bg-[#8FE398] shadow-[0_0_8px_#8FE398]' : 'bg-[#D9534F] shadow-[0_0_8px_#D9534F]'}`}></div>
+                  <div className={`w-2 h-2 rounded-full ${setting.isActive ? 'bg-sprout-400 shadow-[0_0_8px_#8FE398]' : 'bg-rose-500 shadow-[0_0_8px_#D9534F]'}`}></div>
                 </div>
                 <div className="mb-2 flex justify-between items-center">
-                  <span className="text-[10px] text-slate-600 dark:text-[#9BA79C]">Progress Absensi</span>
-                  <span className="text-base xl:text-lg font-bold font-mono text-[#8FE398]">{progressPercent}%</span>
+                  <span className="text-[10px] text-slate-600 dark:text-mist-500">Progress Absensi</span>
+                  <span className="text-base xl:text-lg font-bold font-mono text-sprout-400">{progressPercent}%</span>
                 </div>
                 <div 
-                  className="h-2 w-full bg-slate-50 dark:bg-[#0F1A14] mb-2 relative" 
+                  className="h-2 w-full bg-slate-50 dark:bg-forest-900 mb-2 relative" 
                   style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
                 >
                   <div 
-                    className="absolute top-0 left-0 h-full bg-[#8FE398] shadow-[0_0_10px_#8FE398] transition-all duration-500"
+                    className="absolute top-0 left-0 h-full bg-sprout-400 shadow-[0_0_10px_#8FE398] transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
                   ></div>
                 </div>
-                <div className="text-[10px] font-mono text-slate-500 dark:text-[#9BA79C]">{currentDay} / 40 Hari</div>
+                <div className="text-[10px] font-mono text-slate-500 dark:text-mist-500">{currentDay} / 40 Hari</div>
               </div>
             </div>
 
             {/* QR Scanner Graphic (Replaces Fingerprint) */}
             <div className="flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 xl:w-32 xl:h-32 items-center justify-center z-0">
-               <div className="absolute top-0 left-0 w-4 h-4 xl:w-5 xl:h-5 border-t-2 border-l-2 border-[#8FE398]"></div>
-               <div className="absolute top-0 right-0 w-4 h-4 xl:w-5 xl:h-5 border-t-2 border-r-2 border-[#8FE398]"></div>
-               <div className="absolute bottom-0 left-0 w-4 h-4 xl:w-5 xl:h-5 border-b-2 border-l-2 border-[#8FE398]"></div>
-               <div className="absolute bottom-0 right-0 w-4 h-4 xl:w-5 xl:h-5 border-b-2 border-r-2 border-[#8FE398]"></div>
-               <QrCode className="w-16 h-16 xl:w-20 xl:h-20 text-[#3E7A4F] dark:text-[#8FE398] drop-shadow-[0_0_15px_rgba(143,227,152,0.5)]" strokeWidth={1} />
+               <div className="absolute top-0 left-0 w-4 h-4 xl:w-5 xl:h-5 border-t-2 border-l-2 border-sprout-400"></div>
+               <div className="absolute top-0 right-0 w-4 h-4 xl:w-5 xl:h-5 border-t-2 border-r-2 border-sprout-400"></div>
+               <div className="absolute bottom-0 left-0 w-4 h-4 xl:w-5 xl:h-5 border-b-2 border-l-2 border-sprout-400"></div>
+               <div className="absolute bottom-0 right-0 w-4 h-4 xl:w-5 xl:h-5 border-b-2 border-r-2 border-sprout-400"></div>
+               <QrCode className="w-16 h-16 xl:w-20 xl:h-20 text-pine-500 dark:text-sprout-400 drop-shadow-[0_0_15px_rgba(143,227,152,0.5)]" strokeWidth={1} />
             </div>
 
           </div>
