@@ -34,10 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-slate-50 text-slate-900 dark:bg-[#0F1A14] dark:text-[#D7DDD6] font-sans antialiased min-h-screen relative overflow-x-hidden">
+      <body className="bg-slate-50 text-slate-900 dark:bg-forest-900 dark:text-mist-200 font-sans antialiased min-h-screen relative overflow-x-hidden">
         {/* Global Forest Background Glows */}
-        <div className="fixed top-[-10%] left-[-10%] w-75 h-75 md:w-150 md:h-150 bg-[#3E7A4F]/15 rounded-full blur-[80px] md:blur-[150px] pointer-events-none z-[-1]" />
-        <div className="fixed bottom-[-10%] right-[-10%] w-75 h-75 md:w-150 md:h-150 bg-[#8FE398]/10 rounded-full blur-[80px] md:blur-[150px] pointer-events-none z-[-1]" />
+        <div className="fixed top-[-10%] left-[-10%] w-75 h-75 md:w-150 md:h-150 bg-pine-500/15 rounded-full blur-[80px] md:blur-[150px] pointer-events-none z-[-1]" />
+        <div className="fixed bottom-[-10%] right-[-10%] w-75 h-75 md:w-150 md:h-150 bg-sprout-400/10 rounded-full blur-[80px] md:blur-[150px] pointer-events-none z-[-1]" />
         
         <ThemeProvider
           attribute="class"

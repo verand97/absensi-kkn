@@ -33,17 +33,17 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-[#326440] to-[#3E7A4F] hover:from-[#3E7A4F] hover:to-[#5FA872] text-white shadow-[0_0_15px_rgba(62,122,79,0.3)]",
+      "bg-linear-to-r from-pine-600 to-pine-500 hover:from-pine-500 hover:to-pine-300 text-white shadow-[0_0_15px_rgba(62,122,79,0.3)]",
     success:
-      "bg-[#8FE398] hover:bg-[#74D47E] text-[#0F1A14] font-black shadow-[0_0_12px_rgba(143,227,152,0.3)]",
+      "bg-sprout-400 hover:bg-sprout-500 text-forest-900 font-black shadow-[0_0_12px_rgba(143,227,152,0.3)]",
     danger:
-      "bg-[#D9534F] hover:bg-[#C9423E] text-white shadow-[0_0_12px_rgba(217,83,79,0.3)]",
+      "bg-rose-500 hover:bg-rose-600 text-white shadow-[0_0_12px_rgba(217,83,79,0.3)]",
     amber:
-      "bg-[#E3A23E] hover:bg-[#D38E2C] text-[#0F1A14] font-black shadow-[0_0_12px_rgba(227,162,62,0.3)]",
+      "bg-amber-400 hover:bg-amber-500 text-forest-900 font-black shadow-[0_0_12px_rgba(227,162,62,0.3)]",
     outline:
-      "bg-slate-100 dark:bg-[#1A2E20] hover:bg-slate-200 dark:hover:bg-[#24422E] border border-slate-300 dark:border-[#3E7A4F]/50 text-slate-700 dark:text-[#D7DDD6]",
+      "bg-slate-100 dark:bg-forest-700 hover:bg-slate-200 dark:hover:bg-forest-600 border border-slate-300 dark:border-pine-500/50 text-slate-700 dark:text-mist-200",
     ghost:
-      "bg-transparent hover:bg-slate-200/50 dark:hover:bg-white/10 text-slate-700 dark:text-[#D7DDD6]",
+      "bg-transparent hover:bg-slate-200/50 dark:hover:bg-white/10 text-slate-700 dark:text-mist-200",
   };
 
   return (

@@ -45,10 +45,10 @@ export default function CountdownTimer({
   if (compact) {
     return (
       <div
-        className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#E3A23E]/10 dark:bg-[#E3A23E]/15 border border-[#E3A23E]/30 text-[#E3A23E] text-[10px] sm:text-xs font-mono font-bold"
+        className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-400/10 dark:bg-amber-400/15 border border-amber-400/30 text-amber-400 text-[10px] sm:text-xs font-mono font-bold"
         style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
       >
-        <Clock size={13} className="text-[#E3A23E] animate-pulse shrink-0" />
+        <Clock size={13} className="text-amber-400 animate-pulse shrink-0" />
         <span>
           {timeLeft.isFinished
             ? "KKN SELESAI 🎉"
@@ -61,44 +61,44 @@ export default function CountdownTimer({
   // ===== FULL MODE (4 kotak — dipakai di landing page) =====
   return (
     <div
-      className="p-px bg-slate-200 dark:bg-[#1C3324] shadow-xl w-full"
+      className="p-px bg-slate-200 dark:bg-forest-700 shadow-xl w-full"
       style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
     >
       <div
-        className="bg-white dark:bg-[#14241B] p-4 md:p-5 w-full transition-colors"
+        className="bg-white dark:bg-forest-800 p-4 md:p-5 w-full transition-colors"
         style={{ clipPath: "polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)" }}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 border-b border-slate-200 dark:border-[#1C3324] pb-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 border-b border-slate-200 dark:border-forest-700 pb-2.5">
           <div className="flex items-center gap-2">
-            <Flag size={16} className="text-[#E3A23E] shrink-0" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-800 dark:text-[#D7DDD6] font-display">{title}</h3>
+            <Flag size={16} className="text-amber-400 shrink-0" />
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-800 dark:text-mist-200 font-display">{title}</h3>
           </div>
-          <span className="text-[9px] font-mono font-bold text-[#E3A23E] bg-[#E3A23E]/10 px-2 py-0.5 border border-[#E3A23E]/30 self-start sm:self-auto rounded-xs">
+          <span className="text-[9px] font-mono font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 border border-amber-400/30 self-start sm:self-auto rounded-xs">
             {timeLeft.isFinished ? "SELESAI 🎉" : "TARGET: 04 SEP 2026"}
           </span>
         </div>
 
         {timeLeft.isFinished ? (
-          <div className="text-center py-3 text-[#E3A23E] font-bold text-sm uppercase tracking-widest animate-pulse">
+          <div className="text-center py-3 text-amber-400 font-bold text-sm uppercase tracking-widest animate-pulse">
             🎉 KKN SUMANDING 2026 TELAH RESMI SELESAI!
           </div>
         ) : (
           <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
-            <div className="bg-slate-100 dark:bg-[#0F1A14] p-2 sm:p-2.5 border border-slate-200 dark:border-[#1C3324] flex flex-col items-center justify-center rounded-xs transition-colors">
-              <span className="text-lg sm:text-2xl font-black font-mono text-[#E3A23E]">{String(timeLeft.days).padStart(2, "0")}</span>
-              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-[#9BA79C] mt-0.5">Hari</span>
+            <div className="bg-slate-100 dark:bg-forest-900 p-2 sm:p-2.5 border border-slate-200 dark:border-forest-700 flex flex-col items-center justify-center rounded-xs transition-colors">
+              <span className="text-lg sm:text-2xl font-black font-mono text-amber-400">{String(timeLeft.days).padStart(2, "0")}</span>
+              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-mist-500 mt-0.5">Hari</span>
             </div>
-            <div className="bg-slate-100 dark:bg-[#090A0F] p-2 sm:p-2.5 border border-slate-200 dark:border-[#1C3324] flex flex-col items-center justify-center rounded-xs transition-colors">
-              <span className="text-lg sm:text-2xl font-black font-mono text-[#E3A23E]">{String(timeLeft.hours).padStart(2, "0")}</span>
-              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-[#9BA79C] mt-0.5">Jam</span>
+            <div className="bg-slate-100 dark:bg-forest-900 p-2 sm:p-2.5 border border-slate-200 dark:border-forest-700 flex flex-col items-center justify-center rounded-xs transition-colors">
+              <span className="text-lg sm:text-2xl font-black font-mono text-amber-400">{String(timeLeft.hours).padStart(2, "0")}</span>
+              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-mist-500 mt-0.5">Jam</span>
             </div>
-            <div className="bg-slate-100 dark:bg-[#090A0F] p-2 sm:p-2.5 border border-slate-200 dark:border-[#1C3324] flex flex-col items-center justify-center rounded-xs transition-colors">
-              <span className="text-lg sm:text-2xl font-black font-mono text-[#E3A23E]">{String(timeLeft.minutes).padStart(2, "0")}</span>
-              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-[#9BA79C] mt-0.5">Menit</span>
+            <div className="bg-slate-100 dark:bg-forest-900 p-2 sm:p-2.5 border border-slate-200 dark:border-forest-700 flex flex-col items-center justify-center rounded-xs transition-colors">
+              <span className="text-lg sm:text-2xl font-black font-mono text-amber-400">{String(timeLeft.minutes).padStart(2, "0")}</span>
+              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-mist-500 mt-0.5">Menit</span>
             </div>
-            <div className="bg-slate-100 dark:bg-[#090A0F] p-2 sm:p-2.5 border border-slate-200 dark:border-[#1C3324] flex flex-col items-center justify-center rounded-xs transition-colors">
-              <span className="text-lg sm:text-2xl font-black font-mono text-[#E3A23E]">{String(timeLeft.seconds).padStart(2, "0")}</span>
-              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-[#9BA79C] mt-0.5">Detik</span>
+            <div className="bg-slate-100 dark:bg-forest-900 p-2 sm:p-2.5 border border-slate-200 dark:border-forest-700 flex flex-col items-center justify-center rounded-xs transition-colors">
+              <span className="text-lg sm:text-2xl font-black font-mono text-amber-400">{String(timeLeft.seconds).padStart(2, "0")}</span>
+              <span className="text-[7px] sm:text-[9px] font-bold uppercase tracking-widest text-slate-600 dark:text-mist-500 mt-0.5">Detik</span>
             </div>
           </div>
         )}
