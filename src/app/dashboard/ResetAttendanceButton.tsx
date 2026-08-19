@@ -42,7 +42,7 @@ export default function ResetAttendanceButton() {
         <button
           onClick={handleReset}
           disabled={isDeleting}
-          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-[#D9534F] hover:bg-[#C9423E] text-white px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50 cursor-pointer"
           style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
         >
           {isDeleting ? "PROSES..." : "YA, HAPUS!"}
@@ -50,7 +50,7 @@ export default function ResetAttendanceButton() {
         <button
           onClick={() => setIsConfirming(false)}
           disabled={isDeleting}
-          className="bg-slate-100 dark:bg-[#1A1C23] hover:bg-[#252836] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50"
+          className="bg-slate-100 dark:bg-[#1C3324] hover:bg-slate-200 dark:hover:bg-[#24422E] border border-slate-300 dark:border-[#3E7A4F]/50 text-slate-700 dark:text-[#D7DDD6] px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50 cursor-pointer"
           style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
         >
           BATAL
@@ -62,8 +62,8 @@ export default function ResetAttendanceButton() {
   return (
     <button
       onClick={handleReset}
-      className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors border border-red-500/30"
-      style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+      className="flex items-center gap-2 bg-[#D9534F]/10 hover:bg-[#D9534F]/20 text-[#D9534F] px-4 py-2.5 text-xs font-bold tracking-widest uppercase transition-colors border border-[#D9534F]/30 cursor-pointer"
+      style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
     >
       <Trash2 size={16} />
       RESET DATA

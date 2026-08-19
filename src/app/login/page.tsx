@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Card from "@/components/Card";
+import Button from "@/components/Button";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -38,20 +40,20 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0D14] text-slate-900 dark:text-white font-sans overflow-hidden flex items-center justify-center p-4 relative selection:bg-[#7F56FF]/30">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0F1A14] text-slate-900 dark:text-[#D7DDD6] font-sans overflow-hidden flex items-center justify-center p-4 relative selection:bg-[#8FE398]/30">
       
       {/* Background Gradients & Grid */}
-      <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-[#7F56FF]/10 blur-[150px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#80FF56]/10 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-[#3E7A4F]/15 blur-[150px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#8FE398]/10 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
       <div className="w-full max-w-md relative z-10 animate-fade-in">
-        <Link href="/" className="absolute -top-12 left-0 text-slate-500 dark:text-slate-500 hover:text-[#80FF56] transition-colors flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
+        <Link href="/" className="absolute -top-12 left-0 text-slate-500 dark:text-[#9BA79C] hover:text-[#8FE398] transition-colors flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
           <ArrowLeft size={16} /> Kembali
         </Link>
         
-        <div className="p-px bg-slate-200 dark:bg-slate-700/50 shadow-2xl" style={{ clipPath: "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)" }}>
-          <div className="bg-white dark:bg-[#12141C] p-8 md:p-10" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
+        <Card cutSize="lg" className="shadow-2xl">
+          <div className="p-8 md:p-10">
             
             <div className="text-center mb-8">
               <Link href="/" className="inline-flex items-center justify-center mb-4 group cursor-pointer" title="Kembali ke Halaman Awal">
@@ -60,40 +62,43 @@ export default function Login() {
                   alt="Logo KKN Sumanding 2026" 
                   width={80} 
                   height={80} 
-                  className="object-contain w-20 h-20 group-hover:scale-105 transition-transform" 
+                  className="object-contain w-20 h-20 group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(143,227,152,0.3)]" 
                 />
               </Link>
-              <h1 className="text-2xl font-black uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md">Portal Anggota</h1>
-              <p className="text-[#80FF56] text-xs font-bold uppercase tracking-widest mt-1">Sistem Absensi Terintegrasi</p>
+              <h1 className="text-2xl font-bold font-display uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md">Portal Anggota</h1>
+              <p className="text-[#8FE398] text-xs font-bold uppercase tracking-widest mt-1">Sistem Absensi Terintegrasi</p>
             </div>
 
             {error && (
-              <div className="bg-red-500/10 text-red-400 p-4 text-xs font-bold uppercase tracking-widest mb-6 border border-red-500/30 text-center" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+              <div 
+                className="bg-[#D9534F]/10 text-[#D9534F] p-4 text-xs font-bold uppercase tracking-widest mb-6 border border-[#D9534F]/30 text-center"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+              >
                 {error}
               </div>
             )}
 
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">Nama Lengkap</label>
+                <label className="block text-[10px] font-bold text-slate-600 dark:text-[#9BA79C] uppercase tracking-widest mb-2">Nama Lengkap</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-4 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none placeholder-slate-600"
+                  className="w-full p-4 bg-slate-200 dark:bg-[#0F1A14] border border-slate-300 dark:border-[#1C3324] text-slate-900 dark:text-white focus:outline-none focus:border-[#3E7A4F] transition-colors font-mono appearance-none placeholder-slate-500 dark:placeholder-slate-400"
                   style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                   placeholder="Contoh: Mohamad Alfan Ni'am"
                   required
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-2">NIM (Kata Sandi)</label>
+                <label className="block text-[10px] font-bold text-slate-600 dark:text-[#9BA79C] uppercase tracking-widest mb-2">NIM (Kata Sandi)</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full p-4 pr-12 bg-slate-200 dark:bg-[#090A0F] border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-[#7F56FF] transition-colors font-mono appearance-none placeholder-slate-600"
+                    className="w-full p-4 pr-12 bg-slate-200 dark:bg-[#0F1A14] border border-slate-300 dark:border-[#1C3324] text-slate-900 dark:text-white focus:outline-none focus:border-[#3E7A4F] transition-colors font-mono appearance-none placeholder-slate-500 dark:placeholder-slate-400"
                     style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
                     placeholder="Masukkan NIM"
                     required
@@ -101,7 +106,7 @@ export default function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 dark:text-[#9BA79C] hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -109,19 +114,20 @@ export default function Login() {
               </div>
               
               <div className="pt-2">
-                <button
+                <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 bg-linear-to-r from-purple-600 to-[#7F56FF] text-white font-black py-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_20px_rgba(127,86,255,0.4)] disabled:opacity-50 text-xs tracking-widest uppercase"
-                  style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                  variant="primary"
+                  size="lg"
+                  className="w-full"
                 >
                   {loading ? "MEMPROSES..." : "LOGIN"}
-                </button>
+                </Button>
               </div>
             </form>
             
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );

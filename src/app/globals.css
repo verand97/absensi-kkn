@@ -3,37 +3,47 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Override Blue with Neon Purple (#7F56FF) */
-  --color-blue-50: #f2eeff;
-  --color-blue-100: #e2d7ff;
-  --color-blue-200: #cdbcff;
-  --color-blue-300: #b197ff;
-  --color-blue-400: #9368ff;
-  --color-blue-500: #7f56ff;
-  --color-blue-600: #6838ed;
-  --color-blue-700: #5527ca;
-  --color-blue-800: #4622a4;
-  --color-blue-900: #3a1e84;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
-  /* Override Green with Lime Green (#80FF56) */
-  --color-green-50: #f4ffed;
-  --color-green-100: #e2ffd2;
-  --color-green-200: #c6ffa6;
-  --color-green-300: #a1ff73;
-  --color-green-400: #80ff56;
-  --color-green-500: #65e838;
-  --color-green-600: #4dc221;
-  --color-green-700: #3c9517;
+  /* Digital Identity Desa Sumanding Color Tokens */
+  --color-forest-950: #0A120E;
+  --color-forest-900: #0F1A14;
+  --color-forest-800: #14241B;
+  --color-forest-700: #1C3324;
+  --color-forest-600: #274732;
 
-  /* Override Slate for Charcoal (#1E1F22) */
-  --color-slate-800: #2b2c31;
-  --color-slate-900: #1E1F22;
-  --color-slate-950: #151618;
+  --color-pine-600: #326440;
+  --color-pine-500: #3E7A4F;
+  --color-pine-400: #4B8E5F;
+  --color-pine-300: #5FA872;
+  --color-pine-200: #88C499;
+
+  --color-sprout-500: #74D47E;
+  --color-sprout-400: #8FE398;
+  --color-sprout-300: #AEF0B5;
+
+  --color-amber-500: #D38E2C;
+  --color-amber-400: #E3A23E;
+  --color-amber-300: #F0B85E;
+
+  --color-rose-600: #C9423E;
+  --color-rose-500: #D9534F;
+  --color-rose-400: #E57370;
+
+  --color-mist-100: #EBF0EA;
+  --color-mist-200: #D7DDD6;
+  --color-mist-300: #C3CCC1;
+  --color-mist-400: #ADB9AB;
+  --color-mist-500: #9BA79C;
+  --color-mist-600: #758376;
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
+
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;

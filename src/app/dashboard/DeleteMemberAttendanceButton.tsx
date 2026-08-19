@@ -37,11 +37,11 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
         onClick={() => setShowConfirm(true)}
         disabled={isDeleting}
         title={`Kurangi 1 absensi ${memberName}`}
-        className="text-slate-500 dark:text-slate-500 hover:text-red-400 bg-slate-200 dark:bg-[#090A0F] hover:bg-red-500/10 border border-slate-200 dark:border-slate-800 hover:border-red-500/30 p-2 transition-colors disabled:opacity-50 inline-flex items-center justify-center cursor-pointer"
+        className="text-slate-500 dark:text-[#9BA79C] hover:text-[#D9534F] bg-slate-200 dark:bg-[#0F1A14] hover:bg-[#D9534F]/10 border border-slate-200 dark:border-[#1C3324] hover:border-[#D9534F]/30 p-2 transition-colors disabled:opacity-50 inline-flex items-center justify-center cursor-pointer"
         style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}
       >
         {isDeleting
-          ? <span className="w-3.5 h-3.5 border border-red-400/50 border-t-red-400 rounded-full animate-spin" />
+          ? <span className="w-3.5 h-3.5 border border-[#D9534F]/50 border-t-[#D9534F] rounded-full animate-spin" />
           : <UserMinus size={14} />
         }
       </button>
@@ -49,32 +49,33 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
       {/* Modal konfirmasi */}
       {showConfirm && (
         <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4"
           onClick={() => setShowConfirm(false)}
         >
           <div
-            className="bg-white dark:bg-[#12141C] border border-slate-200 dark:border-slate-700/50 shadow-2xl shadow-black/40 max-w-sm w-full overflow-y-auto max-h-[90vh] rounded-sm"
+            className="bg-white dark:bg-[#14241B] border border-slate-200 dark:border-[#1C3324] shadow-2xl max-w-sm w-full overflow-y-auto max-h-[90vh]"
+            style={{ clipPath: "polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)" }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6">
               {/* Icon */}
               <div className="flex justify-center mb-4">
-                <div className="w-14 h-14 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.15)]">
-                  <AlertTriangle className="w-7 h-7 text-red-400" />
+                <div className="w-14 h-14 rounded-full bg-[#D9534F]/10 border border-[#D9534F]/30 flex items-center justify-center shadow-[0_0_20px_rgba(217,83,79,0.15)]">
+                  <AlertTriangle className="w-7 h-7 text-[#D9534F]" />
                 </div>
               </div>
 
               {/* Text */}
-              <h3 className="text-center text-base font-black uppercase tracking-widest text-slate-900 dark:text-white mb-2">
+              <h3 className="text-center text-base font-bold font-display uppercase tracking-widest text-slate-900 dark:text-white mb-2">
                 Kurangi Absensi?
               </h3>
-              <p className="text-center text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-1">
+              <p className="text-center text-sm text-slate-500 dark:text-[#9BA79C] leading-relaxed mb-1">
                 1 kehadiran terbaru dari
               </p>
-              <p className="text-center text-sm font-bold text-red-400 mb-6">
+              <p className="text-center text-sm font-bold text-[#D9534F] mb-4">
                 {memberName}
               </p>
-              <p className="text-center text-xs text-slate-400 dark:text-slate-500 mb-6">
+              <p className="text-center text-xs text-slate-400 dark:text-[#9BA79C]/70 mb-6">
                 akan dihapus. Tindakan ini tidak bisa dibatalkan.
               </p>
 
@@ -82,13 +83,15 @@ export default function DeleteMemberAttendanceButton({ memberId, memberName }: {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowConfirm(false)}
-                  className="flex-1 py-2.5 text-xs font-bold uppercase tracking-widest border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer rounded-sm"
+                  className="flex-1 py-2.5 text-xs font-bold uppercase tracking-widest border border-slate-300 dark:border-[#3E7A4F]/50 text-slate-600 dark:text-[#D7DDD6] hover:bg-slate-100 dark:hover:bg-[#1C3324] transition-colors cursor-pointer"
+                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
                 >
                   Batal
                 </button>
                 <button
                   onClick={handleConfirm}
-                  className="flex-1 py-2.5 text-xs font-black uppercase tracking-widest bg-red-500 hover:bg-red-600 text-white transition-all shadow-[0_0_12px_rgba(239,68,68,0.3)] hover:shadow-[0_0_18px_rgba(239,68,68,0.5)] cursor-pointer rounded-sm"
+                  className="flex-1 py-2.5 text-xs font-bold uppercase tracking-widest bg-[#D9534F] hover:bg-[#C9423E] text-white transition-all shadow-[0_0_12px_rgba(217,83,79,0.3)] cursor-pointer"
+                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
                 >
                   Ya, Hapus!
                 </button>

@@ -11,7 +11,6 @@ export default function QRPage() {
   const [selectedNim, setSelectedNim] = useState("");
 
   useEffect(() => {
-    // Fetch members from API to populate dropdown
     fetch("/api/members")
       .then(res => res.json())
       .then(data => setMembers(data));
@@ -48,64 +47,69 @@ export default function QRPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-3xl p-8 shadow-xl relative text-center">
-        <Link href="/" className="absolute top-6 left-6 text-slate-400 hover:text-slate-700 transition-colors print:hidden">
-          <ArrowLeft size={24} />
-        </Link>
-        
-        <Image 
-          src="/newlogokkn.png" 
-          alt="Logo KKN Sumanding 2026" 
-          width={80} 
-          height={80} 
-          className="mx-auto mb-6 mt-4 drop-shadow-md" 
-        />
+    <div className="min-h-screen bg-[#0F1A14] text-[#D7DDD6] flex items-center justify-center p-4">
+      <div className="max-w-md w-full p-px bg-[#1C3324] shadow-2xl relative text-center" style={{ clipPath: "polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px)" }}>
+        <div className="bg-[#14241B] p-8" style={{ clipPath: "polygon(23px 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%, 0 23px)" }}>
+          <Link href="/" className="absolute top-6 left-6 text-[#9BA79C] hover:text-[#8FE398] transition-colors print:hidden">
+            <ArrowLeft size={24} />
+          </Link>
+          
+          <Image 
+            src="/newlogokkn.png" 
+            alt="Logo KKN Sumanding 2026" 
+            width={80} 
+            height={80} 
+            className="mx-auto mb-4 mt-2 drop-shadow-[0_0_10px_rgba(143,227,152,0.3)]" 
+          />
 
-        <h1 className="text-2xl font-bold text-slate-800 mb-2 print:hidden">QR Code Saya</h1>
-        <p className="text-slate-500 text-sm mb-8 print:hidden">Pilih nama Anda untuk melihat QR Code absensi.</p>
+          <h1 className="text-2xl font-bold font-display uppercase tracking-widest text-white mb-1 print:hidden">QR Code Saya</h1>
+          <p className="text-[#9BA79C] text-xs uppercase tracking-widest mb-6 print:hidden">Pilih nama Anda untuk melihat QR Code absensi.</p>
 
-        <select 
-          value={selectedNim}
-          onChange={(e) => setSelectedNim(e.target.value)}
-          className="w-full p-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-slate-700 mb-8 print:hidden"
-        >
-          <option value="" disabled>-- Pilih Nama Anggota --</option>
-          {members.map(m => (
-            <option key={m.nim} value={m.nim}>{m.name}</option>
-          ))}
-        </select>
+          <select 
+            value={selectedNim}
+            onChange={(e) => setSelectedNim(e.target.value)}
+            className="w-full p-4 border border-[#1C3324] bg-[#0F1A14] text-white focus:outline-none focus:border-[#3E7A4F] transition-all font-mono text-sm mb-6 print:hidden appearance-none"
+            style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+          >
+            <option value="" disabled>-- Pilih Nama Anggota --</option>
+            {members.map(m => (
+              <option key={m.nim} value={m.nim}>{m.name}</option>
+            ))}
+          </select>
 
-        {selectedMember && (
-          <div className="animate-fade-in flex flex-col items-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
-            <div className="bg-white p-4 rounded-xl shadow-sm mb-4">
-              <QRCode id="qr-code-svg" value={selectedMember.nim} size={200} />
+          {selectedMember && (
+            <div className="animate-fade-in flex flex-col items-center bg-[#0F1A14] p-6 border border-[#1C3324]" style={{ clipPath: "polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)" }}>
+              <div className="bg-white p-4 mb-4" style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}>
+                <QRCode id="qr-code-svg" value={selectedMember.nim} size={200} />
+              </div>
+              <h2 className="font-bold text-base text-white uppercase tracking-wider">{selectedMember.name}</h2>
+              <p className="text-[#8FE398] font-mono mt-1 text-sm font-bold">{selectedMember.nim}</p>
+              
+              <p className="text-[10px] text-[#8FE398] mt-4 bg-[#3E7A4F]/20 border border-[#3E7A4F]/40 px-3 py-1.5 font-bold uppercase tracking-widest print:hidden" style={{ clipPath: "polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)" }}>
+                Tunjukkan QR Code ini ke admin saat absensi
+              </p>
+              
+              <div className="flex items-center justify-center gap-3 w-full mt-6 print:hidden">
+                <button 
+                  onClick={handleDownload}
+                  className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-[#326440] to-[#3E7A4F] hover:from-[#3E7A4F] hover:to-[#5FA872] text-white p-3 transition-colors font-bold text-xs uppercase tracking-widest shadow-sm cursor-pointer"
+                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                >
+                  <Download size={16} />
+                  Simpan
+                </button>
+                <button 
+                  onClick={handlePrint}
+                  className="flex items-center justify-center gap-2 bg-[#1C3324] hover:bg-[#24422E] border border-[#3E7A4F]/50 text-white p-3 transition-colors font-bold shadow-sm cursor-pointer"
+                  title="Print QR Code"
+                  style={{ clipPath: "polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)" }}
+                >
+                  <Printer size={16} />
+                </button>
+              </div>
             </div>
-            <h2 className="font-bold text-lg text-slate-800">{selectedMember.name}</h2>
-            <p className="text-slate-500 font-mono mt-1 text-sm">{selectedMember.nim}</p>
-            
-            <p className="text-xs text-blue-600 mt-6 bg-blue-50 px-4 py-2 rounded-lg font-medium print:hidden">
-              Tunjukkan QR Code ini ke admin saat absensi
-            </p>
-            
-            <div className="flex items-center justify-center gap-3 w-full mt-6 print:hidden">
-              <button 
-                onClick={handleDownload}
-                className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-xl transition-colors font-semibold text-sm shadow-sm"
-              >
-                <Download size={16} />
-                Simpan
-              </button>
-              <button 
-                onClick={handlePrint}
-                className="flex items-center justify-center gap-2 bg-slate-200 hover:bg-slate-300 text-slate-700 p-3 rounded-xl transition-colors font-semibold shadow-sm"
-                title="Print QR Code"
-              >
-                <Printer size={16} />
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
