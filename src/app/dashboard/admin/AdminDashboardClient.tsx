@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText, Search, Home } from "lucide-react";
+import { QrCode, CalendarDays, ArrowLeft, Settings, Users, LayoutDashboard, FileSpreadsheet, FileText, Search, Home, Camera } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import SettingsPanel from "../SettingsPanel";
 import ResetAttendanceButton from "../ResetAttendanceButton";
@@ -103,6 +103,16 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
               >
                 <ArrowLeft size={16} />
                 Dasbor Member
+              </Link>
+              
+              <Link 
+                href="/dashboard?tab=kenangan" 
+                className="hidden md:flex items-center justify-center gap-2 bg-sprout-400/15 hover:bg-sprout-400/25 border border-sprout-400/40 text-sprout-400 px-5 py-3 text-xs font-bold tracking-widest uppercase transition-colors"
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                title="Kelola Video & Foto Kenangan KKN"
+              >
+                <Camera size={16} />
+                Kelola Kenangan
               </Link>
               
               <Link 

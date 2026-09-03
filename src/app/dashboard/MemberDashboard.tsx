@@ -11,6 +11,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getIndonesianDateDetails, getTodayIndonesianDate, getScheduledDateForDay, IndonesianDateInfo } from "@/lib/dateUtils";
 import CountdownTimer from "@/components/CountdownTimer";
+import MemoriesManager from "@/components/MemoriesManager";
 
 interface SettingData {
   startTime: string;
@@ -26,7 +27,15 @@ interface MemberData {
   attendances: { day: number; createdAt?: string | Date }[];
 }
 
-export default function MemberDashboard({ member, setting }: { member: MemberData, setting: SettingData }) {
+export default function MemberDashboard({ 
+  member, 
+  setting,
+  initialTab 
+}: { 
+  member: MemberData, 
+  setting: SettingData,
+  initialTab?: string 
+}) {
   const presentDays = new Set(member.attendances.map((a: { day: number }) => a.day));
   const hasAttendedToday = presentDays.has(setting.currentDay);
   const todayInfo = getTodayIndonesianDate();
@@ -43,7 +52,9 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'beranda' | 'scan' | 'rekap' | 'profil'>('beranda');
+  const [activeTab, setActiveTab] = useState<'beranda' | 'scan' | 'rekap' | 'profil' | 'kenangan'>(
+    initialTab === 'kenangan' ? 'kenangan' : 'beranda'
+  );
 
   const lastScannedRef = useRef<string>("");
   const isProcessingRef = useRef<boolean>(false);
@@ -52,7 +63,7 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
-  const handleTabChange = (tab: 'beranda' | 'scan' | 'rekap' | 'profil') => {
+  const handleTabChange = (tab: 'beranda' | 'scan' | 'rekap' | 'profil' | 'kenangan') => {
     setActiveTab(tab);
     if (tab !== 'scan') {
       setShowScanner(false);
@@ -236,6 +247,20 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
                 <Home size={16} className="text-sprout-400" />
                 <span className="hidden sm:inline">Halaman Awal</span>
               </Link>
+              <button 
+                type="button"
+                onClick={() => handleTabChange(activeTab === 'kenangan' ? 'beranda' : 'kenangan')} 
+                className={`flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold tracking-widest uppercase transition-all cursor-pointer ${
+                  activeTab === 'kenangan'
+                    ? 'bg-sprout-400 text-forest-950 font-black border border-sprout-400 shadow-[0_0_15px_rgba(143,227,152,0.4)]'
+                    : 'bg-sprout-400/15 hover:bg-sprout-400/25 text-sprout-400 border border-sprout-400/40'
+                }`}
+                style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+                title="Kelola Video & Foto Kenangan KKN"
+              >
+                <Camera size={16} />
+                <span>{activeTab === 'kenangan' ? 'Dasbor Absensi' : 'Kelola Kenangan'}</span>
+              </button>
               {member.isAdmin && (
                 <Link 
                   href="/dashboard/admin" 
@@ -257,7 +282,10 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
 
         {/* Tab Content Wrapper */}
         <div className="space-y-8">
-          
+          {activeTab === 'kenangan' ? (
+            <MemoriesManager />
+          ) : (
+            <>
           {/* TAB 1: BERANDA */}
           <div className={`${activeTab === 'beranda' ? 'block' : 'hidden'} md:block p-px bg-slate-200 dark:bg-forest-700 shadow-xl`} style={{ clipPath: "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)" }}>
             <div className="bg-white dark:bg-forest-800 w-full" style={{ clipPath: "polygon(19px 0, 100% 0, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0 100%, 0 19px)" }}>
@@ -652,6 +680,9 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
             <MemberAccountSettings member={member} />
           </div>
 
+            </>
+          )}
+
         </div>
       </div>
 
@@ -674,10 +705,15 @@ export default function MemberDashboard({ member, setting }: { member: MemberDat
           <BarChart2 className={`w-6 h-6 ${activeTab === 'rekap' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`} strokeWidth={activeTab === 'rekap' ? 2 : 1.5} />
           <span className={`text-[10px] font-medium ${activeTab === 'rekap' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`}>Rekap</span>
         </button>
-        <button onClick={() => handleTabChange('profil')} className={`flex flex-col items-center gap-1 w-16 relative ${activeTab === 'profil' ? 'opacity-100' : 'opacity-40 hover:opacity-100 transition-opacity'}`}>
-          {activeTab === 'profil' && <div className="w-10 h-0.5 bg-sprout-400 absolute -top-3 rounded-b-sm shadow-[0_0_5px_#8FE398]"></div>}
-          <User className={`w-6 h-6 ${activeTab === 'profil' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`} strokeWidth={activeTab === 'profil' ? 2 : 1.5} />
-          <span className={`text-[10px] font-medium ${activeTab === 'profil' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`}>Profil</span>
+        <button onClick={() => handleTabChange('profil')} className={`flex flex-col items-center gap-1 w-14 relative ${activeTab === 'profil' ? 'opacity-100' : 'opacity-40 hover:opacity-100 transition-opacity'}`}>
+          {activeTab === 'profil' && <div className="w-8 h-0.5 bg-sprout-400 absolute -top-3 rounded-b-sm shadow-[0_0_5px_#8FE398]"></div>}
+          <User className={`w-5 h-5 ${activeTab === 'profil' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`} strokeWidth={activeTab === 'profil' ? 2 : 1.5} />
+          <span className={`text-[9px] font-medium ${activeTab === 'profil' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`}>Profil</span>
+        </button>
+        <button onClick={() => handleTabChange('kenangan')} className={`flex flex-col items-center gap-1 w-14 relative ${activeTab === 'kenangan' ? 'opacity-100' : 'opacity-40 hover:opacity-100 transition-opacity'}`}>
+          {activeTab === 'kenangan' && <div className="w-8 h-0.5 bg-sprout-400 absolute -top-3 rounded-b-sm shadow-[0_0_5px_#8FE398]"></div>}
+          <Camera className={`w-5 h-5 ${activeTab === 'kenangan' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`} strokeWidth={activeTab === 'kenangan' ? 2 : 1.5} />
+          <span className={`text-[9px] font-medium ${activeTab === 'kenangan' ? 'text-sprout-400' : 'text-slate-700 dark:text-mist-200'}`}>Kenangan</span>
         </button>
       </div>
 

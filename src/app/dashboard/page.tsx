@@ -10,7 +10,14 @@ export const dynamic = 'force-dynamic';
 // Nama satu-satunya yang berhak mengakses sistem absensi
 const ALLOWED_USER_NAME = "Muhammad Verri Andika Pratama";
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams?: Promise<{ tab?: string }>;
+}) {
+  const resolvedParams = searchParams ? await searchParams : undefined;
+  const initialTab = resolvedParams?.tab;
+
   const session = await getSession();
   if (!session) {
     redirect("/login");
@@ -51,5 +58,5 @@ export default async function Dashboard() {
     })),
   };
 
-  return <MemberDashboard member={formattedMember} setting={setting} />;
+  return <MemberDashboard member={formattedMember} setting={setting} initialTab={initialTab} />;
 }

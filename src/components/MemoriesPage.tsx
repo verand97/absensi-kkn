@@ -282,12 +282,38 @@ export default function MemoriesPage() {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [filterWeek, setFilterWeek] = useState<number | null>(null);
+
+  // Dynamic state loaded from database (with fallback to defaults)
+  const [videoId, setVideoId] = useState<string>(YOUTUBE_VIDEO_ID);
+  const [photosList, setPhotosList] = useState<{ id: string | number; src: string; caption: string; week: number; tall: boolean }[]>(PHOTOS);
+
   // Container ref used only in effects, never accessed during render
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Fetch dynamic memories from database
+  useEffect(() => {
+    async function fetchMemories() {
+      try {
+        const res = await fetch("/api/memories");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.videoId && data.videoId.trim()) {
+            setVideoId(data.videoId.trim());
+          }
+          if (Array.isArray(data.photos) && data.photos.length > 0) {
+            setPhotosList(data.photos);
+          }
+        }
+      } catch (err) {
+        console.warn("Using default memories fallback:", err);
+      }
+    }
+    fetchMemories();
+  }, []);
+
   const filteredPhotos = filterWeek
-    ? PHOTOS.filter((p) => p.week === filterWeek)
-    : PHOTOS;
+    ? photosList.filter((p) => p.week === filterWeek)
+    : photosList;
 
   // ---- Intersection Observer for scroll animations ----
   // Uses querySelectorAll after mount — avoids any ref-during-render issues
@@ -500,7 +526,7 @@ export default function MemoriesPage() {
               /* YouTube embed */
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
                 title="Video Highlight KKN XXI Sumanding 2026"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -509,17 +535,18 @@ export default function MemoriesPage() {
           </div>
 
           {/* Note for admin */}
-          <p className="text-mist-600 text-[10px] mt-4 text-center">
-            💡 Ganti{" "}
-            <code className="bg-forest-800 px-1 py-0.5 text-sprout-400">
-              YOUTUBE_VIDEO_ID
-            </code>{" "}
-            di{" "}
-            <code className="bg-forest-800 px-1 py-0.5 text-sprout-400">
-              MemoriesPage.tsx
-            </code>{" "}
-            dengan ID video YouTube Anda
-          </p>
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 text-mist-600 text-[10px] text-center">
+            <span>
+              💡 Link video YouTube dan galeri foto dapat diatur langsung lewat
+            </span>
+            <Link
+              href="/dashboard"
+              className="text-sprout-400 hover:underline font-bold"
+            >
+              Dashboard Verri
+            </Link>
+            <span>atau diedit di MemoriesPage.tsx</span>
+          </div>
         </div>
       </section>
 
@@ -866,7 +893,13 @@ function PhotoCard({
   index,
   onClick,
 }: {
-  photo: (typeof PHOTOS)[0];
+  photo: {
+    id: string | number;
+    src: string;
+    caption: string;
+    week: number;
+    tall: boolean;
+  };
   index: number;
   onClick: () => void;
 }) {

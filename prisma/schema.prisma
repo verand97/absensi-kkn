@@ -27,10 +27,22 @@ model Attendance {
 }
 
 model Setting {
-  id          String  @id @default("global")
-  startTime   String  @default("07:00")
-  endTime     String  @default("09:00")
-  isActive    Boolean @default(true)
-  currentDay  Int     @default(1)
-  qrToken     String  @default("")
+  id              String  @id @default("global")
+  startTime       String  @default("07:00")
+  endTime         String  @default("09:00")
+  isActive        Boolean @default(true)
+  currentDay      Int     @default(1)
+  qrToken         String  @default("")
+  youtubeVideoId  String  @default("")
+}
+
+model MemoryPhoto {
+  id        String   @id @default(cuid())
+  src       String
+  caption   String
+  week      Int      @default(1)
+  tall      Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
