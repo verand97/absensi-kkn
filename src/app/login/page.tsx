@@ -40,17 +40,23 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-forest-900 text-slate-900 dark:text-mist-200 font-sans overflow-hidden flex items-center justify-center p-4 relative selection:bg-sprout-400/30">
+    <div className="min-h-screen bg-slate-50 dark:bg-forest-900 text-slate-900 dark:text-mist-200 font-sans flex items-center justify-center p-4 pt-16 relative selection:bg-sprout-400/30">
       
       {/* Background Gradients & Grid */}
       <div className="absolute top-[10%] right-[-10%] w-[50%] h-[60%] bg-pine-500/15 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-sprout-400/10 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
+      {/* Tombol Kembali — fixed agar selalu terlihat */}
+      <Link
+        href="/"
+        className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-forest-800 border border-slate-200 dark:border-forest-700 text-slate-600 dark:text-mist-400 hover:text-sprout-400 hover:border-sprout-400/50 transition-all text-xs font-bold tracking-widest uppercase shadow-md"
+        style={{ clipPath: "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)" }}
+      >
+        <ArrowLeft size={14} /> Kembali
+      </Link>
+
       <div className="w-full max-w-md relative z-10 animate-fade-in">
-        <Link href="/" className="absolute -top-12 left-0 text-slate-500 dark:text-mist-500 hover:text-sprout-400 transition-colors flex items-center gap-2 text-xs font-bold tracking-widest uppercase">
-          <ArrowLeft size={16} /> Kembali
-        </Link>
         
         <Card cutSize="lg" className="shadow-2xl">
           <div className="p-8 md:p-10">
