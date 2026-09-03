@@ -7,6 +7,9 @@ import { getCurrentDayFromStartDate } from "@/lib/dateUtils";
 
 export const dynamic = 'force-dynamic';
 
+// Nama satu-satunya yang berhak mengakses sistem absensi
+const ALLOWED_USER_NAME = "Muhammad Verri Andika Pratama";
+
 export default async function Dashboard() {
   const session = await getSession();
   if (!session) {
@@ -20,6 +23,11 @@ export default async function Dashboard() {
 
   if (!currentUser) {
     redirect("/login");
+  }
+
+  // 🔒 Pembatasan akses: hanya Muhammad Verri Andika Pratama yang bisa masuk
+  if (currentUser.name !== ALLOWED_USER_NAME) {
+    redirect("/access-denied");
   }
 
   const autoDay = getCurrentDayFromStartDate();
