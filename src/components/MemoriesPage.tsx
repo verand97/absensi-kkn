@@ -184,7 +184,7 @@ const PHOTOS: {
   {
     id: 21,
     src: "https://picsum.photos/seed/kkn-s2026-21/1000/650",
-    caption: "Upacara Penutupan Resmi KKN Sumanding 2026",
+    caption: "Upacara Penutupan Resmi KKN XXI Sumanding 2026",
     week: 6,
     tall: false,
   },
@@ -198,7 +198,7 @@ const PHOTOS: {
   {
     id: 23,
     src: "https://picsum.photos/seed/kkn-s2026-23/800/600",
-    caption: "Foto Keluarga Besar KKN Sumanding 2026",
+    caption: "Foto Keluarga Besar KKN XXI Sumanding 2026",
     week: 6,
     tall: false,
   },
@@ -377,7 +377,7 @@ export default function MemoriesPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-sprout-400/30 bg-sprout-400/10 text-sprout-400 text-xs font-bold tracking-widest uppercase">
             <Sparkles size={12} />
-            <span>KKN Sumanding 2026 — Telah Resmi Selesai</span>
+            <span>KKN XXI Sumanding 2026 — Telah Resmi Selesai</span>
             <Sparkles size={12} />
           </div>
 
@@ -460,7 +460,7 @@ export default function MemoriesPage() {
             <span className="text-sprout-400">dalam 5 Menit.</span>
           </h2>
           <p className="text-mist-500 text-sm mb-10 max-w-xl">
-            Rangkuman visual seluruh perjalanan KKN Sumanding 2026 — dari hari
+            Rangkuman visual seluruh perjalanan KKN XXI Sumanding 2026 — dari hari
             pertama hingga penutupan yang penuh haru.
           </p>
 
@@ -481,7 +481,7 @@ export default function MemoriesPage() {
                 {/* Background thumbnail */}
                 <Image
                   src="https://picsum.photos/seed/kkn-video-cover/1280/720"
-                  alt="Video thumbnail KKN Sumanding 2026"
+                  alt="Video thumbnail KKN XXI Sumanding 2026"
                   fill
                   className="object-cover opacity-30"
                   sizes="(max-width: 1280px) 100vw, 1280px"
@@ -501,7 +501,7 @@ export default function MemoriesPage() {
               <iframe
                 className="absolute inset-0 w-full h-full"
                 src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
-                title="Video Highlight KKN Sumanding 2026"
+                title="Video Highlight KKN XXI Sumanding 2026"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -762,7 +762,7 @@ export default function MemoriesPage() {
               className="object-contain opacity-60"
             />
             <span className="text-[10px] font-bold tracking-widest text-mist-600 uppercase">
-              KKN Sumanding 2026
+              KKN XXI Sumanding 2026
             </span>
           </div>
           <span className="text-[10px] text-mist-600 font-mono">

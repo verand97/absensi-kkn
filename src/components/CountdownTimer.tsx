@@ -80,7 +80,7 @@ export default function CountdownTimer({
 
         {timeLeft.isFinished ? (
           <div className="text-center py-3 text-amber-400 font-bold text-sm uppercase tracking-widest animate-pulse">
-            🎉 KKN SUMANDING 2026 TELAH RESMI SELESAI!
+            🎉 KKN XXI SUMANDING 2026 TELAH RESMI SELESAI!
           </div>
         ) : (
           <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">

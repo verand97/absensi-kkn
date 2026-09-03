@@ -56,7 +56,7 @@ export default function QRPage() {
           
           <Image 
             src="/newlogokkn.png" 
-            alt="Logo KKN Sumanding 2026" 
+            alt="Logo KKN XXI Sumanding 2026" 
             width={80} 
             height={80} 
             className="mx-auto mb-4 mt-2 drop-shadow-[0_0_10px_rgba(143,227,152,0.3)]" 

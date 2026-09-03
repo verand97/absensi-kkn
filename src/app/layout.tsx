@@ -23,8 +23,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Absensi KKN Sumanding 2026",
-  description: "Aplikasi Absensi KKN Sumanding 2026 - Digital Identity Desa Sumanding",
+  title: "Absensi KKN XXI Sumanding 2026",
+  description: "Aplikasi Absensi KKN XXI Sumanding 2026 - Digital Identity Desa Sumanding",
 };
 
 export default function RootLayout({

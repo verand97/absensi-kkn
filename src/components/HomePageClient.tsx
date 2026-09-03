@@ -96,7 +96,7 @@ export default function HomePageClient({
             {/* Mobile Logo Text */}
             <div className="flex flex-col leading-[1.1] md:hidden">
               <span className="font-bold font-display text-xs tracking-widest text-slate-900 dark:text-white uppercase">
-                KKN
+                KKN XXI
               </span>
               <span className="font-medium text-[8px] tracking-widest text-slate-600 dark:text-mist-500 uppercase">
                 SUMANDING
@@ -109,7 +109,7 @@ export default function HomePageClient({
             {/* Desktop Logo Text */}
             <div className="hidden md:flex flex-col leading-none">
               <span className="font-bold font-display text-base tracking-widest text-slate-900 dark:text-white uppercase">
-                KKN SUMANDING
+                KKN XXI SUMANDING
               </span>
               <span className="font-bold font-mono text-base tracking-widest text-sprout-400">
                 2026

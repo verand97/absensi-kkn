@@ -92,7 +92,7 @@ export function exportToXLSX(members: MemberDataForExport[], totalDays: number =
       <table>
         <tr>
           <td colSpan="${totalDays + 6}" style="font-size: 16px; font-weight: bold; text-align: center; color: #0F172A; padding: 12px 0 4px 0;">
-            REKAPITULASI KEHADIRAN ANGGOTA KKN SUMANDING 2026
+            REKAPITULASI KEHADIRAN ANGGOTA KKN XXI SUMANDING 2026
           </td>
         </tr>
         <tr>
@@ -162,7 +162,7 @@ export function exportToCSV(members: MemberDataForExport[], totalDays: number = 
     return str;
   };
 
-  const titleRow = [`REKAPITULASI KEHADIRAN ANGGOTA KKN SUMANDING 2026`];
+  const titleRow = [`REKAPITULASI KEHADIRAN ANGGOTA KKN XXI SUMANDING 2026`];
   const infoRow = [`Tanggal Unduh: ${currentDate} | Total Anggota: ${members.length} Orang | Target Sesi: ${totalDays} Hari`];
   const emptyRow = [""];
 

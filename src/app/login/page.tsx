@@ -65,7 +65,7 @@ export default function Login() {
               <Link href="/" className="inline-flex items-center justify-center mb-4 group cursor-pointer" title="Kembali ke Halaman Awal">
                 <Image 
                   src="/newlogokkn.png" 
-                  alt="Logo KKN Sumanding 2026" 
+                  alt="Logo KKN XXI Sumanding 2026" 
                   width={80} 
                   height={80} 
                   className="object-contain w-20 h-20 group-hover:scale-105 transition-transform drop-shadow-[0_0_10px_rgba(143,227,152,0.3)]" 

@@ -4,8 +4,8 @@ import { ShieldX, ArrowLeft, Lock } from "lucide-react";
 import { logout } from "@/lib/auth";
 
 export const metadata = {
-  title: "Akses Ditolak — KKN Sumanding 2026",
-  description: "Anda tidak memiliki akses ke sistem absensi KKN Sumanding 2026.",
+  title: "Akses Ditolak — KKN XXI Sumanding 2026",
+  description: "Anda tidak memiliki akses ke sistem absensi KKN XXI Sumanding 2026.",
 };
 
 export default function AccessDenied() {
@@ -24,7 +24,7 @@ export default function AccessDenied() {
         <Link href="/" className="inline-flex items-center justify-center mb-8 group">
           <Image
             src="/newlogokkn.png"
-            alt="Logo KKN Sumanding 2026"
+            alt="Logo KKN XXI Sumanding 2026"
             width={64}
             height={64}
             className="object-contain opacity-60 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_10px_rgba(143,227,152,0.2)]"
@@ -72,7 +72,7 @@ export default function AccessDenied() {
 
             {/* Message */}
             <p className="text-mist-500 text-sm leading-relaxed mb-8">
-              Sistem absensi KKN Sumanding 2026 ini hanya dapat diakses oleh{" "}
+              Sistem absensi KKN XXI Sumanding 2026 ini hanya dapat diakses oleh{" "}
               <span className="text-mist-300 font-semibold">
                 Muhammad Verri Andika Pratama
               </span>{" "}
@@ -123,7 +123,7 @@ export default function AccessDenied() {
 
         {/* Footer note */}
         <p className="mt-8 text-[10px] font-mono text-mist-600">
-          KKN Sumanding 2026 · Sistem Absensi Eksklusif
+          KKN XXI Sumanding 2026 · Sistem Absensi Eksklusif
         </p>
       </div>
     </div>

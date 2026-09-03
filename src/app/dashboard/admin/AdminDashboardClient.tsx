@@ -77,7 +77,7 @@ export default function AdminDashboardClient({ setting, members }: AdminDashboar
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold font-display uppercase tracking-widest text-slate-900 dark:text-white drop-shadow-md mb-1">Dashboard Admin</h1>
-                  <p className="text-sprout-400 text-xs tracking-widest uppercase font-bold">Kelola absensi KKN Sumanding 2026</p>
+                  <p className="text-sprout-400 text-xs tracking-widest uppercase font-bold">Kelola absensi KKN XXI Sumanding 2026</p>
                 </div>
               </Link>
               {/* Compact 1-line Header Countdown Widget */}
